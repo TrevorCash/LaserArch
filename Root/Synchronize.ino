@@ -1,10 +1,9 @@
 
+//Copywrite 2015 Trevor Cash, Shaun Gruenig, Linsdey Evans.
 
 //proto-type
 inline void RestartTimer(int timerID, unsigned int count);
 inline void DisableTimer(int timerID);
-
-
 
 
 

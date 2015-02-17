@@ -71,7 +71,7 @@
       <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
-      <Value>../../Synchronize</Value>
+      <Value>../../Root</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
@@ -106,7 +106,7 @@
       <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
-      <Value>../../Synchronize</Value>
+      <Value>../../Root</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
@@ -120,7 +120,7 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;../../Root;</VMSETTING_IncludePaths>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
@@ -146,7 +146,6 @@
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
-      <Value></Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
@@ -154,7 +153,7 @@
       <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
-      <Value>../../Synchronize</Value>
+      <Value>../../Root</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
@@ -181,7 +180,6 @@
   </avrgcccpp.compiler.symbols.DefSymbols>
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
-      <Value></Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
@@ -189,10 +187,12 @@
       <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
-      <Value>../../Synchronize</Value>
+      <Value>../../Root</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>../AutoCalibration</Value>
+      <Value>..</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
@@ -203,17 +203,30 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;../../Root;</VMSETTING_IncludePaths>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="LaserArch.ino">
+      <SubType>compile</SubType>
+    </None>
     <None Include="Synchronize.ino">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AutoCalibration" />
     <Folder Include="Visual Micro\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoCalibration\AutoCalibrator.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="AutoCalibration\AutoCalibrator.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Visual Micro\.Root.vsarduino.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Visual Micro\.Synchronize.vsarduino.h">
       <SubType>compile</SubType>
     </Compile>
