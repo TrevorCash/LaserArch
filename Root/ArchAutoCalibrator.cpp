@@ -5,10 +5,10 @@
  *  Author: 7002815
  */ 
 
-#include "AutoCalibrator.h"
+#include "ArchAutoCalibrator.h"
 
 //public methods:
-AutoCalibrator::AutoCalibrator(int ADC_ARDUINO_PIN, int DAC_ARDUINO_PIN)
+ArchAutoCalibrator::ArchAutoCalibrator(int ADC_ARDUINO_PIN, int DAC_ARDUINO_PIN)
 {
 	
 	adcPin = ADC_ARDUINO_PIN;
@@ -16,11 +16,11 @@ AutoCalibrator::AutoCalibrator(int ADC_ARDUINO_PIN, int DAC_ARDUINO_PIN)
 	
 	currentThreshold = 2048; // half of 2^12 which is dac resolution.
 	currentMin = 0;
-	currentMax 4096;
+	currentMax = 4096;
 }
 
 
-AutoCalibrator::~AutoCalibrator()
+ArchAutoCalibrator::~ArchAutoCalibrator()
 {
 	
 }
@@ -28,7 +28,7 @@ AutoCalibrator::~AutoCalibrator()
 
 //Called From Main Loop Periodically
 //to instantly take single ADC reading and update the appropriate DAC value.
-void AutoCalibrator::Update()
+void ArchAutoCalibrator::Update()
 {
 	//obtain a sample from the ADC 
 	unsigned int sampleVal = analogRead(adcPin);

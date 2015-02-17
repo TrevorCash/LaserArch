@@ -20,12 +20,13 @@ extern "C" void __cxa_pure_virtual() {;}
 
 void setup(void);
 //
-void syncPulseInterrupt( void );
-void LaserInterrupt( void );
-void UnusedInterrupt( void);
-void setup(void);
-//
 
 #include "C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3\arduino.h"
-#include <Synchronize.ino>
 #include <LaserArch.ino>
+#include <ArchAutoCalibrator.cpp>
+#include <ArchAutoCalibrator.h>
+#include <ArchMath.h>
+#include <ArchMotor.cpp>
+#include <ArchMotor.h>
+#include <ArchTeensyPins.h>
+#include <PrimaryDefines.h>

@@ -18,13 +18,10 @@
 #define LAYOUT_US_ENGLISH
 extern "C" void __cxa_pure_virtual() {;}
 
-void setup(void);
 //
-void syncPulseInterrupt( void );
-void LaserInterrupt( void );
-void UnusedInterrupt( void);
-inline void RestartTimer(int timerID, unsigned int count);
-inline void DisableTimer(int timerID);
+//
 
 #include "C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3\arduino.h"
-#include <Synchronize.ino>
+#include <LaserArchTestProject.ino>
+#include <AutoCalibrator.cpp>
+#include <AutoCalibrator.h>
