@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
 Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "LaserArch", "LaserArch.cppproj", "{07B459B4-8D76-4638-BC6D-A459BA2D616B}"
 EndProject
-Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "LaserArchTestProject", "..\LaserArchTestProject\LaserArchTestProject.cppproj", "{6EF7AF30-4EE4-4A20-8C45-47D77D9777B9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -15,10 +13,6 @@ Global
 		{07B459B4-8D76-4638-BC6D-A459BA2D616B}.Debug|AVR.Build.0 = Debug|AVR
 		{07B459B4-8D76-4638-BC6D-A459BA2D616B}.Release|AVR.ActiveCfg = Release|AVR
 		{07B459B4-8D76-4638-BC6D-A459BA2D616B}.Release|AVR.Build.0 = Release|AVR
-		{6EF7AF30-4EE4-4A20-8C45-47D77D9777B9}.Debug|AVR.ActiveCfg = Debug|AVR
-		{6EF7AF30-4EE4-4A20-8C45-47D77D9777B9}.Debug|AVR.Build.0 = Debug|AVR
-		{6EF7AF30-4EE4-4A20-8C45-47D77D9777B9}.Release|AVR.ActiveCfg = Release|AVR
-		{6EF7AF30-4EE4-4A20-8C45-47D77D9777B9}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

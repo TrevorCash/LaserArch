@@ -9,11 +9,11 @@
 	#include "WProgram.h"
 #endif
 
-class AutoCalibrator
+class ArchAutoCalibrator
 {
  public:
-	 AutoCalibrator(int ADC_ARDUINO_PIN, int DAC_ARDUINO_PIN);
-	 ~AutoCalibrator();
+	 ArchAutoCalibrator(int ADC_ARDUINO_PIN, int DAC_ARDUINO_PIN);
+	 ~ArchAutoCalibrator();
  
  
  void Update();
@@ -27,7 +27,6 @@ class AutoCalibrator
 	 unsigned int currentThreshold;
 };
 
-extern AutoCalibrator AutoCalibrator;
 
 #endif
 

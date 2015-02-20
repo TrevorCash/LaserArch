@@ -23,21 +23,28 @@ ArchMotor::~ArchMotor()
 }
 
 
-//Called Directly from the sync interrupt.
+//Called Directly from the sync interrupt. SHOULD BE SHORT AS POSSIBLE.
 inline void ArchMotor::TickPeriod(unsigned int currentTimerTime)
 {
+	//Gaurd Against Timer Overflow..
 	if(currentTimerTime < lastTick)
 		SetMalfunctionState(true);
 	
 	lastPeriod = currentTimerTime - lastTick;
+	
+	//Remove last sample in the circular buffer from the rolling average
+	avgPeriod -= periodBuffer[periodBufferIndx]/ARCH_MOTOR_BUFFER_SIZE;
 	periodBuffer[periodBufferIndx] = lastPeriod;
 	periodBufferIndx++;
 	periodBufferIndx = periodBufferIndx % ARCH_MOTOR_BUFFER_SIZE;
+	
+	//Add the new sample to the rolling average
+	avgPeriod += periodBuffer[periodBufferIndx]/ARCH_MOTOR_BUFFER_SIZE;
 }
 
 boolean ArchMotor::IsHealthy()
 {
-	if(powerState == false)//if the motor is purposfully off, we dont know if its healthy or not. so assume it is!
+	if(powerState == false)//if the motor is purposefully off, we dont know if its healthy or not. so assume it is!
 	{
 		return true;
 	}
