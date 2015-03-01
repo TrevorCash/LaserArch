@@ -20,6 +20,8 @@
 //	Fast lookup capability
 //	
 
+
+
 class ArchNoteRegionManager
 {
 //variables
