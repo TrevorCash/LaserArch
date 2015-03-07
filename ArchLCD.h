@@ -8,6 +8,7 @@
 
 #ifndef __ARCHLCD_H__
 #define __ARCHLCD_H__
+#include <i2c_t3/i2c_t3.h>
 
 //provides encapsulated access to the LCD unit via I2C.
 //to be used by the ArchInterfaceManager Primarily.
@@ -22,7 +23,7 @@ private:
 public:
 	ArchLCD();
 	~ArchLCD();
-	
+	void Initialize();
 	void ClearScreen();
 protected:
 private:

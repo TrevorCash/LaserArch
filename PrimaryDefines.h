@@ -21,6 +21,9 @@
 #define BLUE_LASER_PWM_DUTY_CYCLE_ON 100
 #define BLUE_LASER_PWM_DUTY_CYCLE_OFF 0
 
+//Matrix Orbital 7bit I2C Slave Address.
+#define ORBITAL_I2C_ADDRESS 0x28
+
 
 
 

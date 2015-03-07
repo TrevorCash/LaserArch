@@ -2,12 +2,14 @@
 //Copywrite 2015 Trevor Cash, Shaun Gruenig, Linsdey Evans.
 
 //Includes
+#include <i2c_t3/i2c_t3.h>
 #include "PrimaryDefines.h"
 #include "ArchMotor.h"
 #include "ArchTeensyPins.h"
 #include "ArchAutoCalibrator.h"
 #include "ArchMotor.h"
 #include "ArchMath.h"
+#include "ArchLCD.h"
 
 //Proto-types
 ////////////////////////////
@@ -29,10 +31,12 @@ ArchMotor MainMotor(MOTOR_PWM_TEENSY_PIN);
 //make a note region manager to manage the dynamic note regions.
 
 
+//Make an ArchLCD For Testing.
+ArchLCD OrbitalLCD;
 
 void setup(void) {
 	Serial.begin(115200);
-	
+	delay(1000);
 	//Attach Interupts for the whole program
 	attachInterrupt(SYNC_PHOTOTRANSISTOR_TEENSY_PIN, OnSyncInterupt, RISING);
 	attachInterrupt(NOTE_PHOTOTRANSISTOR_TEENSY_PIN, OnNoteInterupt, CHANGE);
@@ -42,8 +46,14 @@ void setup(void) {
 	pinMode(GREEN_LASER_PWM_TEENSY_PIN,OUTPUT);
 	analogWriteFrequency(BLUE_LASER_PWM_TEENSY_PIN,500000);
 	analogWriteFrequency(GREEN_LASER_PWM_TEENSY_PIN,500000);
-	analogWrite(BLUE_LASER_PWM_TEENSY_PIN,BLUE_LASER_PWM_DUTY_CYCLE_ON);
-	analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_ON);
+	analogWrite(BLUE_LASER_PWM_TEENSY_PIN,0);
+	analogWrite(GREEN_LASER_PWM_TEENSY_PIN,0);
+	
+	
+	//LCD init
+	OrbitalLCD.Initialize();
+	OrbitalLCD.ClearScreen();
+	
 	
 	#ifdef CORE_SYSTEM_TEST_MODE
 		SystemTestSetup();
@@ -65,10 +75,10 @@ void loop()
 
 void SystemTestSetup()
 {
-	delay(1000);
+	
 	Serial.println("ARCH IN TEST MODE:");
 	
-	MainMotor.Start();
+	//MainMotor.Start();
 }
 
 void SystemTestLoop()
