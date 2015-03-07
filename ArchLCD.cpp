@@ -17,3 +17,10 @@ ArchLCD::ArchLCD()
 ArchLCD::~ArchLCD()
 {
 } //~ArchLCD
+
+
+void ArchLCD::ClearScreen()
+{
+	
+	
+}

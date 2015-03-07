@@ -22,6 +22,8 @@ private:
 public:
 	ArchLCD();
 	~ArchLCD();
+	
+	void ClearScreen();
 protected:
 private:
 	ArchLCD( const ArchLCD &c );
