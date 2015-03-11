@@ -24,8 +24,17 @@ public:
 	ArchLCD();
 	~ArchLCD();
 	void Initialize();
+	void SendCommand(char* parameters, int numParameters);
+	void SendText(char* string);
+	void SendChar(char byt);
 	void ClearScreen();
+	char ReadKey();
+	
+	
 protected:
+	
+	
+
 private:
 	ArchLCD( const ArchLCD &c );
 	ArchLCD& operator=( const ArchLCD &c );

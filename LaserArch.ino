@@ -44,8 +44,8 @@ void setup(void) {
 	//Laser Pins
 	pinMode(BLUE_LASER_PWM_TEENSY_PIN,OUTPUT);
 	pinMode(GREEN_LASER_PWM_TEENSY_PIN,OUTPUT);
-	analogWriteFrequency(BLUE_LASER_PWM_TEENSY_PIN,500000);
-	analogWriteFrequency(GREEN_LASER_PWM_TEENSY_PIN,500000);
+	analogWriteFrequency(BLUE_LASER_PWM_TEENSY_PIN,250000);
+	analogWriteFrequency(GREEN_LASER_PWM_TEENSY_PIN,250000);
 	analogWrite(BLUE_LASER_PWM_TEENSY_PIN,0);
 	analogWrite(GREEN_LASER_PWM_TEENSY_PIN,0);
 	
@@ -78,11 +78,16 @@ void SystemTestSetup()
 	
 	Serial.println("ARCH IN TEST MODE:");
 	
-	//MainMotor.Start();
+
 }
 
 void SystemTestLoop()
 {
+		//char key = OrbitalLCD.ReadKey();
+		//Serial.print(key);
+		
+	
+	
 		//GetInputFromTerminal
 		while(Serial.available())
 		{
