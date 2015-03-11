@@ -77,15 +77,27 @@ void SystemTestSetup()
 {
 	
 	Serial.println("ARCH IN TEST MODE:");
-	
+	OrbitalLCD.SendText("Arch In Test Mode!");
+	//OrbitalLCD.InitializeLabel(1,0,32,0,16,1,1);
+	//OrbitalLCD.UpdateLabel(1,"WOW!");
 
 }
 
 void SystemTestLoop()
 {
-		//char key = OrbitalLCD.ReadKey();
-		//Serial.print(key);
-		
+		//Simple LCD Test Ruitine
+		char key = OrbitalLCD.ReadKey();
+		while(key)
+		{
+			if(key == 'A')
+				OrbitalLCD.ClearScreen();
+			//if(key == 'B')
+			//	OrbitalLCD.UpdateLabel(1,"duhhhh");
+				
+			OrbitalLCD.SendChar(key);
+			
+			key = OrbitalLCD.ReadKey();
+		}
 	
 	
 		//GetInputFromTerminal

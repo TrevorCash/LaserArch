@@ -71,16 +71,46 @@ void ArchLCD::SendChar(char byt)
 
 //reads 1 key from the I2c key Buffer
 //usages While(key = ReadKey()) { react to value of key press.}
+//returns 0 if no key was pressed. else returns the keycode
 char ArchLCD::ReadKey()
 {
-	Serial.println(Wire.requestFrom(ORBITAL_I2C_ADDRESS, 1));
-
-
+	char byte = 0x00;
+	Wire.requestFrom(ORBITAL_I2C_ADDRESS, 1);
 	if(Wire.available())
 	{
-	
-		return Wire.read();
+		byte = Wire.readByte();
 	}
 		
-	return 'z';
+	return byte;
+}
+
+
+//Makes a fast updatable label found at page 24 of ref manual for orbital lcd
+void ArchLCD::InitializeLabel(uint8_t ID, uint8_t LeftCord, uint8_t RightCord, uint8_t TopCord, uint8_t BottomCord, uint8_t VertAlign, uint8_t HorizAlign, uint16_t FontId, uint8_t BackGround, uint8_t CharSpacing)
+{
+	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	Wire.write(0xFE);
+	Wire.write(45);
+	Wire.write(ID);
+	Wire.write(LeftCord);
+	Wire.write(RightCord);
+	Wire.write(TopCord);
+	Wire.write(BottomCord);
+	Wire.write(VertAlign);
+	Wire.write(HorizAlign);
+	Wire.write(FontId);
+	Wire.write(BackGround);
+	Wire.write(CharSpacing);
+	Wire.endTransmission();
+}
+
+//update label with null terminated string.
+void ArchLCD::UpdateLabel(uint8_t ID, char* str)
+{
+	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+		Wire.write(0xFE);
+		Wire.write(46);
+		Wire.write(ID);
+		Wire.write(str);		
+	Wire.endTransmission();
 }
