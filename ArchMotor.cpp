@@ -24,7 +24,7 @@ ArchMotor::~ArchMotor()
 
 
 //Called Directly from the sync interrupt. SHOULD BE SHORT AS POSSIBLE.
-inline void ArchMotor::TickPeriod(unsigned int currentTimerTime)
+void ArchMotor::TickPeriod(uint32_t currentTimerTime)
 {
 	//Gaurd Against Timer Overflow..
 	if(currentTimerTime < lastTick)
@@ -32,14 +32,17 @@ inline void ArchMotor::TickPeriod(unsigned int currentTimerTime)
 	
 	lastPeriod = currentTimerTime - lastTick;
 	
+	//Add the new sample to the rolling average
+	avgPeriod += lastPeriod/ARCH_MOTOR_BUFFER_SIZE;
+	
+	
 	//Remove last sample in the circular buffer from the rolling average
 	avgPeriod -= periodBuffer[periodBufferIndx]/ARCH_MOTOR_BUFFER_SIZE;
 	periodBuffer[periodBufferIndx] = lastPeriod;
 	periodBufferIndx++;
 	periodBufferIndx = periodBufferIndx % ARCH_MOTOR_BUFFER_SIZE;
 	
-	//Add the new sample to the rolling average
-	avgPeriod += periodBuffer[periodBufferIndx]/ARCH_MOTOR_BUFFER_SIZE;
+	
 }
 
 boolean ArchMotor::IsHealthy()
@@ -58,7 +61,7 @@ boolean ArchMotor::IsHealthy()
 void ArchMotor::Start()
 {
 	powerState = true;
-	analogWrite(pwmPin,255);
+	analogWrite(pwmPin,2048);
 }
 void ArchMotor::Stop()
 {
@@ -82,12 +85,12 @@ boolean ArchMotor::WaitUntilHealthy(unsigned int millisecs)
 	return true;
 }
 
-inline unsigned int ArchMotor::AveragePeriod()
+unsigned int ArchMotor::AveragePeriod()
 {
 	return avgPeriod;
 }
 
-inline unsigned int ArchMotor::LastPeriod()
+unsigned int ArchMotor::LastPeriod()
 {
 	return lastPeriod;
 }

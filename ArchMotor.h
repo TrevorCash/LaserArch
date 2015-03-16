@@ -9,7 +9,7 @@
 	#include "WProgram.h"
 #endif
 
-#define ARCH_MOTOR_BUFFER_SIZE 10
+#define ARCH_MOTOR_BUFFER_SIZE 100
 #define ARCH_MOTOR_HEALTHY_PERIOD_LOW ARCH_PIT_TIMER_FROM_USEC(12500)//80hertz
 #define ARCH_MOTOR_HEALTHY_PERIOD_HIGH ARCH_PIT_TIMER_FROM_USEC(5555)//180hertz
 
@@ -24,7 +24,7 @@ class ArchMotor
  
  
  
-	void TickPeriod(unsigned int currentTimerTime);
+	void TickPeriod(uint32_t currentTimerTime);
 	boolean IsHealthy();
 	void Start();
 	void Stop();
