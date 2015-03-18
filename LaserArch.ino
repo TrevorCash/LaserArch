@@ -137,6 +137,7 @@ void SystemTestLoop()
 		//}
 	//
 	//
+	//ArchInterfaceManager.Update();
 		//GetInputFromTerminal
 		while(Serial.available())
 		{

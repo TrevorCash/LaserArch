@@ -61,7 +61,7 @@ boolean ArchMotor::IsHealthy()
 void ArchMotor::Start()
 {
 	powerState = true;
-	analogWrite(pwmPin,2048);
+	analogWrite(pwmPin,1048);
 }
 void ArchMotor::Stop()
 {
