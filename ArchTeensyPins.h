@@ -18,8 +18,8 @@
 
 #define SYNC_PHOTOTRANSISTOR_TEENSY_PIN			23
 
-#define GREEN_LASER_PWM_TEENSY_PIN				3
-#define BLUE_LASER_PWM_TEENSY_PIN				4//not 25 as its on the back, this means though that the same frequency is required on both lasers, Duty cycle is independant though!
+#define GREEN_LASER_PWM_TEENSY_PIN				9
+#define BLUE_LASER_PWM_TEENSY_PIN				10
 
 #define MOTOR_PWM_TEENSY_PIN					6
 

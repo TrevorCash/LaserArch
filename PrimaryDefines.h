@@ -15,6 +15,9 @@
 //Define if you want to enable the core system test mode - usefull for calibrating?
 #define CORE_SYSTEM_TEST_MODE
 
+//PWM Frequencies
+#define ARCH_TIMER_0_PWM_FREQ 250000
+
 //Laser Pwm Values
 #define GREEN_LASER_PWM_DUTY_CYCLE_ON 1000
 #define GREEN_LASER_PWM_DUTY_CYCLE_OFF 500
