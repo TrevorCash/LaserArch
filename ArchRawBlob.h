@@ -38,7 +38,7 @@ class ArchRawBlob
 		midTime = (endTime + startTime)*0.5;
 		widthTime = startTime - endTime;
 	}
-protected:
+public:
 	uint32_t startTime;
 	uint32_t endTime;
 	//calculatables based on startTime and endTime;

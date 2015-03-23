@@ -96,6 +96,15 @@ unsigned int ArchMotor::LastPeriod()
 }
 
 
+float ArchMotor::AngleFromTicksAve(uint32_t ticks)
+{
+	return (ticks/float(avgPeriod))*360;
+}
+uint32_t ArchMotor::TicksFromAngleAve(float angle)
+{
+	return (angle/360)*avgPeriod;
+}
+
 inline void ArchMotor::SetMalfunctionState(boolean state)
 {
 	malfuncState = state;

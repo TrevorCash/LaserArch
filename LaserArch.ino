@@ -10,7 +10,8 @@
 #include "ArchMotor.h"
 #include "ArchMath.h"
 #include "ArchLCD.h"
-#include "ArchNoteRegionManager.h"
+#include "ArchBlobManager.h"
+#include "ArchRawBlob.h"
 
 //Proto-types
 ////////////////////////////
@@ -37,7 +38,7 @@ ArchAutoCalibrator NoteSensorCalibrator(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN,
 
 
 //make a note region manager to manage the dynamic note regions.
-ArchNoteRegionManager NoteRegionManager(&MainMotor);
+ArchBlobManager BlobManager(&MainMotor);
 
 //Make an ArchLCD For Testing.
 ArchLCD OrbitalLCD;
@@ -89,6 +90,7 @@ void setup(void) {
 	
 	//Dac output configure
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
+	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 300);
 	
 	
 	
@@ -211,8 +213,22 @@ void SystemTestLoop()
 			}
 		}
 		//Serial.println(MainMotor.AveragePeriod());
-		Serial.print(uint32_t(numNoteEdges),10);
-		Serial.println("");
+		//Serial.print(uint32_t(numNoteEdges),10);
+		//Serial.println("");
+		//if(BlobManager.blobsArrayCurSize)
+		//Serial.println(MainMotor.AngleFromTicksAve(BlobManager.blobsArray[0].midTime));
+		//Serial.println(MainMotor.TicksFromAngleAve(120));
+		if(BlobManager.blobsArrayLastCycleSize)
+		{	Serial.println("Blob Info:");
+			int i;
+			for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
+			{
+				Serial.print("Blob: ");
+				Serial.println(i);
+				Serial.print("Mid Time: ");
+				Serial.println(BlobManager.lastBlobsArray[i].midTime);
+			}
+		}
 		delay(100);
 }
 
@@ -239,7 +255,7 @@ void OnSyncInterupt()
 
 	NoteSensorCalibrator.OnSyncInterupt(currSyncTimerVal);
 	MainMotor.TickPeriod(currSyncTimerVal);
-	NoteRegionManager.OnSyncInterupt(currSyncTimerVal);
+	BlobManager.OnSyncInterupt(currSyncTimerVal);
 	
 
 	//reset timer back to "ZERO" 
@@ -255,7 +271,7 @@ void OnNoteInterupt()
 	uint32_t currSyncTimerVal = 0xFFFFFFFF - uint32_t(PIT_CVAL0);
 
 	
-	NoteRegionManager.OnNoteInterupt(currSyncTimerVal, boolean(digitalReadFast(NOTE_PHOTOTRANSISTOR_TEENSY_PIN)));
+	BlobManager.OnNoteInterupt(currSyncTimerVal, boolean(digitalReadFast(NOTE_PHOTOTRANSISTOR_TEENSY_PIN)));
 	
 	NoteSensorCalibrator.OnNoteInterupt(currSyncTimerVal);
 	
