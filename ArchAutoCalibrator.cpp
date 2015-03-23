@@ -66,7 +66,7 @@ void ArchAutoCalibrator::OnSyncInterupt(uint32_t currentTime)//call in the Sync 
 	PIT_TCTRL1 = 0x3;
 
 }
-void ArchAutoCalibrator::OnNoteInterupt()//call in the note interuppt.
+void ArchAutoCalibrator::OnNoteInterupt(uint32_t currentTimerTime)//call in the note interuppt.
 {
 	//Serial.println("AUto cal note triggered!");
 	

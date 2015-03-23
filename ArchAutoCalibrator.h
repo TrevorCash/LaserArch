@@ -25,7 +25,7 @@ class ArchAutoCalibrator
  
  void Update();//Update From Main Loop
  void OnSyncInterupt(uint32_t currentTime);//call in the Sync Interuppt
- void OnNoteInterupt();//call in the note interuppt.
+ void OnNoteInterupt(uint32_t currentTimerTime);//call in the note interuppt.
  void OnCalibrationTimerInterupt();//call in the calib timer interupt.
  
  

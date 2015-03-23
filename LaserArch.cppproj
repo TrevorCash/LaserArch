@@ -254,6 +254,12 @@
     <Compile Include="ArchNoteRegionManager.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ArchRawBlob.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchRawBlob.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ArchTeensyPins.h">
       <SubType>compile</SubType>
     </Compile>

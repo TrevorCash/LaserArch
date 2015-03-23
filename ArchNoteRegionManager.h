@@ -21,6 +21,11 @@
 //	
 
 
+#include "ArchMotor.h"
+#include "ArchRawBlob.h"
+#include "PrimaryDefines.h"
+
+
 
 class ArchNoteRegionManager
 {
@@ -31,10 +36,27 @@ private:
 
 //functions
 public:
-	ArchNoteRegionManager();
+	ArchNoteRegionManager(ArchMotor* pMotor);
 	~ArchNoteRegionManager();
+	
+	//main loop update - call at least at 60hz ish.
+	void Update();
+	
+	void OnNoteInterupt(uint32_t currentTimerTime, boolean rising);
+	void OnSyncInterupt(uint32_t currentTimerTime);
+	
+	uint32_t CurrentNumberOfBlobs()
+	{
+		return blobsArrayCurIndx + 1;
+	}
+	
+	
+	
 protected:
-
+	ArchMotor* pMotor;
+	ArchRawBlob blobsArray[MAX_BLOBS];
+	uint8_t blobsArrayCurIndx;
+	boolean currentlyMidBlob;
 }; //ArchNoteRegionManager
 
 #endif //__ARCHNOTEREGIONMANAGER_H__

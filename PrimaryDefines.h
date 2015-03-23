@@ -15,6 +15,23 @@
 //Define if you want to enable the core system test mode - usefull for calibrating?
 #define CORE_SYSTEM_TEST_MODE
 
+//maximum number of blobss to track!
+#define  MAX_BLOBS 30
+
+//maximum number of finger to track!
+#define MAX_FINGERS 15
+
+//angle offset of sync phototransistor (use this to counter time constant or physical offset of the sync photo-transistor
+#define SYNC_PHYSICAL_OFFSET_DEGREES 0
+
+//min max cutoff angles (any note edges are immediatly discarded if out of this range (used to get rid of strange edge behaviors)
+#define REJECTION_ANGLE_MIN_DEGREES 90
+#define REJECTION_ANGLE_MAX_DEGREES 270
+
+
+
+
+
 //PWM Frequencies
 #define ARCH_TIMER_0_PWM_FREQ 250000
 

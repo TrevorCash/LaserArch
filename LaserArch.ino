@@ -10,6 +10,7 @@
 #include "ArchMotor.h"
 #include "ArchMath.h"
 #include "ArchLCD.h"
+#include "ArchNoteRegionManager.h"
 
 //Proto-types
 ////////////////////////////
@@ -36,6 +37,7 @@ ArchAutoCalibrator NoteSensorCalibrator(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN,
 
 
 //make a note region manager to manage the dynamic note regions.
+ArchNoteRegionManager NoteRegionManager(&MainMotor);
 
 //Make an ArchLCD For Testing.
 ArchLCD OrbitalLCD;
@@ -48,7 +50,8 @@ IntervalTimer CalibrationTimer;
 
 //misc
 volatile uint32_t syncTimerVal = 0;
-
+volatile uint32_t numNoteEdges = 0;
+volatile uint32_t numNoteEdgesCounter = 0;
 
 
 void setup(void) {
@@ -208,7 +211,8 @@ void SystemTestLoop()
 			}
 		}
 		//Serial.println(MainMotor.AveragePeriod());
-
+		Serial.print(uint32_t(numNoteEdges),10);
+		Serial.println("");
 		delay(100);
 }
 
@@ -231,24 +235,31 @@ void MainLoop()
 /////////////////////////////////////////////////////////////////
 void OnSyncInterupt()
 {
-	syncTimerVal = 0xFFFFFFFF - uint32_t(PIT_CVAL0);
+	uint32_t currSyncTimerVal = 0xFFFFFFFF - uint32_t(PIT_CVAL0);
 
-	NoteSensorCalibrator.OnSyncInterupt(syncTimerVal);
-	MainMotor.TickPeriod(syncTimerVal);
+	NoteSensorCalibrator.OnSyncInterupt(currSyncTimerVal);
+	MainMotor.TickPeriod(currSyncTimerVal);
+	NoteRegionManager.OnSyncInterupt(currSyncTimerVal);
 	
-	
-
-	//delay(2);
-
 
 	//reset timer back to "ZERO" 
 	PIT_TCTRL0 = 0x0;
 	PIT_LDVAL0 = 0xFFFFFFFF;
 	PIT_TCTRL0 = 0x00000003;
+	
+	numNoteEdges = numNoteEdgesCounter;
+	numNoteEdgesCounter = 0;
 }
 void OnNoteInterupt()
 {
-	NoteSensorCalibrator.OnNoteInterupt();
+	uint32_t currSyncTimerVal = 0xFFFFFFFF - uint32_t(PIT_CVAL0);
+
+	
+	NoteRegionManager.OnNoteInterupt(currSyncTimerVal, boolean(digitalReadFast(NOTE_PHOTOTRANSISTOR_TEENSY_PIN)));
+	
+	NoteSensorCalibrator.OnNoteInterupt(currSyncTimerVal);
+	
+	numNoteEdgesCounter++;
 }
 
 
