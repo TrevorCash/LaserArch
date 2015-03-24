@@ -12,6 +12,7 @@
 #include "ArchLCD.h"
 #include "ArchBlobManager.h"
 #include "ArchRawBlob.h"
+#include "ArchFingerManager.h"
 
 //Proto-types
 ////////////////////////////
@@ -37,8 +38,15 @@ ArchAutoCalibrator NoteSensorCalibrator(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN,
 
 
 
+
 //make a note region manager to manage the dynamic note regions.
 ArchBlobManager BlobManager(&MainMotor);
+
+
+//make a fingers manager - manage finger tracking.
+ArchFingerManager FingerManager(&BlobManager);
+
+
 
 //Make an ArchLCD For Testing.
 ArchLCD OrbitalLCD;
@@ -144,6 +152,8 @@ void SystemTestLoop()
 	//
 	//
 	//ArchInterfaceManager.Update();
+	
+	FingerManager.Update();
 		//GetInputFromTerminal
 		while(Serial.available())
 		{

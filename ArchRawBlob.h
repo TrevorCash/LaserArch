@@ -10,6 +10,7 @@
 #define __ARCHRAWBLOB_H__
 
 #include "Arduino.h"
+#include "ArchFinger.h"
 
 //ArchRawBlob represents a single blob (or finger) in the arch space..
 class ArchRawBlob
@@ -44,6 +45,8 @@ public:
 	//calculatables based on startTime and endTime;
 	uint32_t midTime;
 	uint32_t widthTime;
+	
+	ArchFinger* closestFinger;
 
 }; //ArchRawBlob
 
