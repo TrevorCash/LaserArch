@@ -11,6 +11,7 @@
 
 #include "ArchBlobManager.h"
 #include "ArchFinger.h"
+#include "Arduino.h"
 
 
 class ArchFingerManager
@@ -23,9 +24,6 @@ public:
 
 	void Update();//called from main loop;
 	
-	ArchFinger* InactiveFingers;
-	ArchFinger* ActiveFingers;
-	ArchFinger* LastActiveFinger;
 
 protected:
 	ArchBlobManager* blobManager;

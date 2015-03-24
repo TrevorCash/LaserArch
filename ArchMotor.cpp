@@ -26,11 +26,18 @@ ArchMotor::~ArchMotor()
 //Called Directly from the sync interrupt. SHOULD BE SHORT AS POSSIBLE.
 void ArchMotor::TickPeriod(uint32_t currentTimerTime)
 {
-	//Gaurd Against Timer Overflow..
+
+	//handle timer wrap around
 	if(currentTimerTime < lastTick)
-		SetMalfunctionState(true);
+	{
+		lastPeriod = (0xFFFFFFFF - lastTick) + currentTimerTime;
+		Serial.println("WRAPPPPPPP");
+	}
+	else
+		lastPeriod = currentTimerTime - lastTick;
 	
-	lastPeriod = currentTimerTime - lastTick;
+	lastTick = currentTimerTime;
+	
 	
 	//Add the new sample to the rolling average
 	avgPeriod += lastPeriod/ARCH_MOTOR_BUFFER_SIZE;

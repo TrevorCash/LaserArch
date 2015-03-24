@@ -40,8 +40,8 @@ class ArchMotor
 	boolean GetMalfunctionState();
 	
  private:
-	unsigned int lastPeriod;
-	unsigned int lastTick;
+	uint32_t lastPeriod;
+	uint32_t lastTick;
 	unsigned int periodBuffer[ARCH_MOTOR_BUFFER_SIZE];
 	unsigned int periodBufferIndx;
 	unsigned int avgPeriod;

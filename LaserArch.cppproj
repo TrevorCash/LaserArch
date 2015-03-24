@@ -62,6 +62,7 @@
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
+      <Value></Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
@@ -98,6 +99,7 @@
   </avrgcccpp.compiler.symbols.DefSymbols>
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
+      <Value></Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
@@ -147,6 +149,7 @@
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
+      <Value></Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
@@ -183,6 +186,7 @@
   </avrgcccpp.compiler.symbols.DefSymbols>
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
+      <Value></Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
@@ -221,6 +225,18 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ArchAutoCalibrator.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchFinger.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchFinger.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchFingerManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchFingerManager.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ArchInterfaceManager.cpp">

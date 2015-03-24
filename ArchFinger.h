@@ -9,6 +9,7 @@
 #ifndef __ARCHFINGER_H__
 #define __ARCHFINGER_H__
 
+#include "Arduino.h"
 
 class ArchFinger
 {

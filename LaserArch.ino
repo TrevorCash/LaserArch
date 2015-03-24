@@ -221,24 +221,28 @@ void SystemTestLoop()
 			{
 				NoteSensorCalibrator.PrintCharacteristicBuff();	
 			}
+			else if(cmd == "blobinfo")
+			{
+				if(BlobManager.blobsArrayLastCycleSize)
+				{	Serial.println("Blob Info:");
+					int i;
+					for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
+					{
+						Serial.print("Blob: ");
+						Serial.println(i);
+						Serial.print("Mid Time: ");
+						Serial.println(BlobManager.lastBlobsArray[i].midTime);
+					}
+				}
+			}
 		}
-		//Serial.println(MainMotor.AveragePeriod());
+		Serial.println(MainMotor.AveragePeriod());
 		//Serial.print(uint32_t(numNoteEdges),10);
 		//Serial.println("");
 		//if(BlobManager.blobsArrayCurSize)
 		//Serial.println(MainMotor.AngleFromTicksAve(BlobManager.blobsArray[0].midTime));
 		//Serial.println(MainMotor.TicksFromAngleAve(120));
-		if(BlobManager.blobsArrayLastCycleSize)
-		{	Serial.println("Blob Info:");
-			int i;
-			for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
-			{
-				Serial.print("Blob: ");
-				Serial.println(i);
-				Serial.print("Mid Time: ");
-				Serial.println(BlobManager.lastBlobsArray[i].midTime);
-			}
-		}
+		
 		delay(100);
 }
 
