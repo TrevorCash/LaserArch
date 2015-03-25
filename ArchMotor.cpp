@@ -12,7 +12,6 @@ ArchMotor::ArchMotor(unsigned int pwmArduinoPin)
 	malfuncState = false;
 	avgPeriod = 0;
 	lastPeriod = 0;
-	lastTick = 0;
 	powerState = false;//motors off by default
 	
 	pwmPin = pwmArduinoPin;
@@ -26,17 +25,7 @@ ArchMotor::~ArchMotor()
 //Called Directly from the sync interrupt. SHOULD BE SHORT AS POSSIBLE.
 void ArchMotor::TickPeriod(uint32_t currentTimerTime)
 {
-
-	//handle timer wrap around
-	if(currentTimerTime < lastTick)
-	{
-		lastPeriod = (0xFFFFFFFF - lastTick) + currentTimerTime;
-		Serial.println("WRAPPPPPPP");
-	}
-	else
-		lastPeriod = currentTimerTime - lastTick;
-	
-	lastTick = currentTimerTime;
+	lastPeriod = currentTimerTime;
 	
 	
 	//Add the new sample to the rolling average

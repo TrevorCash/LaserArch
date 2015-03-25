@@ -30,6 +30,10 @@ protected:
 private:
 	ArchFingerManager( const ArchFingerManager &c );
 	ArchFingerManager& operator=( const ArchFingerManager &c );
+	
+	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
+	ArchFinger* curFingerList;
+	
 
 }; //ArchFingerManager
 

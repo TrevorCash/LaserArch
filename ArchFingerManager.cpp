@@ -13,6 +13,8 @@
 ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager)
 {
 	this->blobManager = blobManager;
+	
+	curFingerList = NULL;
 } //ArchFingerManager
 
 // default destructor
@@ -23,6 +25,5 @@ ArchFingerManager::~ArchFingerManager()
 
 void ArchFingerManager::Update()
 {
-
 	
 }
