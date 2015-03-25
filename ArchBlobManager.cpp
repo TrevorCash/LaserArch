@@ -17,6 +17,8 @@ ArchBlobManager::ArchBlobManager(ArchMotor* pMotor)
 	blobsArrayLastCycleSize = 0;
 	
 	currentlyMidBlob = false;
+	
+	lastBlobArrayBlocking = false;
 } //ArchBlobManager
 
 // default destructor
@@ -31,6 +33,18 @@ void ArchBlobManager::Update()
 }
 
 
+void ArchBlobManager::LockLastBlobArray()
+{
+	lastBlobArrayBlocking = true;
+}
+void ArchBlobManager::UnLockLastBlobArray()
+{
+	lastBlobArrayBlocking = false;
+}
+boolean ArchBlobManager::IsLastBlobArrayLocked()
+{
+	return lastBlobArrayBlocking;
+}
 
 
 
@@ -72,20 +86,20 @@ void ArchBlobManager::OnSyncInterupt(uint32_t currentTimerTime)
 {
 	//save the current blobs into the "lastBlobArray" which is a buffer for holding the values 
 	//of all the blobs last cycle - this should be used by any process in the mainloop program flow as
-	//it is not continually changing.
-	blobsArrayLastCycleSize = blobsArrayCurSize;
-	int i;
-	for(i = 0; i < blobsArrayCurSize; i++)
+	//it is not continually changing. - this only updates if it ISNT LOCKED.  
+	if(!lastBlobArrayBlocking)
 	{
-		lastBlobsArray[i] = blobsArray[i];
+		blobsArrayLastCycleSize = blobsArrayCurSize;
+		int i;
+		for(i = 0; i < blobsArrayCurSize; i++)
+		{
+			lastBlobsArray[i] = blobsArray[i];
+		}
 	}
-	
 	
 	
 	//when we have a sync event we want to effectively clear out all current blobs (do this by resetting the counter)
 	blobsArrayCurIndx = 0;
 	blobsArrayCurSize = 0;
 	currentlyMidBlob = false;
-	
-	
 }

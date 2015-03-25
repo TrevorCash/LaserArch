@@ -18,11 +18,6 @@
 
 class ArchBlobManager
 {
-//variables
-public:
-protected:
-private:
-
 //functions
 public:
 	ArchBlobManager(ArchMotor* pMotor);
@@ -33,6 +28,11 @@ public:
 	
 	void OnNoteInterupt(uint32_t currentTimerTime, boolean rising);
 	void OnSyncInterupt(uint32_t currentTimerTime);
+	
+	void LockLastBlobArray();
+	void UnLockLastBlobArray();
+	boolean IsLastBlobArrayLocked();
+	
 	
 	uint32_t CurrentNumberOfBlobs()
 	{
@@ -49,6 +49,10 @@ public:
 	uint8_t blobsArrayCurSize;
 	uint8_t blobsArrayLastCycleSize;//size of the final array last cycle.
 	boolean currentlyMidBlob;
+
+private:
+	boolean lastBlobArrayBlocking;
+
 }; //ArchBlobManager
 
 #endif //__ArchBlobManager_H__
