@@ -12,6 +12,7 @@
 #include "ArchBlobManager.h"
 #include "ArchFinger.h"
 #include "Arduino.h"
+#include "ArchFingerBlobConnection.h"
 
 
 class ArchFingerManager
@@ -32,8 +33,18 @@ private:
 	ArchFingerManager& operator=( const ArchFingerManager &c );
 	
 	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
-	ArchFinger* curFingerList;
 	
+	ArchFinger* activeFingersLL;
+	uint8_t numActiveFingers;
+	ArchFinger* lastActiveFinger;
+	
+	ArchFinger* inActiveFingersLL;
+	uint8_t numInActiveFingers;
+	ArchFinger* lastInActiveFinger;
+	
+	
+	
+	ArchFingerBlobConnection connectionLinks[MAX_FINGERS*MAX_BLOBS];
 
 }; //ArchFingerManager
 

@@ -17,7 +17,7 @@ ArchFinger::ArchFinger()
 	
 	nextFinger = NULL;
 	prevFinger = NULL;
-} //ArchFinger
+}//ArchFinger
 
 // default destructor
 ArchFinger::~ArchFinger()
