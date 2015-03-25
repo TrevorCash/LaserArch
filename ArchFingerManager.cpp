@@ -26,4 +26,8 @@ ArchFingerManager::~ArchFingerManager()
 void ArchFingerManager::Update()
 {
 	
+	//for each FINGER
+		//make table of distances to each blob. with reference to the blob paired with the distance.
+		
+			
 }
