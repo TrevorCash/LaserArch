@@ -28,6 +28,10 @@
 #define REJECTION_ANGLE_MIN_DEGREES 100
 #define REJECTION_ANGLE_MAX_DEGREES 260
 
+//global analog write resolution
+#define ANALOG_WRITE_RES 12
+#define ANALOG_WRITE_MAXVAL ((1 << ANALOG_WRITE_RES) - 1)
+
 
 
 

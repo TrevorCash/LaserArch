@@ -34,6 +34,8 @@ class ArchMotor
 	unsigned int AveragePeriod();
 	float AngleFromTicksAve(uint32_t ticks);
 	uint32_t TicksFromAngleAve(float angle);
+	float AngleFromTicksLast(uint32_t ticks);
+	uint32_t TicksFromAngleLast(float angle);
 	unsigned int LastPeriod();
 	
 	void SetMalfunctionState(boolean state);

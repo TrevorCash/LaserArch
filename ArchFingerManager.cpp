@@ -36,6 +36,7 @@ void ArchFingerManager::Update()
 {
 	blobManager->LockLastBlobArray();
 	
+	/*
 	//for each FINGER
 		//make table of distances to each blob. with reference to the blob paired with the distance.
 	
@@ -108,7 +109,7 @@ void ArchFingerManager::Update()
 	
 	
 	
-	
+	*/
 	
 	
 	

@@ -57,7 +57,7 @@ boolean ArchMotor::IsHealthy()
 void ArchMotor::Start()
 {
 	powerState = true;
-	analogWrite(pwmPin,1024);
+	analogWrite(pwmPin,800);
 }
 void ArchMotor::Stop()
 {
@@ -99,6 +99,15 @@ float ArchMotor::AngleFromTicksAve(uint32_t ticks)
 uint32_t ArchMotor::TicksFromAngleAve(float angle)
 {
 	return (angle/360)*avgPeriod;
+}
+
+float ArchMotor::AngleFromTicksLast(uint32_t ticks)
+{
+	return (ticks/float(lastPeriod))*360;
+}
+uint32_t ArchMotor::TicksFromAngleLast(float angle)
+{
+	return (angle/360)*lastPeriod;
 }
 
 inline void ArchMotor::SetMalfunctionState(boolean state)

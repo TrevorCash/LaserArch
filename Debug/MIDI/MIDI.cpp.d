@@ -1,6 +1,5 @@
-C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\LaserArch.cpp.o: \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\LaserArch.cpp \
- C:\Users\7002815\Documents\Arduino\libraries/i2c_t3/i2c_t3.h \
+C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\MIDI\MIDI.cpp.o: \
+ C:\Users\7002815\Documents\Arduino\libraries\MIDI\MIDI.cpp \
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/Arduino.h \
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/WProgram.h \
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/avr/pgmspace.h \
@@ -31,19 +30,5 @@ C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\LaserAr
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/elapsedMillis.h \
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/Arduino.h \
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/IntervalTimer.h \
- C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/DMAChannel.h \
- C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\libraries/MIDI/MIDI.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\OctoWS2811Trevor.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\PrimaryDefines.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchMotor.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchTeensyPins.h \
- C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/pins_arduino.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchAutoCalibrator.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchMath.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchFingerBlobConnection.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchFinger.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchRawBlob.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchLCD.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchBlobManager.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchFingerManager.h \
- C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/arduino.h
+ C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/HardwareSerial.h \
+ C:\Users\7002815\Documents\Arduino\libraries\MIDI\MIDI.h

@@ -1,8 +1,10 @@
 
-//Copywrite 2015 Trevor Cash, Shaun Gruenig, Linsdey Evans.
+//Copyright 2015 Trevor Cash, Shaun Gruenig, Linsdey Evans.
 
 //Includes
 #include <i2c_t3/i2c_t3.h>
+#include <MIDI/MIDI.h>
+#include "OctoWS2811Trevor.h"
 #include "PrimaryDefines.h"
 #include "ArchMotor.h"
 #include "ArchTeensyPins.h"
@@ -52,6 +54,18 @@ ArchFingerManager FingerManager(&BlobManager);
 ArchLCD OrbitalLCD;
 
 
+//Led Strip object
+const int ledsPerStrip = 144;
+
+DMAMEM int displayMemory[ledsPerStrip*6];
+int drawingMemory[ledsPerStrip*6];
+
+const int config = WS2811_GRB | WS2811_800kHz;
+
+OctoWS2811 LedStrip(ledsPerStrip, displayMemory, drawingMemory, config);
+
+
+
 //timers
 IntervalTimer SyncTimer;
 IntervalTimer CalibrationTimer;
@@ -65,6 +79,10 @@ volatile uint32_t numNoteEdgesCounter = 0;
 
 void setup(void) {
 	Serial.begin(115200);
+	
+	MIDI.begin();
+	
+	
 	delay(1000);
 	//Attach Interupts for the whole program
 	pinMode(SYNC_PHOTOTRANSISTOR_TEENSY_PIN,INPUT);
@@ -74,7 +92,7 @@ void setup(void) {
 	attachInterrupt(NOTE_PHOTOTRANSISTOR_TEENSY_PIN, OnNoteInterupt, CHANGE);
 	
 	//set global analog write resolution
-	analogWriteResolution(12);
+	analogWriteResolution(ANALOG_WRITE_RES);
 	analogReadResolution(16);
 	
 	//prepare timers.
@@ -105,6 +123,11 @@ void setup(void) {
 	//LCD init
 	//OrbitalLCD.Initialize();
 	//OrbitalLCD.ClearScreen();
+	
+	
+	//LED Strip Init
+	LedStrip.begin();
+	LedStrip.show();
 	
 	
 	#ifdef CORE_SYSTEM_TEST_MODE
@@ -226,17 +249,17 @@ void SystemTestLoop()
 				
 			}
 		}
-		if(BlobManager.blobsArrayLastCycleSize)
-		{	Serial.println("Blob Info:");
-			int i;
-			for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
-			{
-				Serial.print("Blob: ");
-				Serial.println(i);
-				Serial.print("Mid Time: ");
-				Serial.println(BlobManager.lastBlobsArray[i].midTime);
-			}
-		}
+		//if(BlobManager.blobsArrayLastCycleSize)
+		//{	Serial.println("Blob Info:");
+			//int i;
+			//for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
+			//{
+				//Serial.print("Blob: ");
+				//Serial.println(i);
+				//Serial.print("Mid Time: ");
+				//Serial.println(BlobManager.lastBlobsArray[i].midTime);
+			//}
+		//}
 		//Serial.println(MainMotor.AveragePeriod());
 		//Serial.print(uint32_t(numNoteEdges),10);
 		//Serial.println("");
@@ -244,7 +267,26 @@ void SystemTestLoop()
 		//Serial.println(MainMotor.AngleFromTicksAve(BlobManager.blobsArray[0].midTime));
 		//Serial.println(MainMotor.TicksFromAngleAve(120));
 		
-		delay(100);
+		//Serial.println(MainMotor.AngleFromTicksAve(BlobManager.lastBlobsArray[0].midTime));
+		
+		int i;
+		  for (i=0; i < 144; i++) {
+			  LedStrip.setPixel(i, 0x0);
+		  }
+		  
+		  for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
+		  {
+			  int s = (MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].startTime) - 100)*(144.0/180);
+			  int e = (MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].endTime) - 100)*(144.0/180);
+			  for(int j = s; j <= e; j++)
+				LedStrip.setPixel(j,(e-s)*10,0,(s-e)*10);
+		    
+		  }
+		
+		while(LedStrip.busy()){};  
+		LedStrip.show();
+		
+		//delay(100);
 }
 
 
