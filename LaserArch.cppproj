@@ -127,7 +127,175 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;../../Root;../../LaserArch;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI/utility;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811/utility;C:/Users/7002815/Documents/Arduino/libraries/MIDI;C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;../../Root;../../LaserArch;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI/utility;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811/utility;C:/Users/7002815/Documents/Arduino/libraries/MIDI;C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility;C:/Users/7002815/Documents/Arduino/libraries/FastLED;C:/Users/7002815/Documents/Arduino/libraries/FastLED/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/cores/arduino;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/variants/standard;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/libraries;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/avr/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/lib/gcc/avr/4.3.2/include/;</VMSETTING_IncludePaths>
+    <VisualMicroSettings>
+      <VisualMicroSettings>
+        <arduino.board.name>teensy31</arduino.board.name>
+        <arduino.board.desc>Teensy 3.1</arduino.board.desc>
+        <arduino.board.property_bag>name=Teensy 3.1
+upload.protocol=halfkay
+upload.maximum_size=262144
+upload.maximum_ram_size=65536
+upload.speed=12000000
+upload.disable_flushing=true
+bootloader.path=undefined
+serial.restart_cmd=true
+serial.safe_baud_rates_only=true
+upload.avrdude_wrapper=teensy_reboot
+build.mcu=mk20dx256
+build.cpu=cortex-m4
+build.option1=-mthumb
+build.option2=-nostdlib
+build.option3=-D__MK20DX256__
+build.option4=-DTEENSYDUINO=120
+build.option5=-DF_CPU=96000000
+build.option6=-DUSB_SERIAL
+build.option7=-DLAYOUT_US_ENGLISH
+build.cppoption1=-fno-rtti
+build.linkoption1=-mthumb
+build.additionalobject1=-larm_cortexM4l_math
+build.linkscript=mk20dx256.ld
+build.architecture=arm-none-eabi
+build.command.gcc=arm-none-eabi-gcc
+build.command.g++=arm-none-eabi-g++
+build.command.ar=arm-none-eabi-ar
+build.command.objcopy=arm-none-eabi-objcopy
+build.command.objdump=arm-none-eabi-objdump
+build.command.size=arm-none-eabi-size
+build.core=teensy3
+build.elide_constructors=true
+build.gnu0x=true
+build.dependency=true
+build.time_t=true
+build.post_compile_script=teensy_post_compile
+menu.usb.serial.name=Serial
+menu.usb.serial.build.define0=-DUSB_SERIAL
+menu.usb.hid.name=Keyboard + Mouse + Joystick
+menu.usb.hid.build.define0=-DUSB_HID
+menu.usb.hid.fake_serial=teensy_gateway
+menu.usb.serialhid.name=Serial + Keyboard + Mouse + Joystick
+menu.usb.serialhid.build.define0=-DUSB_SERIAL_HID
+menu.usb.midi.name=MIDI
+menu.usb.midi.build.define0=-DUSB_MIDI
+menu.usb.midi.fake_serial=teensy_gateway
+menu.usb.rawhid.name=Raw HID
+menu.usb.rawhid.build.define0=-DUSB_RAWHID
+menu.usb.rawhid.fake_serial=teensy_gateway
+menu.usb.flightsim.name=Flight Sim Controls
+menu.usb.flightsim.build.define0=-DUSB_FLIGHTSIM
+menu.usb.flightsim.fake_serial=teensy_gateway
+menu.speed.96.name=96 MHz (overclock)
+menu.speed.72.name=72 MHz
+menu.speed.48.name=48 MHz
+menu.speed.24.name=24 MHz
+menu.speed.16nousb.name=16 MHz (No USB)
+menu.speed.8nousb.name=8 MHz (No USB)
+menu.speed.4nousb.name=4 MHz (No USB)
+menu.speed.2nousb.name=2 MHz (No USB)
+menu.speed.168.build.f_cpu=168000000
+menu.speed.144.build.f_cpu=144000000
+menu.speed.120.build.f_cpu=120000000
+menu.speed.96.build.f_cpu=96000000
+menu.speed.72.build.f_cpu=72000000
+menu.speed.48.build.f_cpu=48000000
+menu.speed.24.build.f_cpu=24000000
+menu.speed.16nousb.build.f_cpu=16000000
+menu.speed.8nousb.build.f_cpu=8000000
+menu.speed.4nousb.build.f_cpu=4000000
+menu.speed.2nousb.build.f_cpu=2000000
+menu.keys.en-us.name=US English
+menu.keys.en-us.build.define1=-DLAYOUT_US_ENGLISH
+menu.keys.fr-ca.name=Canadian French
+menu.keys.fr-ca.build.define1=-DLAYOUT_CANADIAN_FRENCH
+menu.keys.xx-ca.name=Canadian Multilingual
+menu.keys.xx-ca.build.define1=-DLAYOUT_CANADIAN_MULTILINGUAL
+menu.keys.cz-cz.name=Czech
+menu.keys.cz-cz.build.define1=-DLAYOUT_CZECH
+menu.keys.da-da.name=Danish
+menu.keys.da-da.build.define1=-DLAYOUT_DANISH
+menu.keys.fi-fi.name=Finnish
+menu.keys.fi-fi.build.define1=-DLAYOUT_FINNISH
+menu.keys.fr-fr.name=French
+menu.keys.fr-fr.build.define1=-DLAYOUT_FRENCH
+menu.keys.fr-be.name=French Belgian
+menu.keys.fr-be.build.define1=-DLAYOUT_FRENCH_BELGIAN
+menu.keys.fr-ch.name=French Swiss
+menu.keys.fr-ch.build.define1=-DLAYOUT_FRENCH_SWISS
+menu.keys.de-de.name=German
+menu.keys.de-de.build.define1=-DLAYOUT_GERMAN
+menu.keys.de-dm.name=German (Mac)
+menu.keys.de-dm.build.define1=-DLAYOUT_GERMAN_MAC
+menu.keys.de-ch.name=German Swiss
+menu.keys.de-ch.build.define1=-DLAYOUT_GERMAN_SWISS
+menu.keys.is-is.name=Icelandic
+menu.keys.is-is.build.define1=-DLAYOUT_ICELANDIC
+menu.keys.en-ie.name=Irish
+menu.keys.en-ie.build.define1=-DLAYOUT_IRISH
+menu.keys.it-it.name=Italian
+menu.keys.it-it.build.define1=-DLAYOUT_ITALIAN
+menu.keys.no-no.name=Norwegian
+menu.keys.no-no.build.define1=-DLAYOUT_NORWEGIAN
+menu.keys.pt-pt.name=Portuguese
+menu.keys.pt-pt.build.define1=-DLAYOUT_PORTUGUESE
+menu.keys.pt-br.name=Portuguese Brazilian
+menu.keys.pt-br.build.define1=-DLAYOUT_PORTUGUESE_BRAZILIAN
+menu.keys.es-es.name=Spanish
+menu.keys.es-es.build.define1=-DLAYOUT_SPANISH
+menu.keys.es-mx.name=Spanish Latin America
+menu.keys.es-mx.build.define1=-DLAYOUT_SPANISH_LATIN_AMERICA
+menu.keys.sv-se.name=Swedish
+menu.keys.sv-se.build.define1=-DLAYOUT_SWEDISH
+menu.keys.tr-tr.name=Turkish (partial)
+menu.keys.tr-tr.build.define1=-DLAYOUT_TURKISH
+menu.keys.en-gb.name=United Kingdom
+menu.keys.en-gb.build.define1=-DLAYOUT_UNITED_KINGDOM
+menu.keys.usint.name=US International
+menu.keys.usint.build.define1=-DLAYOUT_US_INTERNATIONAL
+runtime.ide.path=C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2
+build.system.path=C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2\hardware\teensy\system
+runtime.ide.version=105
+originalid=teensy31
+intellisense.include.paths.more={build.core.vmresolved}\utils;{build.core.vmresolved}\avr;
+vm.platform.root.path=C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\teensy
+ide.location.key=Teensy
+ide.location.ide.winreg=Teensy Application
+ide.location.sketchbook.winreg=Teensy Sketchbook
+ide.location.sketchbook.preferences=sketchbook.path
+ide.location.preferences=%VM_APPDATA_ROAMING%\arduino\preferences.txt
+ide.location.sketchbook.default=%MYDOCUMENTS%\arduino
+ide.default.package=teensy
+ide.default.platform=avr
+ide.multiplatform=true
+ide.includes=arduino.h
+ide.platformswithoutpackage=true
+ide.extension=ino
+ide.extension.fallback=pde
+ide.includes.fallback=wprogram.h
+ide.exe=arduino.exe
+ide.url=http://www.pjrc.com/teensy/td_download.html
+vm.debug=true
+ide.hosts=atmel
+software=ARDUINO
+upload.serial_ignore=true
+ide.appid=teensy
+location.sketchbook=C:\Users\7002815\Documents\Arduino
+vm.core.include=arduino.h
+build.board=AVR_TEENSY31
+vm.boardsource.path=C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2\hardware\teensy
+runtime.platform.path=C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2\hardware\teensy
+vm.platformname.name=avr
+build.arch=AVR
+</arduino.board.property_bag>
+        <arduino.build.mcu>mk20dx256</arduino.build.mcu>
+        <arduino.build.core>teensy3</arduino.build.core>
+        <arduino.upload.protocol>halfkay</arduino.upload.protocol>
+        <arduino.upload.speed>12000000</arduino.upload.speed>
+        <arduino.upload.maximum_size>262144</arduino.upload.maximum_size>
+        <visualmicro.application.name>teensy</visualmicro.application.name>
+        <visualmicro.package.name>teensy</visualmicro.package.name>
+        <visualmicro.platform.name>avr</visualmicro.platform.name>
+      </VisualMicroSettings>
+    </VisualMicroSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
@@ -218,7 +386,175 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;../../Root;../../LaserArch;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI/utility;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811/utility;C:/Users/7002815/Documents/Arduino/libraries/MIDI;C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;../../Root;../../LaserArch;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI/utility;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811/utility;C:/Users/7002815/Documents/Arduino/libraries/MIDI;C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility;C:/Users/7002815/Documents/Arduino/libraries/FastLED;C:/Users/7002815/Documents/Arduino/libraries/FastLED/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/cores/arduino;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/variants/standard;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/libraries;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/avr/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/lib/gcc/avr/4.3.2/include/;</VMSETTING_IncludePaths>
+    <VisualMicroSettings>
+      <VisualMicroSettings>
+        <arduino.board.name>teensy31</arduino.board.name>
+        <arduino.board.desc>Teensy 3.1</arduino.board.desc>
+        <arduino.board.property_bag>name=Teensy 3.1
+upload.protocol=halfkay
+upload.maximum_size=262144
+upload.maximum_ram_size=65536
+upload.speed=12000000
+upload.disable_flushing=true
+bootloader.path=undefined
+serial.restart_cmd=true
+serial.safe_baud_rates_only=true
+upload.avrdude_wrapper=teensy_reboot
+build.mcu=mk20dx256
+build.cpu=cortex-m4
+build.option1=-mthumb
+build.option2=-nostdlib
+build.option3=-D__MK20DX256__
+build.option4=-DTEENSYDUINO=120
+build.option5=-DF_CPU=96000000
+build.option6=-DUSB_SERIAL
+build.option7=-DLAYOUT_US_ENGLISH
+build.cppoption1=-fno-rtti
+build.linkoption1=-mthumb
+build.additionalobject1=-larm_cortexM4l_math
+build.linkscript=mk20dx256.ld
+build.architecture=arm-none-eabi
+build.command.gcc=arm-none-eabi-gcc
+build.command.g++=arm-none-eabi-g++
+build.command.ar=arm-none-eabi-ar
+build.command.objcopy=arm-none-eabi-objcopy
+build.command.objdump=arm-none-eabi-objdump
+build.command.size=arm-none-eabi-size
+build.core=teensy3
+build.elide_constructors=true
+build.gnu0x=true
+build.dependency=true
+build.time_t=true
+build.post_compile_script=teensy_post_compile
+menu.usb.serial.name=Serial
+menu.usb.serial.build.define0=-DUSB_SERIAL
+menu.usb.hid.name=Keyboard + Mouse + Joystick
+menu.usb.hid.build.define0=-DUSB_HID
+menu.usb.hid.fake_serial=teensy_gateway
+menu.usb.serialhid.name=Serial + Keyboard + Mouse + Joystick
+menu.usb.serialhid.build.define0=-DUSB_SERIAL_HID
+menu.usb.midi.name=MIDI
+menu.usb.midi.build.define0=-DUSB_MIDI
+menu.usb.midi.fake_serial=teensy_gateway
+menu.usb.rawhid.name=Raw HID
+menu.usb.rawhid.build.define0=-DUSB_RAWHID
+menu.usb.rawhid.fake_serial=teensy_gateway
+menu.usb.flightsim.name=Flight Sim Controls
+menu.usb.flightsim.build.define0=-DUSB_FLIGHTSIM
+menu.usb.flightsim.fake_serial=teensy_gateway
+menu.speed.96.name=96 MHz (overclock)
+menu.speed.72.name=72 MHz
+menu.speed.48.name=48 MHz
+menu.speed.24.name=24 MHz
+menu.speed.16nousb.name=16 MHz (No USB)
+menu.speed.8nousb.name=8 MHz (No USB)
+menu.speed.4nousb.name=4 MHz (No USB)
+menu.speed.2nousb.name=2 MHz (No USB)
+menu.speed.168.build.f_cpu=168000000
+menu.speed.144.build.f_cpu=144000000
+menu.speed.120.build.f_cpu=120000000
+menu.speed.96.build.f_cpu=96000000
+menu.speed.72.build.f_cpu=72000000
+menu.speed.48.build.f_cpu=48000000
+menu.speed.24.build.f_cpu=24000000
+menu.speed.16nousb.build.f_cpu=16000000
+menu.speed.8nousb.build.f_cpu=8000000
+menu.speed.4nousb.build.f_cpu=4000000
+menu.speed.2nousb.build.f_cpu=2000000
+menu.keys.en-us.name=US English
+menu.keys.en-us.build.define1=-DLAYOUT_US_ENGLISH
+menu.keys.fr-ca.name=Canadian French
+menu.keys.fr-ca.build.define1=-DLAYOUT_CANADIAN_FRENCH
+menu.keys.xx-ca.name=Canadian Multilingual
+menu.keys.xx-ca.build.define1=-DLAYOUT_CANADIAN_MULTILINGUAL
+menu.keys.cz-cz.name=Czech
+menu.keys.cz-cz.build.define1=-DLAYOUT_CZECH
+menu.keys.da-da.name=Danish
+menu.keys.da-da.build.define1=-DLAYOUT_DANISH
+menu.keys.fi-fi.name=Finnish
+menu.keys.fi-fi.build.define1=-DLAYOUT_FINNISH
+menu.keys.fr-fr.name=French
+menu.keys.fr-fr.build.define1=-DLAYOUT_FRENCH
+menu.keys.fr-be.name=French Belgian
+menu.keys.fr-be.build.define1=-DLAYOUT_FRENCH_BELGIAN
+menu.keys.fr-ch.name=French Swiss
+menu.keys.fr-ch.build.define1=-DLAYOUT_FRENCH_SWISS
+menu.keys.de-de.name=German
+menu.keys.de-de.build.define1=-DLAYOUT_GERMAN
+menu.keys.de-dm.name=German (Mac)
+menu.keys.de-dm.build.define1=-DLAYOUT_GERMAN_MAC
+menu.keys.de-ch.name=German Swiss
+menu.keys.de-ch.build.define1=-DLAYOUT_GERMAN_SWISS
+menu.keys.is-is.name=Icelandic
+menu.keys.is-is.build.define1=-DLAYOUT_ICELANDIC
+menu.keys.en-ie.name=Irish
+menu.keys.en-ie.build.define1=-DLAYOUT_IRISH
+menu.keys.it-it.name=Italian
+menu.keys.it-it.build.define1=-DLAYOUT_ITALIAN
+menu.keys.no-no.name=Norwegian
+menu.keys.no-no.build.define1=-DLAYOUT_NORWEGIAN
+menu.keys.pt-pt.name=Portuguese
+menu.keys.pt-pt.build.define1=-DLAYOUT_PORTUGUESE
+menu.keys.pt-br.name=Portuguese Brazilian
+menu.keys.pt-br.build.define1=-DLAYOUT_PORTUGUESE_BRAZILIAN
+menu.keys.es-es.name=Spanish
+menu.keys.es-es.build.define1=-DLAYOUT_SPANISH
+menu.keys.es-mx.name=Spanish Latin America
+menu.keys.es-mx.build.define1=-DLAYOUT_SPANISH_LATIN_AMERICA
+menu.keys.sv-se.name=Swedish
+menu.keys.sv-se.build.define1=-DLAYOUT_SWEDISH
+menu.keys.tr-tr.name=Turkish (partial)
+menu.keys.tr-tr.build.define1=-DLAYOUT_TURKISH
+menu.keys.en-gb.name=United Kingdom
+menu.keys.en-gb.build.define1=-DLAYOUT_UNITED_KINGDOM
+menu.keys.usint.name=US International
+menu.keys.usint.build.define1=-DLAYOUT_US_INTERNATIONAL
+runtime.ide.path=C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2
+build.system.path=C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2\hardware\teensy\system
+runtime.ide.version=105
+originalid=teensy31
+intellisense.include.paths.more={build.core.vmresolved}\utils;{build.core.vmresolved}\avr;
+vm.platform.root.path=C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\teensy
+ide.location.key=Teensy
+ide.location.ide.winreg=Teensy Application
+ide.location.sketchbook.winreg=Teensy Sketchbook
+ide.location.sketchbook.preferences=sketchbook.path
+ide.location.preferences=%VM_APPDATA_ROAMING%\arduino\preferences.txt
+ide.location.sketchbook.default=%MYDOCUMENTS%\arduino
+ide.default.package=teensy
+ide.default.platform=avr
+ide.multiplatform=true
+ide.includes=arduino.h
+ide.platformswithoutpackage=true
+ide.extension=ino
+ide.extension.fallback=pde
+ide.includes.fallback=wprogram.h
+ide.exe=arduino.exe
+ide.url=http://www.pjrc.com/teensy/td_download.html
+vm.debug=true
+ide.hosts=atmel
+software=ARDUINO
+upload.serial_ignore=true
+ide.appid=teensy
+location.sketchbook=C:\Users\7002815\Documents\Arduino
+vm.core.include=arduino.h
+build.board=AVR_TEENSY31
+vm.boardsource.path=C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2\hardware\teensy
+runtime.platform.path=C:\Users\7002815\Documents\Folder Programs\arduino-1.0.5-r2\hardware\teensy
+vm.platformname.name=avr
+build.arch=AVR
+</arduino.board.property_bag>
+        <arduino.build.mcu>mk20dx256</arduino.build.mcu>
+        <arduino.build.core>teensy3</arduino.build.core>
+        <arduino.upload.protocol>halfkay</arduino.upload.protocol>
+        <arduino.upload.speed>12000000</arduino.upload.speed>
+        <arduino.upload.maximum_size>262144</arduino.upload.maximum_size>
+        <visualmicro.application.name>teensy</visualmicro.application.name>
+        <visualmicro.package.name>teensy</visualmicro.package.name>
+        <visualmicro.platform.name>avr</visualmicro.platform.name>
+      </VisualMicroSettings>
+    </VisualMicroSettings>
   </PropertyGroup>
   <ItemGroup>
     <None Include="LaserArch.ino">
@@ -287,12 +623,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ArchTeensyPins.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="OctoWS2811Trevor.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="OctoWS2811Trevor.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="PrimaryDefines.h">

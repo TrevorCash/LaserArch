@@ -68,7 +68,7 @@ void PrintCharacteristicBuff()
 	 
 	 boolean isCalibrating;
 	 
-	 int32_t characteristicBuff[ARCH_CALIBRATOR_NUM_SAMPLES]= {0};
+	 int32_t characteristicBuff[ARCH_CALIBRATOR_NUM_SAMPLES];
 	 int32_t characteristicBuffMax;
 	 int32_t characteristicBuffMin;
 	 uint16_t characteristicBuffIndx;

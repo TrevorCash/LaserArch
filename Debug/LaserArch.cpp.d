@@ -32,8 +32,40 @@ C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\LaserAr
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/Arduino.h \
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/IntervalTimer.h \
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/DMAChannel.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/FastLED.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/fastled_config.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/led_sysdefs.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms/arm/k20/led_sysdefs_arm_k20.h \
+ C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/avr/io.h \
+ C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/avr/../avr_emulation.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/bitswap.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/controller.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/pixeltypes.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/lib8tion.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/color.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/fastpin.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/fastspi_types.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/./dmx.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms/arm/k20/fastled_arm_k20.h \
+ C:\Users\7002815\Documents\Arduino\libraries\FastLED/bitswap.h \
+ C:\Users\7002815\Documents\Arduino\libraries\FastLED/delay.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms/arm/k20/fastpin_arm_k20.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms/arm/k20/fastspi_arm_k20.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms/arm/k20/octows2811_controller.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms/arm/k20/smartmatrix_t3.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms/arm/k20/clockless_arm_k20.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/platforms/arm/k20/clockless_block_arm_k20.h \
+ C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\hardware\teensy\cores\teensy3/kinetis.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/hsv2rgb.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/colorutils.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/colorpalettes.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/noise.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/power_mgt.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/fastspi.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/fastspi_bitbang.h \
+ C:\Users\7002815\Documents\Arduino\libraries/FastLED/chipsets.h \
  C:\Users\7002815\Documents\Folder\ Programs\arduino-1.0.5-r2\libraries/MIDI/MIDI.h \
- C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\OctoWS2811Trevor.h \
  C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\PrimaryDefines.h \
  C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchMotor.h \
  C:\Users\7002815\AppData\Local\V.Micro\Arduino\Builds\LaserArch\teensy31\ArchTeensyPins.h \

@@ -11,6 +11,7 @@
 #include "ArchMath.h"
 #include "ArchMotor.h"
 
+
 //public methods:
 ArchAutoCalibrator::ArchAutoCalibrator(int ADC_ARDUINO_PIN, int DAC_ARDUINO_PIN, ArchMotor* Motor)
 {

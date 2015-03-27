@@ -3,8 +3,8 @@
 
 //Includes
 #include <i2c_t3/i2c_t3.h>
+#include <FastLED/FastLED.h>
 #include <MIDI/MIDI.h>
-#include "OctoWS2811Trevor.h"
 #include "PrimaryDefines.h"
 #include "ArchMotor.h"
 #include "ArchTeensyPins.h"
@@ -54,17 +54,8 @@ ArchFingerManager FingerManager(&BlobManager);
 ArchLCD OrbitalLCD;
 
 
-//Led Strip object
-const int ledsPerStrip = 144;
-
-DMAMEM int displayMemory[ledsPerStrip*6];
-int drawingMemory[ledsPerStrip*6];
-
-const int config = WS2811_GRB | WS2811_800kHz;
-
-OctoWS2811 LedStrip(ledsPerStrip, displayMemory, drawingMemory, config);
-
-
+//led strip globals
+CRGB LEDSTRIP_BUFF[144];
 
 //timers
 IntervalTimer SyncTimer;
@@ -126,9 +117,8 @@ void setup(void) {
 	
 	
 	//LED Strip Init
-	LedStrip.begin();
-	LedStrip.show();
-	
+	FastLED.addLeds<WS2812, LEDSTRIP_TEENSY_PIN, GRB>(LEDSTRIP_BUFF, 144);
+	FastLED.setDither(DISABLE_DITHER);
 	
 	#ifdef CORE_SYSTEM_TEST_MODE
 		SystemTestSetup();
@@ -249,17 +239,19 @@ void SystemTestLoop()
 				
 			}
 		}
-		//if(BlobManager.blobsArrayLastCycleSize)
-		//{	Serial.println("Blob Info:");
-			//int i;
-			//for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
-			//{
-				//Serial.print("Blob: ");
-				//Serial.println(i);
-				//Serial.print("Mid Time: ");
-				//Serial.println(BlobManager.lastBlobsArray[i].midTime);
-			//}
-		//}
+		if(BlobManager.blobsArrayLastCycleSize)
+		{	Serial.println("Blob Info:");
+			int i;
+			for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
+			{
+				Serial.print("Blob: ");
+				Serial.println(i);
+				Serial.print("Mid Time: ");
+				Serial.println(BlobManager.lastBlobsArray[i].midTime);
+				Serial.print("Angle(from last cycle): ");
+				Serial.println(MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].midTime));
+			}
+		}
 		//Serial.println(MainMotor.AveragePeriod());
 		//Serial.print(uint32_t(numNoteEdges),10);
 		//Serial.println("");
@@ -269,22 +261,30 @@ void SystemTestLoop()
 		
 		//Serial.println(MainMotor.AngleFromTicksAve(BlobManager.lastBlobsArray[0].midTime));
 		
-		int i;
-		  for (i=0; i < 144; i++) {
-			  LedStrip.setPixel(i, 0x0);
-		  }
-		  
-		  for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
-		  {
-			  int s = (MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].startTime) - 100)*(144.0/180);
-			  int e = (MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].endTime) - 100)*(144.0/180);
-			  for(int j = s; j <= e; j++)
-				LedStrip.setPixel(j,(e-s)*10,0,(s-e)*10);
-		    
-		  }
+		//int i;
+		////FastLED.clear();
+		//
+		//for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
+		//{
+			//int s = (MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].startTime) - 100)*(144.0/180);
+			//int e = (MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].endTime) - 100)*(144.0/180);
+			//for(int j = s; j <= e; j++)
+				//LEDSTRIP_BUFF[j] = CRGB::Red;
+			//
+		//}
+		//FastLED.clear(true);
+		LEDSTRIP_BUFF[50] = CRGB::RoyalBlue;
+		LEDSTRIP_BUFF[1] = CRGB::Green;
 		
-		while(LedStrip.busy()){};  
-		LedStrip.show();
+		LEDSTRIP_BUFF[25] = CRGB::Green;
+		FastLED.show();
+		delay(100);
+		
+		LEDSTRIP_BUFF[25] = CRGB::Blue;
+		FastLED.show();
+		delay(100);
+		  // Turn the LED on, then pause
+	
 		
 		//delay(100);
 }

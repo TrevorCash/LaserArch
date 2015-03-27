@@ -23,6 +23,8 @@
 
 #define MOTOR_PWM_TEENSY_PIN					6
 
+#define LEDSTRIP_TEENSY_PIN						2
+
 
 
 #endif /* ARCHTEENSYPINS_H_ */
