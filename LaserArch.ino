@@ -119,6 +119,7 @@ void setup(void) {
 	//LED Strip Init
 	FastLED.addLeds<WS2812, LEDSTRIP_TEENSY_PIN, GRB>(LEDSTRIP_BUFF, 144);
 	FastLED.setDither(DISABLE_DITHER);
+	FastLED.setBrightness(128);
 	
 	#ifdef CORE_SYSTEM_TEST_MODE
 		SystemTestSetup();
