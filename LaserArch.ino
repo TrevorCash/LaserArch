@@ -106,12 +106,9 @@ void setup(void) {
 	
 	
 	//Laser Pins
-	pinMode(BLUE_LASER_PWM_TEENSY_PIN,OUTPUT);
 	pinMode(GREEN_LASER_PWM_TEENSY_PIN,OUTPUT);
-	analogWriteFrequency(BLUE_LASER_PWM_TEENSY_PIN,ARCH_TIMER_0_PWM_FREQ);
 	analogWriteFrequency(GREEN_LASER_PWM_TEENSY_PIN,ARCH_TIMER_0_PWM_FREQ);
 	analogWriteFrequency(MOTOR_PWM_TEENSY_PIN,ARCH_TIMER_0_PWM_FREQ);
-	analogWrite(BLUE_LASER_PWM_TEENSY_PIN,0);
 	analogWrite(GREEN_LASER_PWM_TEENSY_PIN,0);
 	
 	//Dac output configure
@@ -197,34 +194,21 @@ void SystemTestLoop()
 			{
 				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_OFF);
 			}
-			else if(cmd == "blueon")
-			{
-				analogWrite(BLUE_LASER_PWM_TEENSY_PIN,BLUE_LASER_PWM_DUTY_CYCLE_ON);
-			}
-			else if(cmd == "blueoff")
-			{
-				analogWrite(BLUE_LASER_PWM_TEENSY_PIN,BLUE_LASER_PWM_DUTY_CYCLE_OFF);
-
-			}
 			else if(cmd == "lasersoff")
 			{
-				analogWrite(BLUE_LASER_PWM_TEENSY_PIN,BLUE_LASER_PWM_DUTY_CYCLE_OFF);
 				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_OFF);
 			}
 			else if(cmd == "laserson")
 			{
-				analogWrite(BLUE_LASER_PWM_TEENSY_PIN,BLUE_LASER_PWM_DUTY_CYCLE_ON);
 				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_ON);
 			}
 			else if(cmd == "alloff")
 			{
-				analogWrite(BLUE_LASER_PWM_TEENSY_PIN,0);
 				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,0);
 				MainMotor.Stop();
 			}
 			else if(cmd == "allon")
 			{
-				analogWrite(BLUE_LASER_PWM_TEENSY_PIN,BLUE_LASER_PWM_DUTY_CYCLE_ON);
 				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_ON);
 				MainMotor.Start();
 			}
