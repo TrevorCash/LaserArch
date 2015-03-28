@@ -16,14 +16,8 @@ ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager)
 {
 	this->blobManager = blobManager;
 	
-	numActiveFingers = 0;
-	lastActiveFinger = NULL;
-	activeFingersLL = NULL;
-	
-	inActiveFingersLL = fingerPool;
-	numInActiveFingers = MAX_FINGERS;
-	lastInActiveFinger = &fingerPool[MAX_FINGERS];
-	
+	connectedSize = 0;
+	unConnectedSize = MAX_BLOBS*MAX_FINGERS;
 } //ArchFingerManager
 
 // default destructor
@@ -114,4 +108,16 @@ void ArchFingerManager::Update()
 	
 	
 	blobManager->UnLockLastBlobArray();
+}
+
+
+
+
+void ArchFingerManager::OnFingerMoveX(uint32_t oldPos, uint32_t newPos, ArchFinger* finger)
+{
+	//notify NoteManager appropriatly
+}
+void ArchFingerManager::OnFingerMoveY(uint32_t oldWidth, uint32_t newWidth, ArchFinger* finger)
+{
+	//notify NoteManager appropriatly
 }

@@ -25,6 +25,10 @@ public:
 
 	void Update();//called from main loop;
 	
+	
+	void OnFingerMoveX(uint32_t oldPos, uint32_t newPos, ArchFinger* finger);
+	void OnFingerMoveY(uint32_t oldWidth, uint32_t newWidth, ArchFinger* finger);
+	
 
 protected:
 	ArchBlobManager* blobManager;
@@ -34,17 +38,15 @@ private:
 	
 	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
 	
-	ArchFinger* activeFingersLL;
-	uint8_t numActiveFingers;
-	ArchFinger* lastActiveFinger;
-	
-	ArchFinger* inActiveFingersLL;
-	uint8_t numInActiveFingers;
-	ArchFinger* lastInActiveFinger;
 	
 	
 	
-	ArchFingerBlobConnection connectionLinks[MAX_FINGERS*MAX_BLOBS];
+	
+	ArchFingerBlobConnection connected[MAX_FINGERS*MAX_BLOBS];
+	uint16_t connectedSize;
+	
+	ArchFingerBlobConnection unConnected[MAX_FINGERS*MAX_BLOBS];
+	uint16_t unConnectedSize;
 
 }; //ArchFingerManager
 
