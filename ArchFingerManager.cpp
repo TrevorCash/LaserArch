@@ -30,7 +30,7 @@ void ArchFingerManager::Update()
 {
 	blobManager->LockLastBlobArray();
 	
-	/*
+	
 	//for each FINGER
 		//make table of distances to each blob. with reference to the blob paired with the distance.
 	
@@ -39,17 +39,20 @@ void ArchFingerManager::Update()
 	uint8_t b;
 	for(b = 0; b < blobManager->blobsArrayLastCycleSize; b++)
 	{
-		ArchFinger* f;;
-		for(f = activeFingersLL; f != NULL; f = f->nextFinger)	
+		int f;
+		for(f = 0; f < MAX_FINGERS; f++)	
 		{ 
-			connectionLinks[b*f].distance = abs(f->centerTime - blobManager->lastBlobsArray[b].midTime);
-			connectionLinks[b*f].pBlob = &blobManager->lastBlobsArray[b];
-			connectionLinks[b*f].pFinger = f;
+			if(fingerPool[f].isActive)
+			{
+				connectionLinks[b*f].distance = abs(fingerPool[f].centerTime - blobManager->lastBlobsArray[b].midTime);
+				connectionLinks[b*f].pBlob = &blobManager->lastBlobsArray[b];
+				connectionLinks[b*f].pFinger = &fingerPool[f];
+			}
 		}
 	}
 	
 	//sort the connections by distance for only the active connections
-	quick_sort_fingerCon(connectionLinks,blobManager->blobsArrayLastCycleSize*numActiveFingers);
+	quick_sort_fingerCon(connectionLinks,blobManager->blobsArrayLastCycleSize*connectedSize);
 	
 	//since the list is sorted the lowest distances are on the top and we can move the fingers to their closest blob instantly!
 	int i;

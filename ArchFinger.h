@@ -25,7 +25,7 @@ public:
 	
 	uint32_t centerTime; //center of the finger in time
 	uint32_t timeWidth;//width of the finger in time
-	boolean isValid;
+	boolean isActive;
 	
 	ArchFinger* nextFinger;
 	ArchFinger* prevFinger;

@@ -41,7 +41,6 @@ private:
 	
 	
 	
-	
 	ArchFingerBlobConnection connected[MAX_FINGERS*MAX_BLOBS];
 	uint16_t connectedSize;
 	

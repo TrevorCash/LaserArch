@@ -13,7 +13,7 @@ ArchFinger::ArchFinger()
 {
 	centerTime = 0;
 	timeWidth = 0;
-	isValid = false;
+	isActive = false;
 	
 	nextFinger = NULL;
 	prevFinger = NULL;
