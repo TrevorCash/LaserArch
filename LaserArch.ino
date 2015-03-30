@@ -326,7 +326,8 @@ void OnNoteInterupt()
 //TIMER INTERUPTS
 void OnSyncTimerInterupt()
 {
-	//should never get called if motor is running AND lasers are on.
+	//should never get called if motor is running AND laser is on.  
+	//but if there is either a motor malfunction or laser malfunction this will trigger eventually.
 	//Serial.println("GACK!");
 }
 

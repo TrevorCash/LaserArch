@@ -38,14 +38,13 @@ private:
 	
 	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
 	
+	ArchFingerBlobConnection connectionLinks[MAX_BLOBS*MAX_FINGERS];
 	
+	uint8_t numActiveFingers;
 	
+	int32_t findUnactiveFinger();
+	int32_t findActiveFinger();
 	
-	ArchFingerBlobConnection connected[MAX_FINGERS*MAX_BLOBS];
-	uint16_t connectedSize;
-	
-	ArchFingerBlobConnection unConnected[MAX_FINGERS*MAX_BLOBS];
-	uint16_t unConnectedSize;
 
 }; //ArchFingerManager
 

@@ -16,8 +16,7 @@ ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager)
 {
 	this->blobManager = blobManager;
 	
-	connectedSize = 0;
-	unConnectedSize = MAX_BLOBS*MAX_FINGERS;
+	numActiveFingers = 0;
 } //ArchFingerManager
 
 // default destructor
@@ -30,6 +29,7 @@ void ArchFingerManager::Update()
 {
 	blobManager->LockLastBlobArray();
 	
+	uint8_t numBlobs = blobManager->blobsArrayLastCycleSize;
 	
 	//for each FINGER
 		//make table of distances to each blob. with reference to the blob paired with the distance.
@@ -37,7 +37,7 @@ void ArchFingerManager::Update()
 	
 	//compare the currently active "blobs" with currently active "fingers"
 	uint8_t b;
-	for(b = 0; b < blobManager->blobsArrayLastCycleSize; b++)
+	for(b = 0; b < numBlobs; b++)
 	{
 		int f;
 		for(f = 0; f < MAX_FINGERS; f++)	
@@ -50,70 +50,96 @@ void ArchFingerManager::Update()
 			}
 		}
 	}
-	
-	//sort the connections by distance for only the active connections
-	quick_sort_fingerCon(connectionLinks,blobManager->blobsArrayLastCycleSize*connectedSize);
-	
-	//since the list is sorted the lowest distances are on the top and we can move the fingers to their closest blob instantly!
-	int i;
-	for(i = 0; i < blobManager->blobsArrayLastCycleSize*numActiveFingers; i++)
-	{
-		connectionLinks[i].pFinger->centerTime = connectionLinks[i].pBlob->midTime;
-		connectionLinks[i].pFinger->timeWidth = connectionLinks[i].pBlob->widthTime;
-		
-		//MOVEMENT NOTIFICATION TO OTHER SUBSYSTEMS HERE!
-		
-		
-		if(i > (blobManager->blobsArrayLastCycleSize - 1))
-		{
-			//remove this finger from active list
-			ArchFinger* problemFinger = connectionLinks[i]->pFinger;
-			
-			//add to inactive list
-			lastInActiveFinger->nextFinger = problemFinger;
-			lastInActiveFinger = problemFinger;
-			numInActiveFingers++;
-			
-			//remove from active list
-			lastActiveFinger = problemFinger->nextFinger;
-			problemFinger->prevFinger.nextFinger = problemFinger->nextFinger;
-			numActiveFingers--;
-		}
-		else if(i > (numActiveFingers - 1))
-		{
-			//add finger to active list
-			ArchFinger* newFinger = lastInActiveFinger;
-			
-			lastInActiveFinger = lastActiveFinger->prevFinger;
-			
-			
-		}
-	}
-	
-	
-	
-	
-	//print for testing...
-	int f;
-	//Serial.println("Finger centers:");
-	for(f = 0; f < numActiveFingers; f++)
-	{
-		Serial.print("Finger: ");
-		Serial.println(f);
-		Serial.println(fingerPool[f].centerTime);
-	}
-	
-	
-	
-	
-	*/
-	
-	
-	
 	blobManager->UnLockLastBlobArray();
+
+	Serial.println("mark a");
+	//sort the connections by distance for only the active connections
+	quick_sort_fingerCon(connectionLinks,numBlobs*numActiveFingers);
+	
+	Serial.println("mark b");
+	//now that the existing connections are sorted, snap the active fingers to their new positions and invoke callbacks etc.
+	int c;
+	for(c = 0; c < numActiveFingers; c++)
+	{
+		connectionLinks[c].pFinger->centerTime = connectionLinks[c].pBlob->midTime;
+	}
+	
+	
+	//now evalute wether to make new fingers or delete finger.
+	while(numBlobs != numActiveFingers)
+	{
+		Serial.println(numBlobs);
+		Serial.println(numActiveFingers);
+		if(numBlobs > numActiveFingers)
+		{
+			//add a finger.
+		
+			//find a free finger
+			int32_t fingerIdx = findUnactiveFinger();
+			if(fingerIdx >= 0)
+			{
+				fingerPool[fingerIdx].isActive = true;
+				numActiveFingers++;
+			}
+			else
+				break;
+		
+		
+		}
+		else if(numBlobs < numActiveFingers)
+		{
+			//find a used finger
+			int32_t fingerIdx = findActiveFinger();
+			if(fingerIdx >= 0)
+			{
+				fingerPool[fingerIdx].isActive = false;
+				numActiveFingers--;
+			}
+			else
+				break;
+		}
+		//else were good!
+	}
+	
+	
+	
+	//test printing.
+	//int j = 0;
+	//Serial.print("numBLobs: ");
+	//Serial.println(numBlobs);
+	//Serial.print("numActiveFIngers: ");
+	//Serial.println(numActiveFingers);
+	//for(j = 0; j < numActiveFingers; j++)
+	//{
+		//Serial.print("Finger: "); Serial.println(j);
+		//Serial.println(fingerPool[j].centerTime);
+		//Serial.println(fingerPool[j].isActive);
+	//}
+	
 }
 
 
+int32_t ArchFingerManager::findUnactiveFinger()
+{
+		int s;
+		for(s = 0; s < MAX_FINGERS; s++)
+		{
+			if(!fingerPool[s].isActive)
+				return s;
+		}
+		return -1;
+}
+
+int32_t ArchFingerManager::findActiveFinger()
+{
+		int s;
+		for(s = 0; s < MAX_FINGERS; s++)
+		{
+			if(fingerPool[s].isActive)
+			return s;
+		}
+		return -1;
+}
 
 
 void ArchFingerManager::OnFingerMoveX(uint32_t oldPos, uint32_t newPos, ArchFinger* finger)
