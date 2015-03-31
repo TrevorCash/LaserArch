@@ -236,6 +236,11 @@ void SystemTestLoop()
 			{
 				OrbitalLCD.ClearScreen();
 			}
+			else if(cmd.startsWith("lcd:"))
+			{
+				
+				OrbitalLCD.SendText((char*)cmd.substring(4).c_str());
+			}
 		}
 		//if(BlobManager.blobsArrayLastCycleSize)
 		//{	Serial.println("Blob Info:");
