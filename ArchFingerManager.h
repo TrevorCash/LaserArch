@@ -42,8 +42,8 @@ private:
 	
 	uint8_t numActiveFingers;
 	
-	int32_t findUnactiveFinger();
-	int32_t findActiveFinger();
+	int32_t findUnValidFinger();
+	int32_t findValidFinger();
 	
 
 }; //ArchFingerManager

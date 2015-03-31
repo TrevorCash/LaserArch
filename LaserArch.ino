@@ -113,7 +113,7 @@ void setup(void) {
 	
 	//Dac output configure
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
-	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 300);
+	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 	
 	
 	
@@ -173,7 +173,7 @@ void SystemTestLoop()
 	//
 	//ArchInterfaceManager.Update();
 	
-	//FingerManager.Update();
+	FingerManager.Update();
 		//GetInputFromTerminal
 		while(Serial.available())
 		{
@@ -242,6 +242,11 @@ void SystemTestLoop()
 				OrbitalLCD.SendText((char*)cmd.substring(4).c_str());
 			}
 		}
+		//BlobManager.LockLastBlobArray();
+		//if(BlobManager.blobsArrayLastCycleSize != 1)
+		//Serial.println(BlobManager.blobsArrayLastCycleSize );
+		//
+		//BlobManager.UnLockLastBlobArray();
 		//if(BlobManager.blobsArrayLastCycleSize)
 		//{	Serial.println("Blob Info:");
 			//int i;

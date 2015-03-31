@@ -15,6 +15,7 @@ ArchBlobManager::ArchBlobManager(ArchMotor* pMotor)
 	blobsArrayCurIndx = 0;
 	blobsArrayCurSize = 0;
 	blobsArrayLastCycleSize = 0;
+	lastArrayHasBeenUsed = false;
 	
 	currentlyMidBlob = false;
 	
@@ -95,6 +96,7 @@ void ArchBlobManager::OnSyncInterupt(uint32_t currentTimerTime)
 		{
 			lastBlobsArray[i] = blobsArray[i];
 		}
+		lastArrayHasBeenUsed = false;
 	}
 	
 	

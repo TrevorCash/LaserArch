@@ -32,6 +32,8 @@ public:
 	void LockLastBlobArray();
 	void UnLockLastBlobArray();
 	boolean IsLastBlobArrayLocked();
+	boolean IsLastBlobArrayUsed(){return lastArrayHasBeenUsed;}
+	void UseLastBlobArray(){lastArrayHasBeenUsed = true;}
 	
 	
 	uint32_t CurrentNumberOfBlobs()
@@ -48,6 +50,7 @@ public:
 	uint8_t blobsArrayCurIndx;
 	uint8_t blobsArrayCurSize;
 	uint8_t blobsArrayLastCycleSize;//size of the final array last cycle.
+	boolean lastArrayHasBeenUsed;
 	boolean currentlyMidBlob;
 
 private:

@@ -25,11 +25,13 @@ public:
 	
 	uint32_t centerTime; //center of the finger in time
 	uint32_t timeWidth;//width of the finger in time
-	boolean isActive;
+	uint8_t validity;
 	
-	void Start(uint32_t time, uint32_t width);
-	void Update(uint32_t newTime, uint32_t newWidth);
-	void End();
+	
+	boolean IsFullyValid();
+	void Validate(uint32_t newTime, uint32_t newWidth);
+	void SuperValidate(uint32_t newTime, uint32_t newWidth);
+	void DeValidate();
 	
 	
 	

@@ -21,23 +21,19 @@ class ArchRawBlob
 
 	ArchRawBlob();
 	~ArchRawBlob();
-	boolean IsValid()
-	{
-		if(endTime == 0 || startTime == 0)
-			return false;
-		
-		return true;
-	}
 	void Begin(uint32_t startSyncTimerTime)
 	{
 		startTime = startSyncTimerTime;
 		
+		closestFinger = NULL;
 	}
 	void End(uint32_t endSyncTimerTime)
 	{
 		endTime = endSyncTimerTime;
 		midTime = (endTime + startTime)*0.5;
 		widthTime = startTime - endTime;
+		
+		closestFinger = NULL;
 	}
 public:
 	uint32_t startTime;

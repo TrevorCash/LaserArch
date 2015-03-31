@@ -47,7 +47,7 @@ void ArchAutoCalibrator::Update()
 void ArchAutoCalibrator::OnSyncInterupt(uint32_t currentTime)//call in the Sync Interuppt
 {
 	//Serial.println("AUto cal sync triggered!");
-	notePhotoLevelAmbient = analogRead(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN);
+	notePhotoLevelAmbient = analogRead(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN)*2.63158;
 	//analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, notePhotoLevelAmbient*4 + 125);
 
 	characteristicBuffIndx = 0;
@@ -77,28 +77,17 @@ void ArchAutoCalibrator::OnCalibrationTimerInterupt()//call in the calib timer i
 	if(isCalibrating)
 	{
 		//take a sample and add to characteristicBuffer
-		characteristicBuff[characteristicBuffIndx] += (analogRead(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN) - notePhotoLevelAmbient)/ARCH_CALIBRATOR_NUM_AVERAGES;	
+		characteristicBuff[characteristicBuffIndx] += (analogRead(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN)*2.63158 - notePhotoLevelAmbient)/ARCH_CALIBRATOR_NUM_AVERAGES;	
 	}
 	else
 	{
 		//write to dac based off characteristicBuffer.
 		int32_t characteristicVal = characteristicBuff[characteristicBuffIndx];
-		int32_t passingThreshold = (characteristicBuffMax - characteristicBuffMin)*0.5 - 3000;
 		int32_t dacThreshold;
 		
-		
-		if(characteristicVal > passingThreshold)
-			dacThreshold = characteristicVal - 9000;
-		else
-			dacThreshold = characteristicVal;
-			////dacThreshold = (characteristicBuffMax - characteristicBuffMin)*0.4;
-		
-		//dacThreshold = (characteristicBuffMax + characteristicBuffMin)*0.5;
-		//dacThreshold = passingThreshold;
-		//if(dacThreshold < 0)
-			//dacThreshold = 0;	
+		dacThreshold = characteristicVal*0.7;
 			
-	//analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, (dacThreshold + notePhotoLevelAmbient) >> 4);
+		analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, (dacThreshold + notePhotoLevelAmbient) >> 4);
 		
 	}
 	

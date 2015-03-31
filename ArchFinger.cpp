@@ -7,13 +7,14 @@
 
 
 #include "ArchFinger.h"
+#include "PrimaryDefines.h"
 
 // default constructor
 ArchFinger::ArchFinger()
 {
 	centerTime = 0;
 	timeWidth = 0;
-	isActive = false;
+	validity = MIN_FINGER_VALIDITY;
 }//ArchFinger
 
 // default destructor
@@ -22,19 +23,31 @@ ArchFinger::~ArchFinger()
 } //~ArchFinger
 
 
-
-void ArchFinger::Start(uint32_t time, uint32_t width)
-{
-	centerTime = time;	
-	timeWidth = width;
-	isActive = true;
-}
-void ArchFinger::Update(uint32_t newTime, uint32_t newWidth)
+void ArchFinger::Validate(uint32_t newTime, uint32_t newWidth)
 {
 	centerTime = newTime;
 	timeWidth = newWidth;
+	validity++;
+	if(validity >= MAX_FINGER_VALIDITY)
+		validity = MAX_FINGER_VALIDITY;
+	
 }
-void ArchFinger::End()
+
+void ArchFinger::SuperValidate(uint32_t newTime, uint32_t newWidth)
 {
-	isActive = false;
+	centerTime = newTime;
+	timeWidth = newWidth;
+	validity = MAX_FINGER_VALIDITY;
+}
+
+
+void ArchFinger::DeValidate()
+{
+		validity--;
+		if(validity <= MIN_FINGER_VALIDITY)
+		validity = MIN_FINGER_VALIDITY;
+}
+boolean ArchFinger::IsFullyValid()
+{
+	return (validity >= FINGER_VALIDITY_THRESH);
 }
