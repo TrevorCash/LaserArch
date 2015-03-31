@@ -16,10 +16,15 @@
 #define CORE_SYSTEM_TEST_MODE
 
 //maximum number of blobss to track!
-#define  MAX_BLOBS 30
+#define MAX_BLOBS 30
 
 //maximum number of finger to track!
 #define MAX_FINGERS 15
+
+//maximum regions avalable.
+#define  MAX_REGIONS 100
+
+
 
 //angle offset of sync phototransistor (use this to counter time constant or physical offset of the sync photo-transistor
 #define SYNC_PHYSICAL_OFFSET_DEGREES 0
@@ -31,10 +36,6 @@
 //global analog write resolution
 #define ANALOG_WRITE_RES 12
 #define ANALOG_WRITE_MAXVAL ((1 << ANALOG_WRITE_RES) - 1)
-
-
-
-
 
 //PWM Frequencies
 #define ARCH_TIMER_0_PWM_FREQ 250000

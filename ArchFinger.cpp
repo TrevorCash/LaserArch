@@ -14,12 +14,27 @@ ArchFinger::ArchFinger()
 	centerTime = 0;
 	timeWidth = 0;
 	isActive = false;
-	
-	nextFinger = NULL;
-	prevFinger = NULL;
 }//ArchFinger
 
 // default destructor
 ArchFinger::~ArchFinger()
 {
 } //~ArchFinger
+
+
+
+void ArchFinger::Start(uint32_t time, uint32_t width)
+{
+	centerTime = time;	
+	timeWidth = width;
+	isActive = true;
+}
+void ArchFinger::Update(uint32_t newTime, uint32_t newWidth)
+{
+	centerTime = newTime;
+	timeWidth = newWidth;
+}
+void ArchFinger::End()
+{
+	isActive = false;
+}

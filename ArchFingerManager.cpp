@@ -27,95 +27,18 @@ ArchFingerManager::~ArchFingerManager()
 
 void ArchFingerManager::Update()
 {
+	//as long as we are referencing the blobs we want to "lock them" so they dont change midway through 
+	//due to intterupts!
 	blobManager->LockLastBlobArray();
 	
 	uint8_t numBlobs = blobManager->blobsArrayLastCycleSize;
 	
-	//for each FINGER
-		//make table of distances to each blob. with reference to the blob paired with the distance.
 	
 	
-	//compare the currently active "blobs" with currently active "fingers"
-	uint8_t b;
-	for(b = 0; b < numBlobs; b++)
-	{
-		int f;
-		for(f = 0; f < MAX_FINGERS; f++)	
-		{ 
-			if(fingerPool[f].isActive)
-			{
-				connectionLinks[b*f].distance = abs(fingerPool[f].centerTime - blobManager->lastBlobsArray[b].midTime);
-				connectionLinks[b*f].pBlob = &blobManager->lastBlobsArray[b];
-				connectionLinks[b*f].pFinger = &fingerPool[f];
-			}
-		}
-	}
+	
+	
+	
 	blobManager->UnLockLastBlobArray();
-
-	Serial.println("mark a");
-	//sort the connections by distance for only the active connections
-	quick_sort_fingerCon(connectionLinks,numBlobs*numActiveFingers);
-	
-	Serial.println("mark b");
-	//now that the existing connections are sorted, snap the active fingers to their new positions and invoke callbacks etc.
-	int c;
-	for(c = 0; c < numActiveFingers; c++)
-	{
-		connectionLinks[c].pFinger->centerTime = connectionLinks[c].pBlob->midTime;
-	}
-	
-	
-	//now evalute wether to make new fingers or delete finger.
-	while(numBlobs != numActiveFingers)
-	{
-		Serial.println(numBlobs);
-		Serial.println(numActiveFingers);
-		if(numBlobs > numActiveFingers)
-		{
-			//add a finger.
-		
-			//find a free finger
-			int32_t fingerIdx = findUnactiveFinger();
-			if(fingerIdx >= 0)
-			{
-				fingerPool[fingerIdx].isActive = true;
-				numActiveFingers++;
-			}
-			else
-				break;
-		
-		
-		}
-		else if(numBlobs < numActiveFingers)
-		{
-			//find a used finger
-			int32_t fingerIdx = findActiveFinger();
-			if(fingerIdx >= 0)
-			{
-				fingerPool[fingerIdx].isActive = false;
-				numActiveFingers--;
-			}
-			else
-				break;
-		}
-		//else were good!
-	}
-	
-	
-	
-	//test printing.
-	//int j = 0;
-	//Serial.print("numBLobs: ");
-	//Serial.println(numBlobs);
-	//Serial.print("numActiveFIngers: ");
-	//Serial.println(numActiveFingers);
-	//for(j = 0; j < numActiveFingers; j++)
-	//{
-		//Serial.print("Finger: "); Serial.println(j);
-		//Serial.println(fingerPool[j].centerTime);
-		//Serial.println(fingerPool[j].isActive);
-	//}
-	
 }
 
 

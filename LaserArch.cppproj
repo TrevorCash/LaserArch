@@ -286,6 +286,18 @@
     <Compile Include="ArchRawBlob.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ArchRegion.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchRegion.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchRegionManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchRegionManager.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ArchTeensyPins.h">
       <SubType>compile</SubType>
     </Compile>

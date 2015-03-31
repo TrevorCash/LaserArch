@@ -27,8 +27,11 @@ public:
 	uint32_t timeWidth;//width of the finger in time
 	boolean isActive;
 	
-	ArchFinger* nextFinger;
-	ArchFinger* prevFinger;
+	void Start(uint32_t time, uint32_t width);
+	void Update(uint32_t newTime, uint32_t newWidth);
+	void End();
+	
+	
 	
 protected:
 private:
