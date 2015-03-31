@@ -118,8 +118,8 @@ void setup(void) {
 	
 	
 	//LCD init
-	//OrbitalLCD.Initialize();
-	//OrbitalLCD.ClearScreen();
+	OrbitalLCD.Initialize();
+	OrbitalLCD.ClearScreen();
 	
 	
 	//LED Strip Init
@@ -173,7 +173,7 @@ void SystemTestLoop()
 	//
 	//ArchInterfaceManager.Update();
 	
-	FingerManager.Update();
+	//FingerManager.Update();
 		//GetInputFromTerminal
 		while(Serial.available())
 		{
@@ -231,6 +231,10 @@ void SystemTestLoop()
 			else if(cmd == "blobinfo")
 			{
 				
+			}
+			else if (cmd == "clearthescreen")
+			{
+				OrbitalLCD.ClearScreen();
 			}
 		}
 		//if(BlobManager.blobsArrayLastCycleSize)

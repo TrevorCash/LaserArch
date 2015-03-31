@@ -88,6 +88,7 @@ char ArchLCD::ReadKey()
 //Makes a fast updatable label found at page 24 of ref manual for orbital lcd
 void ArchLCD::InitializeLabel(uint8_t ID, uint8_t LeftCord, uint8_t RightCord, uint8_t TopCord, uint8_t BottomCord, uint8_t VertAlign, uint8_t HorizAlign, uint16_t FontId, uint8_t BackGround, uint8_t CharSpacing)
 {
+	
 	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
 	Wire.write(0xFE);
 	Wire.write(45);
