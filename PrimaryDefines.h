@@ -21,8 +21,8 @@
 //maximum number of finger to track!
 #define MAX_FINGERS 15
 
-#define FINGER_VALIDITY_THRESH 10
-#define MAX_FINGER_VALIDITY 20
+#define FINGER_VALIDITY_THRESH 2
+#define MAX_FINGER_VALIDITY 4
 #define MIN_FINGER_VALIDITY 0
 
 //maximum regions avalable.

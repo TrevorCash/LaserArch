@@ -76,10 +76,12 @@ IntervalTimer SyncTimer;
 IntervalTimer CalibrationTimer;
 
 
-//misc
+//misc, temp
 volatile uint32_t syncTimerVal = 0;
 volatile uint32_t numNoteEdges = 0;
 volatile uint32_t numNoteEdgesCounter = 0;
+ArchRegion* debugRegion = NULL;
+
 
 
 void setup(void) {
@@ -166,22 +168,6 @@ void SystemTestSetup()
 
 void SystemTestLoop()
 {
-		////Simple LCD Test Ruitine
-		//char key = OrbitalLCD.ReadKey();
-		//while(key)
-		//{
-			//if(key == 'A')
-				//OrbitalLCD.ClearScreen();
-			////if(key == 'B')
-			////	OrbitalLCD.UpdateLabel(1,"duhhhh");
-				//
-			//OrbitalLCD.SendChar(key);
-			//
-			//key = OrbitalLCD.ReadKey();
-		//}
-	//
-	//
-	//ArchInterfaceManager.Update();
 	
 	FingerManager.Update();
 	LedManager.Update();
@@ -204,14 +190,6 @@ void SystemTestLoop()
 			else if(cmd == "greenoff")
 			{
 				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_OFF);
-			}
-			else if(cmd == "lasersoff")
-			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_OFF);
-			}
-			else if(cmd == "laserson")
-			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_ON);
 			}
 			else if(cmd == "alloff")
 			{
@@ -251,6 +229,35 @@ void SystemTestLoop()
 			{
 				
 				OrbitalLCD.SendText((char*)cmd.substring(4).c_str());
+			}
+			else if(cmd.startsWith("getregion:"))
+			{
+				float ang = cmd.substring(10).toFloat();
+				debugRegion = RegionManager.FindRegionAtAngle(ang);
+				if(debugRegion)
+				{
+					Serial.print("Region at Address: ");
+					Serial.print((int)debugRegion);
+					Serial.println(" Currently Selected.");
+					debugRegion->PrintInfo();
+				}
+				else
+				{
+					Serial.println("Unable To Find region! Non Selected!");
+				}
+			}
+			else if(cmd.startsWith("regionstart:"))
+			{
+				Serial.println("modifying...");
+				boolean success = RegionManager.ModifyRegionSpan(debugRegion, cmd.substring(12).toFloat(), debugRegion->endDeg, ArchRegionManager::RegionLinearStretch);
+				if(!success)
+					Serial.println("unableto modify region start...");
+			}
+			else if(cmd.startsWith("regionend:"))
+			{
+				boolean success = RegionManager.ModifyRegionSpan(debugRegion, debugRegion->startDeg, cmd.substring(12).toFloat(), ArchRegionManager::RegionLinearStretch);
+				if(!success)
+				Serial.println("unableto modify region end...");
 			}
 		}
 		//BlobManager.LockLastBlobArray();

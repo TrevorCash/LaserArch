@@ -15,13 +15,24 @@ class ArchRegion
 {
 //variables
 public:
+	//These functions DO NOT EFFECT Surrounding regions. Look in ArchRegionManager for that.
 	void UpdateAll(float startDeg, float endDeg, uint8_t red, uint8_t green, uint8_t blue);
 	void UpdateSpan(float startDeg, float endDeg);
 	void UpdateColors(uint8_t red, uint8_t green, uint8_t blue);
 	
+	
+	void PrintInfo()
+	{
+		Serial.print("startDeg: ");
+		Serial.println(startDeg);
+		Serial.print("endDeg: ");
+		Serial.println(endDeg);
+	}
+	
 	boolean IsValid;
 	
 	//core
+	uint32_t index;
 	float startDeg;
 	float endDeg;
 	uint8_t colorRed;

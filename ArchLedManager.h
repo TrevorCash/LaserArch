@@ -27,6 +27,8 @@ public:
 	
 	void Update();
 	
+	void Clear();
+	
 	uint8_t AngleToLedIdx(float angle)
 	{
 		

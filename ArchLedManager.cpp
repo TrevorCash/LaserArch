@@ -49,3 +49,12 @@ void ArchLedManager::Update()
 	while(ledStrip->busy()){};
 	ledStrip->show();
 }
+
+
+void ArchLedManager::Clear()
+{
+	int i;
+	for (i=0; i < 144; i++) {
+		ledStrip->setPixel(i, 0x0);
+	}
+}

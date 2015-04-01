@@ -17,6 +17,7 @@ ArchRegion::ArchRegion()
 	colorRed = 255;
 	colorGreen = 0;
 	colorBlue = 0;
+	index = 0;
 	
 	IsValid = false;
 	
@@ -30,7 +31,7 @@ ArchRegion::~ArchRegion()
 } //~ArchRegion
 
 
-//updates all parameters!!
+//updates all parameters!!  This DOES NOT EFFECT Surrounding regions. Look in ArchRegionManager for that.
 void ArchRegion::UpdateAll(float startDeg, float endDeg, uint8_t red, uint8_t green, uint8_t blue)
 {
 	this->startDeg = startDeg;
