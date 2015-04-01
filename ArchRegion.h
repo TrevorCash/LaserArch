@@ -19,13 +19,8 @@ public:
 	void UpdateSpan(float startDeg, float endDeg);
 	void UpdateColors(uint8_t red, uint8_t green, uint8_t blue);
 	
+	boolean IsValid;
 	
-	ArchRegion* prevRegion;
-	ArchRegion* nextRegion;
-	
-protected:
-private:
-
 	//core
 	float startDeg;
 	float endDeg;
@@ -33,9 +28,18 @@ private:
 	uint8_t colorGreen;
 	uint8_t colorBlue;
 	
-	
 	//computables
 	float widthDeg;
+	
+	ArchRegion* prevRegion;
+	ArchRegion* nextRegion;
+	
+protected:
+private:
+
+
+	
+	
 
 //functions
 public:

@@ -15,6 +15,7 @@
 #include "ArchBlobManager.h"
 #include "ArchRawBlob.h"
 #include "ArchFingerManager.h"
+#include "ArchLedManager.h"
 
 //Proto-types
 ////////////////////////////
@@ -54,15 +55,19 @@ ArchFingerManager FingerManager(&BlobManager);
 ArchLCD OrbitalLCD;
 
 
+//ArchRegionManager
+ArchRegionManager RegionManager(REJECTION_ANGLE_MIN_DEGREES,REJECTION_ANGLE_MAX_DEGREES);
+
+
 //Led Strip object
 const int ledsPerStrip = 144;
-
 DMAMEM int displayMemory[ledsPerStrip*6];
 int drawingMemory[ledsPerStrip*6];
-
 const int config = WS2811_GRB | WS2811_800kHz;
-
 OctoWS2811 LedStrip(ledsPerStrip, displayMemory, drawingMemory, config);
+
+
+ArchLedManager LedManager(&LedStrip, &RegionManager, &FingerManager);
 
 
 
@@ -116,6 +121,7 @@ void setup(void) {
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 	
 	
+	RegionManager.Initialize(20,REJECTION_ANGLE_MIN_DEGREES, REJECTION_ANGLE_MAX_DEGREES);
 	
 	//LCD init
 	OrbitalLCD.Initialize();
@@ -125,6 +131,10 @@ void setup(void) {
 	//LED Strip Init
 	LedStrip.begin();
 	LedStrip.show();
+	
+	
+	
+	
 	
 	
 	#ifdef CORE_SYSTEM_TEST_MODE
@@ -174,6 +184,7 @@ void SystemTestLoop()
 	//ArchInterfaceManager.Update();
 	
 	FingerManager.Update();
+	LedManager.Update();
 		//GetInputFromTerminal
 		while(Serial.available())
 		{
@@ -267,22 +278,7 @@ void SystemTestLoop()
 		
 		//Serial.println(MainMotor.AngleFromTicksAve(BlobManager.lastBlobsArray[0].midTime));
 		
-		int i;
-		  for (i=0; i < 144; i++) {
-			  LedStrip.setPixel(i, 0x0);
-		  }
-		  
-		  for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
-		  {
-			  int s = (MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].startTime) - 100)*(144.0/180);
-			  int e = (MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].endTime) - 100)*(144.0/180);
-			  for(int j = s; j <= e; j++)
-				LedStrip.setPixel(j,(e-s)*10,0,(s-e)*10);
-		    
-		  }
 		
-		while(LedStrip.busy()){};  
-		LedStrip.show();
 		
 		//delay(100);
 }

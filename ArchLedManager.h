@@ -11,6 +11,7 @@
 
 #include "ArchRegionManager.h"
 #include "ArchFingerManager.h"
+#include "OctoWS2811Trevor.h"
 
 class ArchLedManager
 {
@@ -21,12 +22,26 @@ private:
 
 //functions
 public:
-	ArchLedManager(ArchRegionManager* regionManager, ArchFingerManager* fingerManager);
+	ArchLedManager(OctoWS2811* ledObject, ArchRegionManager* regionManager, ArchFingerManager* fingerManager);
 	~ArchLedManager();
 	
 	void Update();
+	
+	uint8_t AngleToLedIdx(float angle)
+	{
+		
+		//TODO - should work with LED_ANGLE_COVERAGE and Centering to account for the actually angle coverage of the ledstrip.
+		float frac = 1.0 - (angle - regionManager->minDeg)/(regionManager->maxDeg - regionManager->minDeg);
+		
+		return frac*144;
+	}
+	
 protected:
 private:
+ArchRegionManager* regionManager;
+ArchFingerManager* fingerManager;
+OctoWS2811* ledStrip;
+
 
 }; //ArchLedManager
 

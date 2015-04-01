@@ -31,10 +31,15 @@ public:
 	void Initialize(uint8_t numRegions, float startDeg, float endDeg);
 	
 	
+	
+	ArchRegion* RegionList(){return regionListFirst;}
+	
 protected:
 private:
-	
+	ArchRegion* regionListFirst;
 	ArchRegion regionPool[MAX_REGIONS];
+	
+	ArchRegion* FindUnValidRegion();
 
 }; //ArchRegionManager
 

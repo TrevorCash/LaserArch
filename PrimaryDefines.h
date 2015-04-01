@@ -54,7 +54,12 @@
 #define ORBITAL_I2C_ADDRESS 0x28
 
 
+//Led Strip
+//how many degrees does the led strip cover
+#define LED_ANGLE_COVERAGE 160
 
+//is there any offset from center (positive <-> negative)
+#define LED_ANGLE_OFFSET 0
 
 
 

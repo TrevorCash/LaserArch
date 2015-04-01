@@ -20,6 +20,8 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#ifndef OCTOTREVOR_H
+#define OCTOTREVOR_H
 
 
 #include <Arduino.h>
@@ -72,3 +74,4 @@ private:
 	static void isr(void);
 };
 
+#endif

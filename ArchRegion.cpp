@@ -18,6 +18,8 @@ ArchRegion::ArchRegion()
 	colorGreen = 0;
 	colorBlue = 0;
 	
+	IsValid = false;
+	
 	prevRegion = NULL;
 	nextRegion = NULL;
 } //ArchRegion
