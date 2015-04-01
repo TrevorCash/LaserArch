@@ -33,8 +33,8 @@ public:
 	{
 		
 		//TODO - should work with LED_ANGLE_COVERAGE and Centering to account for the actually angle coverage of the ledstrip.
-		float frac = 1.0 - (angle - regionManager->minDeg)/(regionManager->maxDeg - regionManager->minDeg);
-		
+		float frac = (angle - regionManager->minDeg)/(regionManager->maxDeg - regionManager->minDeg);
+		Serial.println(frac);
 		return frac*144;
 	}
 	

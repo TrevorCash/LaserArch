@@ -18,6 +18,7 @@ class ArchRegionManager
 public:
 	enum RegionModifyMethod
 	{
+		RegionSingle,
 		RegionShift,
 		RegionLinearStretch	
 	};	
@@ -42,6 +43,10 @@ public:
 	//modifies a regions span, using the given modify method.  returns success (may fail if using shift method)(failure will still move regions, but may remove clipped parts).
 	boolean ModifyRegionSpan(ArchRegion* region, float newStartDeg, float newEndDeg, RegionModifyMethod method);
 	
+	boolean ModifyRegionStart(ArchRegion* region, float newStartDeg, RegionModifyMethod method);
+	boolean ModifyRegionEnd(ArchRegion* region, float newEndDeg, RegionModifyMethod method);
+	
+	
 	
 	//use to access region list. (user must use pointer loop)
 	ArchRegion* RegionList(){return regionListFirst;}
@@ -49,7 +54,7 @@ public:
 	//returns the region that contains the given angle, returns NULL if no region is found.	
 	ArchRegion* FindRegionAtAngle(float angle);
 	
-	
+	void PrintRegionInfo();
 	
 	
 protected:

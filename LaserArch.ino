@@ -230,6 +230,10 @@ void SystemTestLoop()
 				
 				OrbitalLCD.SendText((char*)cmd.substring(4).c_str());
 			}
+			else if(cmd == "regioninfo")
+			{
+				RegionManager.PrintRegionInfo();
+			}
 			else if(cmd.startsWith("getregion:"))
 			{
 				float ang = cmd.substring(10).toFloat();
@@ -240,18 +244,26 @@ void SystemTestLoop()
 					Serial.print((int)debugRegion);
 					Serial.println(" Currently Selected.");
 					debugRegion->PrintInfo();
+					debugRegion->UpdateColors(64,0,0);
 				}
 				else
 				{
 					Serial.println("Unable To Find region! Non Selected!");
 				}
 			}
-			else if(cmd.startsWith("regionstart:"))
+			else if(cmd.startsWith("regionstartsingle:"))
 			{
 				Serial.println("modifying...");
-				boolean success = RegionManager.ModifyRegionSpan(debugRegion, cmd.substring(12).toFloat(), debugRegion->endDeg, ArchRegionManager::RegionLinearStretch);
+				boolean success = RegionManager.ModifyRegionStart(debugRegion, cmd.substring(18).toFloat(), ArchRegionManager::RegionSingle);
 				if(!success)
-					Serial.println("unableto modify region start...");
+					Serial.println("unable to modify region start...");
+			}
+			else if(cmd.startsWith("regionstartstretch:"))
+			{
+				Serial.println("modifying...");
+				boolean success = RegionManager.ModifyRegionStart(debugRegion, cmd.substring(19).toFloat(), ArchRegionManager::RegionLinearStretch);
+				if(!success)
+				Serial.println("unable to modify region start...");
 			}
 			else if(cmd.startsWith("regionend:"))
 			{

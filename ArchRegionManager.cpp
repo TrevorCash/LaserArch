@@ -64,61 +64,104 @@ void ArchRegionManager::Initialize(uint8_t numRegions, float startDeg, float end
 
 boolean ArchRegionManager::ModifyRegionSpan(ArchRegion* region, float newStartDeg, float newEndDeg, RegionModifyMethod method)
 {
-	if(region == NULL)
-		return false;
-		
-	
-	if(newStartDeg == region->startDeg && newEndDeg == region->endDeg)
-		return true;
-
-
-	float startDelta = newStartDeg - region->startDeg;
-	float endDelta = newEndDeg - region->endDeg;
 	
 	
-	uint8_t numDownwardRegions = numRegions - region->index; 
-	float downwardDelta = startDelta/numDownwardRegions;
-	
-	if(method == RegionLinearStretch)
-	{
-		//handle regions of lesser degrees (downward)
-		if(region->prevRegion)
-		{
-			Serial.println("A");
-			region->startDeg = newStartDeg;
-			region->prevRegion->endDeg = newStartDeg;
-			
-			ArchRegion* curRegion = region->prevRegion;
-			while(curRegion)
-			{
-				Serial.println("B");
-				if(curRegion->index != 0)
-				{
-					Serial.println("C");
-					curRegion->startDeg += downwardDelta;
-				}
-				if(curRegion->prevRegion)
-				{
-					Serial.println("D");
-					curRegion->prevRegion->endDeg = curRegion->startDeg;
-				}
-				curRegion = curRegion->prevRegion;
-			}
-		
-		}
-		
-			
-	}
-	else if(method == RegionShift)
-	{
-		//Not Implemented	
-	}
-	
-	
-	
-	return true;
+	return false;
 }
 
+
+
+boolean ArchRegionManager::ModifyRegionStart(ArchRegion* region, float newStartDeg, RegionModifyMethod method)
+{
+	if(region == NULL)
+	return false;
+	
+	
+	if(newStartDeg == region->startDeg)
+		return true;
+	
+	//dont allow "flipping" of region.
+	if(newStartDeg >= region->endDeg)
+		return false;	
+	
+	//dont allow out of bounds
+	if(newStartDeg < minDeg || newStartDeg > maxDeg)
+		return false;
+
+
+	//final - initial
+	float startDelta = newStartDeg - region->startDeg;
+	float oldStartDeg = region->startDeg;
+
+
+	if(method == RegionSingle)
+	{
+		//change startdeg of this and prev region. as normal
+		if(region->prevRegion)
+		{
+			//dont allow
+			if(newStartDeg <= region->prevRegion->startDeg)
+				return false;
+				
+			region->prevRegion->endDeg = newStartDeg;	
+			
+		}
+		//Actually Set the start deg!
+		region->startDeg = newStartDeg;
+		return true;
+	}
+	else if(method == RegionLinearStretch)
+	{
+		uint8_t numRegionPrior = region->index;
+		uint8_t numEdgesPrior = numRegionPrior - 1;
+		
+		//change startdeg of this and prev region. as normal
+		if(region->prevRegion)
+		{
+			region->prevRegion->endDeg = newStartDeg;
+			//Actually Set the start deg!
+			region->startDeg = newStartDeg;
+		}
+		else
+		{
+			//Actually Set the start deg!
+			region->startDeg = newStartDeg;
+			return true;
+		}
+		
+		if(numRegionPrior <= 1)
+			return true;
+			
+		//now we know we have at least 2 regions behind us.	
+		float shiftPercent = (newStartDeg/(maxDeg - minDeg))/(oldStartDeg/(maxDeg - minDeg));
+		Serial.print("shift percent: ");
+		Serial.println(shiftPercent);
+		//ok lets do a loop down to 0
+		ArchRegion* curRegion = region->prevRegion;
+		while(curRegion)
+		{
+			Serial.println(curRegion->index);
+			float n = curRegion->startDeg*shiftPercent;
+			if(curRegion->prevRegion)
+			{
+				curRegion->startDeg = n;
+				if(curRegion->prevRegion)
+				{
+					curRegion->prevRegion->endDeg = n;
+				}	
+			}
+			
+			curRegion = curRegion->prevRegion;
+		}
+		return true;	
+	}
+	
+	return false;
+}
+boolean ArchRegionManager::ModifyRegionEnd(ArchRegion* region, float newEndDeg, RegionModifyMethod method)
+{
+	
+}
 
 
 
@@ -150,4 +193,25 @@ ArchRegion* ArchRegionManager::FindRegionAtAngle(float angle)
 	}
 	
 	return NULL;
+}
+
+
+
+void ArchRegionManager::PrintRegionInfo()
+{
+	Serial.println("Region Info:");
+	ArchRegion* curRegion = regionListFirst;
+	while(curRegion != NULL)
+	{
+		
+		Serial.print("Region: ");
+		Serial.println(curRegion->index);
+		Serial.print("StartDeg: ");
+		Serial.print(curRegion->startDeg);
+		Serial.print("  EndDeg: ");
+		Serial.println(curRegion->endDeg);
+		
+		curRegion = curRegion->nextRegion;
+	}
+	
 }
