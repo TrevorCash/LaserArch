@@ -52,20 +52,10 @@ boolean ArchBlobManager::IsLastBlobArrayLocked()
 //called when there is a rising or falling edge out of the note comparitor.
 //KEEP AS SHORT AS POSSIBLE! - its in an interupt!
 void ArchBlobManager::OnNoteInterupt(uint32_t currentTimerTime, boolean rising)
-{	
-	//ignore activity outside of rejection
-	if(currentTimerTime < pMotor->TicksFromAngleAve(REJECTION_ANGLE_MIN_DEGREES))
-		return;
-	if(currentTimerTime > pMotor->TicksFromAngleAve(REJECTION_ANGLE_MAX_DEGREES))
-		return;
-	
-	//
-	
+{		
 	if(rising)
 	{
 		currentlyMidBlob = true;
-		ArchRawBlob blob;
-		blobsArray[blobsArrayCurIndx] = blob;
 		blobsArray[blobsArrayCurIndx].Begin(currentTimerTime);
 	}
 	else if(!rising && currentlyMidBlob)// if falling
@@ -85,6 +75,13 @@ void ArchBlobManager::OnNoteInterupt(uint32_t currentTimerTime, boolean rising)
 
 void ArchBlobManager::OnSyncInterupt(uint32_t currentTimerTime)
 {
+	//we want to ignore the "half blob" that is the out of arch region.
+	if(currentlyMidBlob)
+	{
+		blobsArrayCurSize--;
+		blobsArrayCurIndx--;
+	}
+	
 	//save the current blobs into the "lastBlobArray" which is a buffer for holding the values 
 	//of all the blobs last cycle - this should be used by any process in the mainloop program flow as
 	//it is not continually changing. - this only updates if it ISNT LOCKED.  

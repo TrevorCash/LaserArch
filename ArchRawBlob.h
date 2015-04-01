@@ -24,7 +24,6 @@ class ArchRawBlob
 	void Begin(uint32_t startSyncTimerTime)
 	{
 		startTime = startSyncTimerTime;
-		
 		closestFinger = NULL;
 	}
 	void End(uint32_t endSyncTimerTime)
