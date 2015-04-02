@@ -10,11 +10,13 @@
 #include "ArchRawBlob.h"
 #include "ArchFingerBlobConnection.h"
 #include "ArchMath.h"
+#include "ArchNoteManager.h"
 
 // default constructor
-ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager)
+ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager)
 {
 	this->blobManager = blobManager;
+	this->noteManager = noteManager;
 	
 	numActiveFingers = 0;
 } //ArchFingerManager
@@ -72,13 +74,16 @@ void ArchFingerManager::Update()
 		{
 			////move finger.
 			fingerPool[f].Validate(minBlob->midTime,minBlob->widthTime);
+			noteManager->OnFingerMove(&fingerPool[f]);
 			minBlob->closestFinger = &fingerPool[f];
 		}
 		else
 		{
 			fingerPool[f].DeValidate();
 			if(!fingerPool[f].IsFullyValid())
-				Serial.println("OFF");
+			{
+				noteManager->OnFingerStop(&fingerPool[f]);
+			}
 		}
 	}
 	
@@ -91,8 +96,10 @@ void ArchFingerManager::Update()
 		int32_t f = findUnValidFinger();
 		if(f >= 0 )
 		{
+			//turn finger on!
 			fingerPool[f].SuperValidate(blobManager->lastBlobsArray[b].midTime, blobManager->lastBlobsArray[b].widthTime);
-			Serial.println("ON");
+			noteManager->OnFingerStart(&fingerPool[f]);
+			
 			blobManager->lastBlobsArray[b].closestFinger = &fingerPool[f];
 		}
 		else
@@ -128,12 +135,3 @@ int32_t ArchFingerManager::findValidFinger()
 		return -1;
 }
 
-
-void ArchFingerManager::OnFingerMoveX(uint32_t oldPos, uint32_t newPos, ArchFinger* finger)
-{
-	//notify NoteManager appropriatly
-}
-void ArchFingerManager::OnFingerMoveY(uint32_t oldWidth, uint32_t newWidth, ArchFinger* finger)
-{
-	//notify NoteManager appropriatly
-}

@@ -10,6 +10,7 @@
 #define __ARCHFINGER_H__
 
 #include "Arduino.h"
+#include "ArchRegion.h"
 
 class ArchFinger
 {
@@ -25,7 +26,25 @@ public:
 	
 	uint32_t centerTime; //center of the finger in time
 	uint32_t timeWidth;//width of the finger in time
+	
+	uint32_t centerTimePrev; 
+	uint32_t timeWidthPrev;
+	
+	
+	
+
+	ArchRegion* curRegion;
+	ArchRegion* lastRegion;	
+	
+	
+	
+	
+	
+	
+	
 	uint8_t validity;
+	
+	//Finger's Midi Note Data
 	
 	
 	boolean IsFullyValid();

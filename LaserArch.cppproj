@@ -286,6 +286,12 @@
     <Compile Include="ArchBlobManager.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ArchNoteManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchNoteManager.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ArchRawBlob.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -305,6 +311,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ArchTeensyPins.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MIDINoteDefines.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="OctoWS2811Trevor.cpp">

@@ -9,10 +9,12 @@
 #include "ArchRegionManager.h"
 
 // default constructor
-ArchRegionManager::ArchRegionManager(float minDeg, float maxDeg)
+ArchRegionManager::ArchRegionManager(float minDeg, float maxDeg, ArchMotor* motor)
 {
 	this->minDeg = minDeg;
 	this->maxDeg = maxDeg;
+	
+	this->motor = motor;
 	
 	regionListFirst = NULL;
 	numRegions = 0;

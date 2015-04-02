@@ -13,29 +13,26 @@
 #include "ArchFinger.h"
 #include "Arduino.h"
 #include "ArchFingerBlobConnection.h"
-
+#include "ArchNoteManager.h"
 
 class ArchFingerManager
 {
 
 //functions
 public:
-	ArchFingerManager(ArchBlobManager* blobManager);
+	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager);
 	~ArchFingerManager();
 
 	void Update();//called from main loop;
 	
 	
-	void OnFingerMoveX(uint32_t oldPos, uint32_t newPos, ArchFinger* finger);
-	void OnFingerMoveY(uint32_t oldWidth, uint32_t newWidth, ArchFinger* finger);
-	
+	void OnFingerMove(uint32_t oldStart, uint32_t oldEnd, ArchFinger* finger);
+
 
 protected:
 	ArchBlobManager* blobManager;
+	ArchNoteManager* noteManager;
 private:
-	ArchFingerManager( const ArchFingerManager &c );
-	ArchFingerManager& operator=( const ArchFingerManager &c );
-	
 	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
 	
 	ArchFingerBlobConnection connectionLinks[MAX_BLOBS*MAX_FINGERS];

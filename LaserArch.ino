@@ -16,6 +16,7 @@
 #include "ArchRawBlob.h"
 #include "ArchFingerManager.h"
 #include "ArchLedManager.h"
+#include "ArchNoteManager.h"
 
 //Proto-types
 ////////////////////////////
@@ -45,9 +46,17 @@ ArchAutoCalibrator NoteSensorCalibrator(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN,
 //make a note region manager to manage the dynamic note regions.
 ArchBlobManager BlobManager(&MainMotor);
 
+//ArchRegionManager
+ArchRegionManager RegionManager(REJECTION_ANGLE_MIN_DEGREES,REJECTION_ANGLE_MAX_DEGREES, &MainMotor);
+
+
+//make the note manager.
+ArchNoteManager NoteManager(&RegionManager);
+
+
 
 //make a fingers manager - manage finger tracking.
-ArchFingerManager FingerManager(&BlobManager);
+ArchFingerManager FingerManager(&BlobManager, &NoteManager);
 
 
 
@@ -55,8 +64,7 @@ ArchFingerManager FingerManager(&BlobManager);
 ArchLCD OrbitalLCD;
 
 
-//ArchRegionManager
-ArchRegionManager RegionManager(REJECTION_ANGLE_MIN_DEGREES,REJECTION_ANGLE_MAX_DEGREES);
+
 
 
 //Led Strip object

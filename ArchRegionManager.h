@@ -11,6 +11,7 @@
 
 #include "ArchRegion.h"
 #include "PrimaryDefines.h"
+#include "ArchMotor.h"
 
 class ArchRegionManager
 {
@@ -31,7 +32,7 @@ private:
 
 //functions
 public:
-	ArchRegionManager(float minDeg, float maxDeg);
+	ArchRegionManager(float minDeg, float maxDeg, ArchMotor* motor);
 	~ArchRegionManager();
 	
 	float minDeg;
@@ -51,6 +52,9 @@ public:
 		
 	//returns the region that contains the given angle, returns NULL if no region is found.	
 	ArchRegion* FindRegionAtAngle(float angle);
+	ArchRegion* FindRegionAtTick(uint32_t tick){ 
+		return FindRegionAtAngle(motor->AngleFromTicksLast(tick));
+	}
 	
 	//removed a region from the linked list, returns success.
 	boolean RemoveRegion(ArchRegion* region);
@@ -66,6 +70,8 @@ private:
 	ArchRegion* regionListFirst;
 	uint32_t numRegions;
 	ArchRegion regionPool[MAX_REGIONS];
+	
+	ArchMotor* motor;
 	
 	ArchRegion* FindUnValidRegion();
 	void ClearAllRegions();
