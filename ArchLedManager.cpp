@@ -37,12 +37,16 @@ void ArchLedManager::Update()
 	ArchRegion* curRegion = regionManager->RegionList();
 	while(curRegion != NULL)
 	{
-		int pixEnd = AngleToLedIdx(curRegion->startDeg);
-		int pixStart = AngleToLedIdx(curRegion->endDeg);
+		int pixStart = AngleToLedIdx(curRegion->startDeg);
+		int pixEnd = AngleToLedIdx(curRegion->endDeg);
+		
 		int f;
 		for(f = pixStart; f < pixEnd; f++)
+		{
+			//Serial.println(f);
 			ledStrip->setPixel(f,curRegion->colorRed,curRegion->colorBlue,curRegion->colorGreen);
 		
+		}
 		curRegion = curRegion->nextRegion;
 	}
 	

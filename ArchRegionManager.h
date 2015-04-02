@@ -38,14 +38,12 @@ public:
 	float maxDeg;
 	
 	//Initializes initially to a "checkerboard state" with some preset colors and behalviors.
-	void Initialize(uint8_t numRegions, float startDeg, float endDeg);
+	void Initialize(uint8_t numReqRegions);
 	
 	//modifies a regions span, using the given modify method.  returns success (may fail if using shift method)(failure will still move regions, but may remove clipped parts).
 	boolean ModifyRegionSpan(ArchRegion* region, float newStartDeg, float newEndDeg, RegionModifyMethod method);
 	
-	boolean ModifyRegionStart(ArchRegion* region, float newStartDeg, RegionModifyMethod method);
-	boolean ModifyRegionEnd(ArchRegion* region, float newEndDeg, RegionModifyMethod method);
-	
+
 	
 	
 	//use to access region list. (user must use pointer loop)
@@ -53,6 +51,12 @@ public:
 		
 	//returns the region that contains the given angle, returns NULL if no region is found.	
 	ArchRegion* FindRegionAtAngle(float angle);
+	
+	//removed a region from the linked list, returns success.
+	boolean RemoveRegion(ArchRegion* region);
+	
+	//cleans up all regions with a zero width...
+	boolean CleanupZeroRegions();
 	
 	void PrintRegionInfo();
 	
@@ -64,6 +68,10 @@ private:
 	ArchRegion regionPool[MAX_REGIONS];
 	
 	ArchRegion* FindUnValidRegion();
+	void ClearAllRegions();
+	boolean ModifyRegionStart(ArchRegion* region, float newStartDeg, RegionModifyMethod method);
+	boolean ModifyRegionEnd(ArchRegion* region, float newEndDeg, RegionModifyMethod method);
+		
 
 }; //ArchRegionManager
 

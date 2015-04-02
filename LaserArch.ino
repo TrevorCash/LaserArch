@@ -123,7 +123,7 @@ void setup(void) {
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 	
 	
-	RegionManager.Initialize(20,REJECTION_ANGLE_MIN_DEGREES, REJECTION_ANGLE_MAX_DEGREES);
+	RegionManager.Initialize(24);
 	
 	//LCD init
 	OrbitalLCD.Initialize();
@@ -237,6 +237,8 @@ void SystemTestLoop()
 			else if(cmd.startsWith("getregion:"))
 			{
 				float ang = cmd.substring(10).toFloat();
+				if(debugRegion)
+					debugRegion->UpdateColors(32,32,64);
 				debugRegion = RegionManager.FindRegionAtAngle(ang);
 				if(debugRegion)
 				{
@@ -251,25 +253,27 @@ void SystemTestLoop()
 					Serial.println("Unable To Find region! Non Selected!");
 				}
 			}
-			else if(cmd.startsWith("regionstartsingle:"))
+			else if(cmd.startsWith("regionstretch:"))
 			{
 				Serial.println("modifying...");
-				boolean success = RegionManager.ModifyRegionStart(debugRegion, cmd.substring(18).toFloat(), ArchRegionManager::RegionSingle);
+				float start = cmd.substring(14,17).toFloat();
+				float end = cmd.substring(18,21).toFloat();
+				Serial.println(start);
+				Serial.println(end);
+				boolean success = RegionManager.ModifyRegionSpan(debugRegion, start, end, ArchRegionManager::RegionLinearStretch);
 				if(!success)
-					Serial.println("unable to modify region start...");
+				Serial.println("failed to modify");
 			}
-			else if(cmd.startsWith("regionstartstretch:"))
+			else if(cmd == "regionremove")
 			{
-				Serial.println("modifying...");
-				boolean success = RegionManager.ModifyRegionStart(debugRegion, cmd.substring(19).toFloat(), ArchRegionManager::RegionLinearStretch);
-				if(!success)
-				Serial.println("unable to modify region start...");
-			}
-			else if(cmd.startsWith("regionend:"))
-			{
-				boolean success = RegionManager.ModifyRegionSpan(debugRegion, debugRegion->startDeg, cmd.substring(12).toFloat(), ArchRegionManager::RegionLinearStretch);
-				if(!success)
-				Serial.println("unableto modify region end...");
+				if(debugRegion)
+				{
+					RegionManager.RemoveRegion(debugRegion);
+					Serial.println("Deleted Region!");
+				}
+					
+				debugRegion = NULL;
+				
 			}
 		}
 		//BlobManager.LockLastBlobArray();
