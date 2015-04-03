@@ -42,72 +42,61 @@ void ArchFingerManager::Update()
 	
 	uint8_t numBlobs = blobManager->blobsArrayLastCycleSize;
 
+	ArchFingerBlobConnection combs[MAX_FINGERS*MAX_BLOBS];
+
+	//make all combinations...
 	int f;
-	uint32_t minDist = 0xFFFFFFFF;
-	ArchRawBlob* minBlob = NULL;
+	int i = 0;
 	for(f = 0; f < MAX_FINGERS; f++)
 	{
-		if(!fingerPool[f].IsFullyValid()) continue;
-		
-		minDist = 0xFFFFFFFF;
-		minBlob = NULL;
-		
 		int b;
 		for(b = 0; b < numBlobs; b++)
 		{
-			if(blobManager->lastBlobsArray[b].closestFinger != NULL)
-			{
-				continue;
-			}
 			
-			uint32_t dist = abs(blobManager->lastBlobsArray[b].midTime - fingerPool[f].centerTime);
-			if(dist < minDist)
-			{
-				minDist = dist;
-				minBlob = &blobManager->lastBlobsArray[b];
-			}	
-		}
-		//Serial.print("F:"); Serial.println(f);
-		//Serial.println((int)minBlob);
-		
-		if(minBlob != NULL)
-		{
-			////move finger.
-			fingerPool[f].Validate(minBlob->midTime,minBlob->widthTime);
-			noteManager->OnFingerMove(&fingerPool[f]);
-			minBlob->closestFinger = &fingerPool[f];
-		}
-		else
-		{
-			fingerPool[f].DeValidate();
-			if(!fingerPool[f].IsFullyValid())
-			{
-				noteManager->OnFingerStop(&fingerPool[f]);
-			}
+			combs[i]->distance = abs(fingerPool[f].centerTime - blobManager->lastBlobsArray[b].midTime)/float(fingerPool[f].validity);
+			combs[i]->pBlob = &blobManager->lastBlobsArray[b];
+			combs[i]->pFinger = &fingerPool[f];
+			i++;	
 		}
 	}
 	
-	int b;
-	for(b = 0; b < numBlobs; b++)
+	//sort the connections.
+	quick_sort_fingerCon(combs,i+1);
+	
+	
+	ArchFingerBlobConnection usedList[MAX_FINGERS*MAX_BLOBS];//plenty big..
+	int usedIdx = 0;
+	int j;
+	for(j = 0; j < (i+1); j++)
 	{
-		if(blobManager->lastBlobsArray[b].closestFinger) 
-			continue;
-		
-		int32_t f = findUnValidFinger();
-		if(f >= 0 )
+		int h;
+		boolean used = false;
+		for(h = 0; h < (usedIdx+1); h++)
 		{
-			//turn finger on!
-			fingerPool[f].SuperValidate(blobManager->lastBlobsArray[b].midTime, blobManager->lastBlobsArray[b].widthTime);
-			noteManager->OnFingerStart(&fingerPool[f]);
+			if((usedList[h]->pBlob || usedList->pFinger))
+			{
+				used = true;
+			}
 			
-			blobManager->lastBlobsArray[b].closestFinger = &fingerPool[f];
 		}
-		else
-			break;
 		
+		if(!used)
+		{
+			usedList[usedIdx] = combs[j];
+			
+			usedList[usedIdx]->pFinger.Validate(usedList[usedIdx]->pBlob.midTime, usedList[usedIdx]->pBlob.widthTime);
+			if(usedList[usedIdx]->pFinger.IsFullyValid())
+				noteManager->OnFingerStart(usedList[usedIdx]->pFinger);
+		}
 	}
 	
-
+	
+	
+	
+	
+	
+	
+	
 	
 	blobManager->UnLockLastBlobArray();
 }

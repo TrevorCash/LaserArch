@@ -37,11 +37,6 @@ public:
 	ArchRegion* lastRegion;	
 	
 	
-	
-	
-	
-	
-	
 	uint8_t validity;
 	
 	//Finger's Midi Note Data

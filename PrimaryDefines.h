@@ -23,7 +23,7 @@
 
 #define FINGER_VALIDITY_THRESH 3
 #define MAX_FINGER_VALIDITY 6
-#define MIN_FINGER_VALIDITY 0
+#define MIN_FINGER_VALIDITY 1
 
 //maximum regions avalable.
 #define  MAX_REGIONS 100
