@@ -95,10 +95,11 @@ ArchRegion* debugRegion = NULL;
 void setup(void) {
 	Serial.begin(115200);
 	
-	MIDI.begin();
+	//MIDI.begin();
 	
 	
 	delay(1000);
+	
 	//Attach Interupts for the whole program
 	pinMode(SYNC_PHOTOTRANSISTOR_TEENSY_PIN,INPUT);
 	pinMode(NOTE_PHOTOTRANSISTOR_TEENSY_PIN,INPUT);
@@ -133,10 +134,14 @@ void setup(void) {
 	
 	RegionManager.Initialize(24);
 	
-	//LCD init
-	OrbitalLCD.Initialize();
-	OrbitalLCD.ClearScreen();
 	
+	
+	Serial.println("WAAAA1!");
+	//LCD init
+	//OrbitalLCD.Initialize();
+	//OrbitalLCD.ClearScreen();
+	
+	Serial.println("WAAAA2!");
 	
 	//LED Strip Init
 	LedStrip.begin();
