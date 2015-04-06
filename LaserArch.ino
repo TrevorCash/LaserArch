@@ -1,6 +1,4 @@
-#include "LCDMenuSetu.h"
-#include "LCDMenuSetup.h"
-#include "LCDMenu.h"
+
 //Copyright 2015 Trevor Cash, Shaun Gruenig, Linsdey Evans.
 
 //Includes
@@ -14,7 +12,6 @@
 #include "ArchMotor.h"
 #include "ArchMath.h"
 #include "ArchLCD.h"
-#include "LCDMenuSetup.h"
 #include "ArchBlobManager.h"
 #include "ArchRawBlob.h"
 #include "ArchFingerManager.h"

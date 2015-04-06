@@ -7,17 +7,20 @@
 
 
 #include "ArchLCD.h"
+#include "PrimaryDefines.h"
 
 // default constructor
 ArchLCD::ArchLCD()
 {
+	
+
+	
 	
 } //ArchLCD
 
 // default destructor
 ArchLCD::~ArchLCD()
 {
-	
 } //~ArchLCD
 
 
@@ -109,6 +112,6 @@ void ArchLCD::UpdateLabel(uint8_t ID, char* str)
 		Wire.write(0xFE);
 		Wire.write(46);
 		Wire.write(ID);
-		Wire.write(str);
+		Wire.write(str);		
 	Wire.endTransmission();
 }
