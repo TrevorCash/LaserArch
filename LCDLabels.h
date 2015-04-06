@@ -1,12 +1,9 @@
 // Labels.h
 
-#include "ArchLCD.h"
-
 #ifndef _LCDLABELS_h
 #define _LCDLABELS_h
 
 #include "ArchLCD.h"
-
 
 
 class LCDLabels

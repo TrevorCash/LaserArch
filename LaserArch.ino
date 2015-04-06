@@ -6,7 +6,7 @@
 #include <MIDI/MIDI.h>
 #include "OctoWS2811Trevor.h"
 #include "PrimaryDefines.h"
-#include "ArchMotor.h"6
+#include "ArchMotor.h"
 #include "ArchTeensyPins.h"
 #include "ArchAutoCalibrator.h"
 #include "ArchMotor.h"
@@ -17,6 +17,9 @@
 #include "ArchFingerManager.h"
 #include "ArchLedManager.h"
 #include "ArchNoteManager.h"
+#include "LCDMenuSetup.h"
+#include "LCDMenu.h"
+#include "LCDLabels.h"
 
 //Proto-types
 ////////////////////////////
