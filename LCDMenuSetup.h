@@ -5,6 +5,8 @@
 
 
 #include "ArchLCD.h"
+#include "LCDMenu.h"
+#include "LCDLabels.h"
 
 
 LCDMenu* DefineMenu_OperationMode();

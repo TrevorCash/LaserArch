@@ -138,13 +138,10 @@ void setup(void) {
 	RegionManager.Initialize(24);
 	
 	
-	
-	Serial.println("WAAAA1!");
 	//LCD init
-	//OrbitalLCD.Initialize();
-	//OrbitalLCD.ClearScreen();
+	OrbitalLCD.Initialize();
+	OrbitalLCD.ClearScreen();
 	
-	Serial.println("WAAAA2!");
 	
 	//LED Strip Init
 	LedStrip.begin();
