@@ -1,4 +1,6 @@
-
+#include "LCDMenuSetu.h"
+#include "LCDMenuSetup.h"
+#include "LCDMenu.h"
 //Copyright 2015 Trevor Cash, Shaun Gruenig, Linsdey Evans.
 
 //Includes
@@ -6,12 +8,13 @@
 #include <MIDI/MIDI.h>
 #include "OctoWS2811Trevor.h"
 #include "PrimaryDefines.h"
-#include "ArchMotor.h"
+#include "ArchMotor.h"6
 #include "ArchTeensyPins.h"
 #include "ArchAutoCalibrator.h"
 #include "ArchMotor.h"
 #include "ArchMath.h"
 #include "ArchLCD.h"
+#include "LCDMenuSetup.h"
 #include "ArchBlobManager.h"
 #include "ArchRawBlob.h"
 #include "ArchFingerManager.h"
@@ -234,9 +237,78 @@ void SystemTestLoop()
 			{
 				
 			}
-			else if (cmd == "clearthescreen")
+			else if (cmd == "clearscreen")
 			{
 				OrbitalLCD.ClearScreen();
+			}
+			else if (cmd == "testlabel")
+			{
+				LCDLabels testlabel(0, 10, 30, 10, 30, 0, 0, 1, 0, 2);
+				testlabel.InitializeLabel();
+				testlabel.setFrontVal("Hello World");
+				testlabel.UpdateLabel();
+			}
+			else if (cmd == "TestMenu")
+			{
+				OrbitalLCD.MenuHome = DefineMenu_OperationMode();
+				OrbitalLCD.Menu = OrbitalLCD.MenuHome;
+				OrbitalLCD.Cursor = OrbitalLCD.MenuHome->getCursorHome();
+				OrbitalLCD.Cursor->setMode(LABEL_HOVER);
+			}
+			else if (cmd.startsWith("ButtonPress"))
+			{
+				if (cmd == "ButtonPressUp")
+				{
+					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getUp() != NULL)
+					{
+						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
+						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getUp();						
+					}
+					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
+					{
+						OrbitalLCD.Cursor->UpCommand();
+					}
+				}
+				else if(cmd == "ButtonPressDown")
+				{
+					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getDown() != NULL)
+					{
+						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
+						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getDown();
+					}
+					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
+					{
+						OrbitalLCD.Cursor->DownCommand();
+					}
+				}
+				else if(cmd == "ButtonPressLeft")
+				{
+					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getLeft() != NULL)
+					{
+						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
+						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getLeft();
+					}
+					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
+					{
+						OrbitalLCD.Cursor->LeftCommand();
+					}
+				}
+				else if(cmd == "ButtonPressRight")
+				{
+					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getRight() != NULL)
+					{
+						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
+						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getRight();
+					}
+					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
+					{
+						OrbitalLCD.Cursor->RightCommand();
+					}
+				}
+				else if(cmd == "ButtonPressEnter")
+				{
+					
+				}
 			}
 			else if(cmd.startsWith("lcd:"))
 			{

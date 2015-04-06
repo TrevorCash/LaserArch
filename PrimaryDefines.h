@@ -64,6 +64,21 @@
 //is there any offset from center (positive <-> negative)
 #define LED_ANGLE_OFFSET 0
 
+//LCD Types and Modes
+
+//Label Types
+#define LABEL_MENU_PTR		1
+#define LABEL_PLAIN_TEXT	2
+#define LABEL_VALUE_NUMBER	3
+#define LABEL_VALUE_NOTE	4
+
+//Label Modes
+#define LABEL_CLEAR			0
+#define LABEL_HOVER			1
+#define LABEL_SELECTED		2
+
+//LCD Default Values// (There will Come a great number of these)
+
 
 
 #endif /* PRIMARYDEFINES_H_ */
