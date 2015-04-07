@@ -33,9 +33,7 @@ void ArchLCD::Initialize()
 void ArchLCD::ClearScreen()
 {
 	char clr = 0x58;
-	SendCommand(&clr, 1);
-	
-		
+	SendCommand(&clr, 1);	
 }
 
 void ArchLCD::SendCommand(char* parameters, int numParameters)

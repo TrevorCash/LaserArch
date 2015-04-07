@@ -202,6 +202,12 @@ void LCDLabels::InitializeLabel()
 	Wire.endTransmission();
 }
 
+void LCDLabels::UpdateLabel()
+{
+	DrawFilledRect(0, X1, Y1, X2, Y2);
+	InitializeLabel();
+}
+
 //void LCDLabels::InitializeLabel()
 //{
 	//Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
@@ -220,15 +226,15 @@ void LCDLabels::InitializeLabel()
 	//Wire.endTransmission();
 //}
 
-void LCDLabels::UpdateLabel()
-{
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(0xFE);
-	Wire.write(0x2E);
-	Wire.write(ID);
-	Wire.write(FrontVal.c_str());
-	Wire.endTransmission();
-}
+//void LCDLabels::UpdateLabel()
+//{
+	//Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	//Wire.write(0xFE);
+	//Wire.write(0x2E);
+	//Wire.write(ID);
+	//Wire.write(FrontVal.c_str());
+	//Wire.endTransmission();
+//}
 
 void LCDLabels::IndicateMode()
 {
@@ -278,6 +284,20 @@ void LCDLabels::DrawRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint
 		Wire.write(X2);
 		Wire.write(Y2);
 		Wire.endTransmission();
+}
+
+void LCDLabels::DrawFilledRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2)
+{
+		//Draw the Rectangle
+		Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+		Wire.write(0xFE);
+		Wire.write(0x78);
+		Wire.write(color);
+		Wire.write(X1);
+		Wire.write(Y1);
+		Wire.write(X2);
+		Wire.write(Y2);
+		Wire.endTransmission();	
 }
 
 ////////////////////////////////////////////////////////////////////////////////
