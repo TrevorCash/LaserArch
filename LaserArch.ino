@@ -182,6 +182,9 @@ void SystemTestSetup()
 void SystemTestLoop()
 {
 	
+	
+	
+	
 	FingerManager.Update();
 	LedManager.Update();
 		//GetInputFromTerminal
@@ -239,11 +242,13 @@ void SystemTestLoop()
 				OrbitalLCD.ClearScreen();
 			}
 			else if (cmd == "testlabel")
-			{
-				LCDLabels testlabel(0, 10, 30, 10, 30, 0, 0, 1, 0, 2);
+			{	//Top Left Y = 0->63 X = 0->191
+				LCDLabels testlabel(1, 0, 186, 0, 58, 2, 2, 1, 0, 2);
+				testlabel.setFrontVal("Hello World!");
 				testlabel.InitializeLabel();
-				testlabel.setFrontVal("Hello World");
-				testlabel.UpdateLabel();
+
+				//testlabel.UpdateLabel();
+				testlabel.setMode(LABEL_SELECTED);
 			}
 			else if (cmd == "TestMenu")
 			{
@@ -251,6 +256,7 @@ void SystemTestLoop()
 				OrbitalLCD.Menu = OrbitalLCD.MenuHome;
 				OrbitalLCD.Cursor = OrbitalLCD.MenuHome->getCursorHome();
 				OrbitalLCD.Cursor->setMode(LABEL_HOVER);
+				OrbitalLCD.Menu->DrawMe();
 			}
 			else if (cmd.startsWith("ButtonPress"))
 			{
@@ -259,7 +265,8 @@ void SystemTestLoop()
 					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getUp() != NULL)
 					{
 						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
-						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getUp();						
+						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getUp();
+						OrbitalLCD.Cursor->setMode(LABEL_HOVER);					
 					}
 					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
 					{
@@ -272,6 +279,7 @@ void SystemTestLoop()
 					{
 						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
 						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getDown();
+						OrbitalLCD.Cursor->setMode(LABEL_HOVER);
 					}
 					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
 					{
@@ -284,6 +292,7 @@ void SystemTestLoop()
 					{
 						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
 						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getLeft();
+						OrbitalLCD.Cursor->setMode(LABEL_HOVER);
 					}
 					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
 					{
@@ -296,6 +305,7 @@ void SystemTestLoop()
 					{
 						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
 						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getRight();
+						OrbitalLCD.Cursor->setMode(LABEL_HOVER);
 					}
 					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
 					{
@@ -311,6 +321,19 @@ void SystemTestLoop()
 			{
 				
 				OrbitalLCD.SendText((char*)cmd.substring(4).c_str());
+			}
+			else if (cmd == "getversion")
+			{
+				char vcmd = 0x36;
+				OrbitalLCD.SendCommand(&vcmd,1);
+				char d = OrbitalLCD.ReadKey();
+				while(!d){}
+				while(d)
+				{
+					Serial.println("asdasdasdasd");
+					Serial.print(d);
+					d = OrbitalLCD.ReadKey();
+				}
 			}
 			else if(cmd == "regioninfo")
 			{

@@ -10,7 +10,7 @@ void LCDMenu::DrawMe()
 	do 
 	{
 		ptr->InitializeLabel();
-		ptr->UpdateLabel();
+		//ptr->UpdateLabel();
 		ptr = ptr->getNext();
 	} while (ptr != NULL);
 }

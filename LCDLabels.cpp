@@ -207,6 +207,19 @@ void LCDLabels::InitializeLabel()
 {
 	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
 	Wire.write(0xFE);
+	Wire.write(0x79);
+	Wire.write(X1+2);
+	Wire.write(Y2-7);
+	Wire.endTransmission();
+	
+	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	Wire.write(FrontVal.c_str());
+	Wire.endTransmission();
+	
+	
+/*
+	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	Wire.write(0xFE);
 	Wire.write(45);
 	Wire.write(ID);
 	Wire.write(X1);
@@ -219,13 +232,14 @@ void LCDLabels::InitializeLabel()
 	Wire.write(Background);
 	Wire.write(CharSpacing);
 	Wire.endTransmission();
+*/
 }
 
 void LCDLabels::UpdateLabel()
 {
 	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
 	Wire.write(0xFE);
-	Wire.write(46);
+	Wire.write(0x2E);
 	Wire.write(ID);
 	Wire.write(FrontVal.c_str());
 	Wire.endTransmission();
@@ -235,15 +249,15 @@ void LCDLabels::IndicateMode()
 {
 	if (Mode == LABEL_CLEAR)
 	{
-		DrawRect(0, X1-5, Y1-5, X2+5, Y2+5);
+		DrawRect(0, X1, Y1, X2+2, Y2+2);
 	}
 	else if (Mode == LABEL_HOVER)
 	{
-		DrawLine(1, X1-5, Y1-5, X2+5, Y1-5);
+		DrawLine(1, X1, Y2+2, X2+2, Y2+2);
 	}
 	else if (Mode == LABEL_SELECTED)
 	{
-		DrawRect(1, X1-5, Y1-5, X2+5, Y2+5);
+		DrawRect(1, X1, Y1, X2+2, Y2+2);
 	}
 }
 

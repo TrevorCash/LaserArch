@@ -18,10 +18,10 @@ LCDMenu* DefineMenu_OperationMode()
 {
 	//Define Menu Variables and Labels
 	static LCDMenu OperationMode;
-	static LCDLabels Title(1, 20, 60, 50, 70, LABEL_PLAIN_TEXT, LABEL_CLEAR, "Operation Modes");
-	static LCDLabels Chromatic(2, 20, 50, 50, 60, LABEL_MENU_PTR, LABEL_CLEAR, "Chromatic");
-	static LCDLabels CustomMapping(3, 20, 40, 50, 50, LABEL_MENU_PTR, LABEL_CLEAR, "Custom");
-	static LCDLabels PitchBending(4, 20, 30, 50, 40, LABEL_MENU_PTR, LABEL_CLEAR, "Pitch Bending");
+	static LCDLabels Title(1, 20, 128, 0, 12, LABEL_PLAIN_TEXT, LABEL_CLEAR, "Operation Modes");
+	static LCDLabels Chromatic(2, 20, 86, 14, 26, LABEL_MENU_PTR, LABEL_CLEAR, "Chromatic");
+	static LCDLabels CustomMapping(3, 20, 65, 28, 40, LABEL_MENU_PTR, LABEL_CLEAR, "Custom");
+	static LCDLabels PitchBending(4, 20, 114, 42, 54, LABEL_MENU_PTR, LABEL_CLEAR, "Pitch Bending");
 	
 	//Form the Draw Linked List for Menu
 	OperationMode.setDrawList(&Title);

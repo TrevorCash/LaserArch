@@ -1,4 +1,4 @@
-/* 
+/*
 * ArchLCD.cpp
 *
 * Created: 2/20/2015 10:42:13 AM
@@ -24,7 +24,7 @@ ArchLCD::~ArchLCD()
 void ArchLCD::Initialize()
 {
 		// Setup for Master mode, pins 18/19, external pullups, 100kHz
-		Wire.begin(I2C_MASTER, ORBITAL_I2C_ADDRESS, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_100);
+		Wire.begin(I2C_MASTER, ORBITAL_I2C_ADDRESS, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_1800);
 		Wire.setOpMode(I2C_OP_MODE_IMM);
 		
 		char autoKeyTransCommand = 65;
