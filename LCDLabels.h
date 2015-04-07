@@ -51,7 +51,7 @@ private:
 public:
 //Constructors and Destructor
 LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal);
-LCDLabels(uint8_t NewID, uint8_t NewX, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMaxVal, uint16_t NewMinVal);
+LCDLabels(uint8_t NewID, uint8_t NewX, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal);
 ~LCDLabels();
 
 //Gets and Sets
@@ -78,6 +78,10 @@ uint16_t getMaxVal();
 void setMinVal(uint16_t NewMinVal);
 uint16_t getMinVal();
 
+uint8_t getX1();
+uint8_t getY1();
+uint8_t getX2();
+uint8_t getY2();
 
 void setQuadPtr(LCDLabels* NewUp, LCDLabels* NewDown, LCDLabels* NewLeft, LCDLabels* NewRight);
 LCDLabels* getLeft();
@@ -90,6 +94,8 @@ LCDLabels* getNext();
 //Mid Level Commands
 void InitializeLabel();
 void UpdateLabel();
+void ClearLabel();
+void AutoResizeLabel();
 void IndicateMode();
 void DrawLine(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2);
 void DrawRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2);

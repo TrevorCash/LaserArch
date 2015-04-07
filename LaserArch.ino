@@ -251,6 +251,7 @@ void SystemTestLoop()
 			}
 			else if (cmd == "TestMenu")
 			{
+				Serial.println("TestMenu");
 				OrbitalLCD.MenuHome = DefineMenu_OperationMode();
 				OrbitalLCD.Menu = OrbitalLCD.MenuHome;
 				OrbitalLCD.Cursor = OrbitalLCD.MenuHome->getCursorHome();
@@ -270,6 +271,7 @@ void SystemTestLoop()
 					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
 					{
 						OrbitalLCD.Cursor->UpCommand();
+						OrbitalLCD.Cursor->UpdateLabel();
 					}
 				}
 				else if(cmd == "ButtonPressDown")
@@ -283,6 +285,7 @@ void SystemTestLoop()
 					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
 					{
 						OrbitalLCD.Cursor->DownCommand();
+						OrbitalLCD.Cursor->UpdateLabel();
 					}
 				}
 				else if(cmd == "ButtonPressLeft")
@@ -296,6 +299,7 @@ void SystemTestLoop()
 					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
 					{
 						OrbitalLCD.Cursor->LeftCommand();
+						OrbitalLCD.Cursor->UpdateLabel();
 					}
 				}
 				else if(cmd == "ButtonPressRight")
@@ -309,11 +313,24 @@ void SystemTestLoop()
 					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
 					{
 						OrbitalLCD.Cursor->RightCommand();
+						OrbitalLCD.Cursor->UpdateLabel();
 					}
 				}
 				else if(cmd == "ButtonPressEnter")
 				{
-					
+					if(OrbitalLCD.Cursor->getType() == LABEL_MENU_PTR && OrbitalLCD.Cursor->getMode() == LABEL_HOVER)
+					{
+						OrbitalLCD.ClearScreen();
+						OrbitalLCD.Menu->setReturnMenu(OrbitalLCD.Menu);
+						OrbitalLCD.Menu = OrbitalLCD.Cursor->getNextMenu();
+						OrbitalLCD.Menu->DrawMe();
+						OrbitalLCD.Cursor = OrbitalLCD.Menu->getCursorHome();
+						OrbitalLCD.Cursor->setMode(LABEL_HOVER);
+					}
+					else if (OrbitalLCD.Cursor->getType() == LABEL_VALUE_NUMBER && OrbitalLCD.Cursor->getMode() == LABEL_HOVER)
+					{
+						OrbitalLCD.Cursor->setMode(LABEL_SELECTED);
+					}
 				}
 			}
 			else if(cmd.startsWith("lcd:"))

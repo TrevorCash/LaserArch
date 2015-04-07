@@ -16,7 +16,9 @@ LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewTyp
 	
 	Type = NewType;
 	Mode = LABEL_CLEAR;
-	setFrontVal(NewFrontVal);
+	FrontVal = NewFrontVal;
+	X2 = X1 + 7*FrontVal.length() + 2;
+	Y2 = Y1 + 11;
 
 	//Use if update to Firmware Version 8.3
 	//VertAlign = 0;
@@ -25,7 +27,7 @@ LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewTyp
 	//Background = 0;
 	//CharSpacing = 2;
 }
-LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMaxVal, uint16_t NewMinVal)
+LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal)
 {
 	ID = NewID;
 	X1 = NewX1;
@@ -33,12 +35,16 @@ LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewTyp
 	
 	Type = NewType;
 	Mode = LABEL_CLEAR;
-	setBackVal(NewBackVal);
-	
-	MinVal = NewMinVal;
-	MaxVal = NewMaxVal;
+	BackVal = NewBackVal;
+	FrontVal = (String)(BackVal);
+	X2 = X1 + 7*FrontVal.length() + 2;
+	Y2 = Y1 + 11;
+
 	LittleInc = NewLittleInc;
 	BigInc = NewBigInc;
+	MinVal = NewMinVal;
+	MaxVal = NewMaxVal;
+
 	
 	//VertAlign = 0;
 	//HorizAlign = 0;
@@ -87,8 +93,7 @@ LCDMenu* LCDLabels::getNextMenu()
 void LCDLabels::setFrontVal(char* str)
 {
 	FrontVal = str;
-	X2 = X1 + 7*FrontVal.length() + 2;
-	Y2 = Y1 + 11;
+	AutoResizeLabel();
 }
 
 const char* LCDLabels::getFrontVal()
@@ -148,6 +153,23 @@ uint16_t LCDLabels::getMinVal()
 	return MinVal;
 }
 
+uint8_t LCDLabels::getX1()
+{
+	return X1;
+}
+uint8_t LCDLabels::getY1()
+{
+	return Y1;
+}
+uint8_t LCDLabels::getX2()
+{
+	return X2;
+}
+uint8_t LCDLabels::getY2()
+{
+	return Y2;
+}
+
 
 void LCDLabels::setQuadPtr(LCDLabels* NewUp, LCDLabels* NewDown, LCDLabels* NewLeft, LCDLabels* NewRight)
 {
@@ -194,7 +216,7 @@ void LCDLabels::InitializeLabel()
 	Wire.write(0xFE);
 	Wire.write(0x79);
 	Wire.write(X1+2);
-	Wire.write(Y2-2);
+	Wire.write(Y1+2);
 	Wire.endTransmission();
 	
 	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
@@ -206,6 +228,19 @@ void LCDLabels::UpdateLabel()
 {
 	DrawFilledRect(0, X1, Y1, X2, Y2);
 	InitializeLabel();
+	IndicateMode();
+}
+
+void LCDLabels::ClearLabel()
+{
+	DrawFilledRect(0, X1, Y1, X2, Y2);
+}
+
+void LCDLabels::AutoResizeLabel()
+{
+	ClearLabel();
+	X2 = X1 + 7*FrontVal.length() + 2;
+	Y2 = Y1 + 11;	
 }
 
 //void LCDLabels::InitializeLabel()
@@ -244,7 +279,7 @@ void LCDLabels::IndicateMode()
 	}
 	else if (Mode == LABEL_HOVER)
 	{
-		DrawLine(1, X1, Y2, X2, Y2);
+		DrawLine(1, X1, Y2,X2, Y2);
 	}
 	else if (Mode == LABEL_SELECTED)
 	{
@@ -307,7 +342,9 @@ void LCDLabels::DrawFilledRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2
 void LCDLabels::UpCommand()
 {
 	if (Type == LABEL_VALUE_NUMBER)
+	{
 		setBackVal((BackVal+LittleInc <= MaxVal ? BackVal+LittleInc : MaxVal ));
+	}
 	else if (Type == LABEL_VALUE_NOTE) {}
 		//Something To Be Decided
 }
@@ -328,7 +365,7 @@ void LCDLabels::LeftCommand()
 void LCDLabels::RightCommand()
 {
 	if (Type == LABEL_VALUE_NUMBER)
-		setBackVal((BackVal+BigInc <= MaxVal ? BackVal+BigInc : MaxVal ));
+		setBackVal(((BackVal+BigInc) <= MaxVal ? BackVal+BigInc : MaxVal ));
 	else if (Type == LABEL_VALUE_NOTE) {}
 	//Something To Be Decided
 }
