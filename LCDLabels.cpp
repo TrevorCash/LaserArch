@@ -8,60 +8,43 @@
 //						Constructors/Destructors							  //
 ////////////////////////////////////////////////////////////////////////////////
 
-LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewX2, uint8_t NewY1, uint8_t NewY2, uint8_t NewVertAlign, uint8_t NewHorizAlign, uint16_t NewFontID, uint8_t NewBackground, uint8_t NewCharSpacing)
+LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal)
 {
 	ID = NewID;
 	X1 = NewX1;
-	X2 = NewX2;
 	Y1 = NewY1;
-	Y2 = NewY2;
-	VertAlign = NewVertAlign;
-	HorizAlign = NewHorizAlign;
-	FontID = NewFontID;
-	Background = NewBackground;
-	CharSpacing = NewCharSpacing;	
-}
-LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewX2, uint8_t NewY1, uint8_t NewY2, uint8_t NewType, uint8_t NewMode, char* NewFrontVal)
-{
-	Type = NewType;
-	Mode = NewMode;
-	FrontVal = NewFrontVal;
 	
+	Type = NewType;
+	Mode = LABEL_CLEAR;
+	setFrontVal(NewFrontVal);
+
+	//Use if update to Firmware Version 8.3
+	//VertAlign = 0;
+	//HorizAlign = 0;
+	//FontID = 1;
+	//Background = 0;
+	//CharSpacing = 2;
+}
+LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMaxVal, uint16_t NewMinVal)
+{
 	ID = NewID;
 	X1 = NewX1;
-	X2 = NewX2;
 	Y1 = NewY1;
-	Y2 = NewY2;
-	VertAlign = 0;
-	HorizAlign = 0;
-	FontID = 1;
-	Background = 0;
-	CharSpacing = 2;
-}
-LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewX2, uint8_t NewY1, uint8_t NewY2, uint8_t NewType, uint8_t NewMode, char* NewFrontVal, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMaxVal, uint16_t NewMinVal)
-{
+	
 	Type = NewType;
-	Mode = NewMode;
-	FrontVal = NewFrontVal;
-	if (FrontVal == "")
-		setBackVal(NewBackVal);
-	else
-		BackVal = BackVal;
+	Mode = LABEL_CLEAR;
+	setBackVal(NewBackVal);
+	
 	MinVal = NewMinVal;
 	MaxVal = NewMaxVal;
 	LittleInc = NewLittleInc;
 	BigInc = NewBigInc;
 	
-	ID = NewID;
-	X1 = NewX1;
-	X2 = NewX2;
-	Y1 = NewY1;
-	Y2 = NewY2;
-	VertAlign = 0;
-	HorizAlign = 0;
-	FontID = 1;
-	Background = 0;
-	CharSpacing = 2;	
+	//VertAlign = 0;
+	//HorizAlign = 0;
+	//FontID = 1;
+	//Background = 0;
+	//CharSpacing = 2;	
 }
 LCDLabels::~LCDLabels()
 {
@@ -104,6 +87,8 @@ LCDMenu* LCDLabels::getNextMenu()
 void LCDLabels::setFrontVal(char* str)
 {
 	FrontVal = str;
+	X2 = X1 + 7*FrontVal.length() + 2;
+	Y2 = Y1 + 11;
 }
 
 const char* LCDLabels::getFrontVal()
@@ -116,7 +101,7 @@ void LCDLabels::setBackVal(uint16_t NewBackVal)
 	BackVal = NewBackVal;
 	if (Type == LABEL_VALUE_NUMBER)
 	{
-		FrontVal = (String)(BackVal);
+		setFrontVal((String)(BackVal));
 	}
 	else if (Type == LABEL_VALUE_NOTE)
 	{
@@ -209,31 +194,31 @@ void LCDLabels::InitializeLabel()
 	Wire.write(0xFE);
 	Wire.write(0x79);
 	Wire.write(X1+2);
-	Wire.write(Y2-7);
+	Wire.write(Y2-2);
 	Wire.endTransmission();
 	
 	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
 	Wire.write(FrontVal.c_str());
 	Wire.endTransmission();
-	
-	
-/*
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(0xFE);
-	Wire.write(45);
-	Wire.write(ID);
-	Wire.write(X1);
-	Wire.write(Y1);
-	Wire.write(X2);
-	Wire.write(Y2);
-	Wire.write(VertAlign);
-	Wire.write(HorizAlign);
-	Wire.write(FontID);
-	Wire.write(Background);
-	Wire.write(CharSpacing);
-	Wire.endTransmission();
-*/
 }
+
+//void LCDLabels::InitializeLabel()
+//{
+	//Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	//Wire.write(0xFE);
+	//Wire.write(45);
+	//Wire.write(ID);
+	//Wire.write(X1);
+	//Wire.write(Y1);
+	//Wire.write(X2);
+	//Wire.write(Y2);
+	//Wire.write(VertAlign);
+	//Wire.write(HorizAlign);
+	//Wire.write(FontID);
+	//Wire.write(Background);
+	//Wire.write(CharSpacing);
+	//Wire.endTransmission();
+//}
 
 void LCDLabels::UpdateLabel()
 {
@@ -249,15 +234,15 @@ void LCDLabels::IndicateMode()
 {
 	if (Mode == LABEL_CLEAR)
 	{
-		DrawRect(0, X1, Y1, X2+2, Y2+2);
+		DrawRect(0, X1, Y1, X2, Y2);
 	}
 	else if (Mode == LABEL_HOVER)
 	{
-		DrawLine(1, X1, Y2+2, X2+2, Y2+2);
+		DrawLine(1, X1, Y2, X2, Y2);
 	}
 	else if (Mode == LABEL_SELECTED)
 	{
-		DrawRect(1, X1, Y1, X2+2, Y2+2);
+		DrawRect(1, X1, Y1, X2, Y2);
 	}
 }
 

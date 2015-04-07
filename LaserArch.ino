@@ -243,8 +243,7 @@ void SystemTestLoop()
 			}
 			else if (cmd == "testlabel")
 			{	//Top Left Y = 0->63 X = 0->191
-				LCDLabels testlabel(1, 0, 186, 0, 58, 2, 2, 1, 0, 2);
-				testlabel.setFrontVal("Hello World!");
+				LCDLabels testlabel(0, 0, 0, LABEL_CLEAR, "Hello World");
 				testlabel.InitializeLabel();
 
 				//testlabel.UpdateLabel();

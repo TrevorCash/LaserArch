@@ -39,6 +39,8 @@ private:
 	uint8_t X2;
 	uint8_t Y1;
 	uint8_t Y2;
+	
+	//Not Used Unless We Update Firmware to 8.3
 	uint8_t VertAlign;
 	uint8_t HorizAlign;
 	uint16_t FontID;
@@ -48,9 +50,8 @@ private:
 //functions
 public:
 //Constructors and Destructor
-LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewX2, uint8_t NewY1, uint8_t NewY2, uint8_t NewVertAlign, uint8_t NewHorizAlign, uint16_t NewFontID, uint8_t NewBackground, uint8_t NewCharSpacing);
-LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewX2, uint8_t NewY1, uint8_t NewY2, uint8_t NewType, uint8_t NewMode, char* NewFrontVal);
-LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewX2, uint8_t NewY1, uint8_t NewY2, uint8_t NewType, uint8_t NewMode, char* NewFrontVal, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMaxVal, uint16_t NewMinVal);
+LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal);
+LCDLabels(uint8_t NewID, uint8_t NewX, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMaxVal, uint16_t NewMinVal);
 ~LCDLabels();
 
 //Gets and Sets
@@ -63,6 +64,8 @@ void setNextMenu(LCDMenu* NewNextMenu);
 LCDMenu* getNextMenu();
 
 void setFrontVal(char* str);
+inline void setFrontVal(String str) { setFrontVal(str.c_str()); };
+
 const char* getFrontVal();
 void setBackVal(uint16_t NewBackVal);
 uint16_t getBackVal();
