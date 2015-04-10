@@ -63,8 +63,8 @@ uint8_t getMode();
 void setNextMenu(LCDMenu* NewNextMenu);
 LCDMenu* getNextMenu();
 
-void setFrontVal(char* str);
-inline void setFrontVal(String str) { setFrontVal(str.c_str()); };
+void setFrontVal(const char* str);
+inline void setFrontVal(String str) { setFrontVal(str.c_str()); }
 
 const char* getFrontVal();
 void setBackVal(uint16_t NewBackVal);

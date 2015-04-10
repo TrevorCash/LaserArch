@@ -90,7 +90,7 @@ LCDMenu* LCDLabels::getNextMenu()
 	return NextMenu;
 }
 
-void LCDLabels::setFrontVal(char* str)
+void LCDLabels::setFrontVal(const char* str)
 {
 	FrontVal = str;
 	AutoResizeLabel();
@@ -107,6 +107,7 @@ void LCDLabels::setBackVal(uint16_t NewBackVal)
 	if (Type == LABEL_VALUE_NUMBER)
 	{
 		setFrontVal((String)(BackVal));
+		
 	}
 	else if (Type == LABEL_VALUE_NOTE)
 	{
@@ -343,7 +344,9 @@ void LCDLabels::UpCommand()
 {
 	if (Type == LABEL_VALUE_NUMBER)
 	{
+		Serial.println("pre");
 		setBackVal((BackVal+LittleInc <= MaxVal ? BackVal+LittleInc : MaxVal ));
+		Serial.println("post");
 	}
 	else if (Type == LABEL_VALUE_NOTE) {}
 		//Something To Be Decided
