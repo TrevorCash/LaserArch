@@ -64,21 +64,21 @@
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value></Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries</Value>
-      <Value>C:/Program Files/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/libraries</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/MIDI/utility</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/MIDI</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/i2c_t3/utility</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/i2c_t3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries</Value>
+      <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3</Value>
       <Value>../../LaserArch</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -103,21 +103,21 @@
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
       <Value></Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries</Value>
-      <Value>C:/Program Files/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/libraries</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/MIDI/utility</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/MIDI</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/i2c_t3/utility</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/i2c_t3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries</Value>
+      <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3</Value>
       <Value>../../LaserArch</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
@@ -130,8 +130,8 @@
     </ToolchainSettings>
     <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;../../Root;../../LaserArch;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI/utility;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811/utility;C:/Users/7002815/Documents/Arduino/libraries/MIDI;C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/cores/arduino;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/variants/standard;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/libraries;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/avr/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/lib/gcc/avr/4.3.2/include/;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;C:/Users/7031330/Documents/Arduino/libraries/i2c_t3;C:/Users/7031330/Documents/Arduino/libraries/i2c_t3/utility;C:/Users/7031330/Documents/Arduino/libraries/MIDI;C:/Users/7031330/Documents/Arduino/libraries/MIDI/utility;C:/users/7031330/Downloads/arduino-1.0.5-r2/libraries;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7031330/Documents/Arduino/libraries;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;</VMSETTING_IncludePaths>
     <VisualMicroSettings>
-      <VisualMicroSettings xmlns="">
-        <arduino.upload.port>COM15</arduino.upload.port>
+      <VisualMicroSettings>
+        <arduino.upload.port>COM4</arduino.upload.port>
       </VisualMicroSettings>
     </VisualMicroSettings>
   </PropertyGroup>
@@ -160,21 +160,21 @@
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value></Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries</Value>
-      <Value>C:/Program Files/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/libraries</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/MIDI/utility</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/MIDI</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/i2c_t3/utility</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/i2c_t3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries</Value>
+      <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3</Value>
       <Value>../../LaserArch</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -199,21 +199,21 @@
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
       <Value></Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries</Value>
-      <Value>C:/Program Files/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/libraries</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/MIDI/utility</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/MIDI</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/i2c_t3/utility</Value>
-      <Value>C:/Users/7031330/Documents/Arduino/libraries/i2c_t3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries</Value>
+      <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility</Value>
+      <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3</Value>
       <Value>../../LaserArch</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
-      <Value>C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
@@ -226,8 +226,8 @@
     </ToolchainSettings>
     <VMSETTING_IncludePaths>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;../../Synchronize;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7002815/Documents/Arduino/libraries;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;;../../Root;../../LaserArch;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3;C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries/MIDI/utility;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811;C:/Users/7002815/Documents/Arduino/libraries/OctoWS2811/utility;C:/Users/7002815/Documents/Arduino/libraries/MIDI;C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/cores/arduino;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/variants/standard;C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/libraries;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/avr/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/;c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/lib/gcc/avr/4.3.2/include/;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr;C:/Users/7031330/Documents/Arduino/libraries/i2c_t3;C:/Users/7031330/Documents/Arduino/libraries/i2c_t3/utility;C:/Users/7031330/Documents/Arduino/libraries/MIDI;C:/Users/7031330/Documents/Arduino/libraries/MIDI/utility;C:/users/7031330/Downloads/arduino-1.0.5-r2/libraries;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/teensy/libraries;C:/Program Files/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/7031330/Documents/Arduino/libraries;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include;C:/users/7031330/Downloads/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/;</VMSETTING_IncludePaths>
     <VisualMicroSettings>
-      <VisualMicroSettings xmlns="">
-        <arduino.upload.port>COM15</arduino.upload.port>
+      <VisualMicroSettings>
+        <arduino.upload.port>COM4</arduino.upload.port>
       </VisualMicroSettings>
     </VisualMicroSettings>
   </PropertyGroup>

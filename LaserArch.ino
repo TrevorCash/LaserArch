@@ -88,7 +88,7 @@ IntervalTimer CalibrationTimer;
 
 
 //misc, temp
-volatile uint32_t syncTimerVal = 0;
+volatile uint32_t lastSyncTimerVal = 0;
 volatile uint32_t numNoteEdges = 0;
 volatile uint32_t numNoteEdgesCounter = 0;
 ArchRegion* debugRegion = NULL;
@@ -191,7 +191,15 @@ void SystemTestLoop()
 		while(Serial.available())
 		{
 			String cmd = Serial.readStringUntil('\n');
-			if(cmd == "motoroff")
+			if(cmd == "ping")
+			{
+				Serial.println("pong");
+			}
+			else if(cmd == "syncstat")
+			{
+				Serial.println(lastSyncTimerVal);
+			}
+			else if(cmd == "motoroff")
 			{
 				MainMotor.Stop();
 			}
@@ -199,22 +207,12 @@ void SystemTestLoop()
 			{
 				MainMotor.Start();
 			}
-			else if(cmd == "greenon")
-			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_ON);
-			}
-			else if(cmd == "greenoff")
-			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_OFF);
-			}
 			else if(cmd == "alloff")
 			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,0);
 				MainMotor.Stop();
 			}
 			else if(cmd == "allon")
 			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_ON);
 				MainMotor.Start();
 			}
 			else if(cmd.startsWith("dac"))
@@ -447,6 +445,7 @@ void MainLoop()
 void OnSyncInterupt()
 {
 	uint32_t currSyncTimerVal = 0xFFFFFFFF - uint32_t(PIT_CVAL0);
+	lastSyncTimerVal = currSyncTimerVal;
 
 	NoteSensorCalibrator.OnSyncInterupt(currSyncTimerVal);
 	MainMotor.TickPeriod(currSyncTimerVal);
