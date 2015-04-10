@@ -92,6 +92,7 @@ volatile uint32_t lastSyncTimerVal = 0;
 volatile uint32_t numNoteEdges = 0;
 volatile uint32_t numNoteEdgesCounter = 0;
 ArchRegion* debugRegion = NULL;
+volatile boolean showblobinfo = false;
 
 
 
@@ -132,7 +133,7 @@ void setup(void) {
 	
 	//Dac output configure
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
-	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
+	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 300);
 	
 	
 	RegionManager.Initialize(24);
@@ -233,7 +234,7 @@ void SystemTestLoop()
 			}
 			else if(cmd == "blobinfo")
 			{
-				
+				showblobinfo = !showblobinfo;
 			}
 			else if (cmd == "clearscreen")
 			{
@@ -400,17 +401,20 @@ void SystemTestLoop()
 		//Serial.println(BlobManager.blobsArrayLastCycleSize );
 		//
 		//BlobManager.UnLockLastBlobArray();
-		//if(BlobManager.blobsArrayLastCycleSize)
-		//{	Serial.println("Blob Info:");
-			//int i;
-			//for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
-			//{
-				//Serial.print("Blob: ");
-				//Serial.println(i);
-				//Serial.print("Mid Time: ");
-				//Serial.println(BlobManager.lastBlobsArray[i].midTime);
-			//}
-		//}
+		if(showblobinfo)
+		{
+			if(BlobManager.blobsArrayLastCycleSize)
+			{	Serial.println("Blob Info:");
+				int i;
+				for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
+				{
+					Serial.print("Blob: ");
+					Serial.println(i);
+					Serial.print("Mid Time: ");
+					Serial.println(BlobManager.lastBlobsArray[i].midTime);
+				}
+			}
+		}
 		//Serial.println(MainMotor.AveragePeriod());
 		//Serial.print(uint32_t(numNoteEdges),10);
 		//Serial.println("");

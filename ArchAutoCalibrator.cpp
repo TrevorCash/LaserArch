@@ -87,7 +87,7 @@ void ArchAutoCalibrator::OnCalibrationTimerInterupt()//call in the calib timer i
 		
 		dacThreshold = characteristicVal*0.7;
 			
-		analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, (dacThreshold + notePhotoLevelAmbient) >> 4);
+		//analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, (dacThreshold + notePhotoLevelAmbient) >> 4);
 		
 	}
 	
