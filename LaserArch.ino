@@ -20,6 +20,7 @@
 #include "LCDMenuSetup.h"
 #include "LCDMenu.h"
 #include "LCDLabels.h"
+#include "MIDINoteDefines.h"
 
 //Proto-types
 ////////////////////////////
@@ -99,7 +100,7 @@ volatile boolean showblobinfo = false;
 void setup(void) {
 	Serial.begin(115200);
 	
-	//MIDI.begin();
+	MIDI.begin();
 	
 	
 	delay(1000);
@@ -235,6 +236,17 @@ void SystemTestLoop()
 			else if(cmd == "blobinfo")
 			{
 				showblobinfo = !showblobinfo;
+			}
+			else if(cmd == "miditest")
+			{
+				int h;
+				Serial.println("Running Midi Test!");
+				for(h = Bb0; h < G5; h++)
+				{
+					MIDI.sendNoteOff(h-1, 127,1);
+					MIDI.sendNoteOn(h, 127,1);
+					delay(1000);
+				}
 			}
 			else if (cmd == "clearscreen")
 			{
@@ -423,6 +435,8 @@ void SystemTestLoop()
 		//Serial.println(MainMotor.TicksFromAngleAve(120));
 		
 		//Serial.println(MainMotor.AngleFromTicksAve(BlobManager.lastBlobsArray[0].midTime));
+		
+		
 		
 		
 		
