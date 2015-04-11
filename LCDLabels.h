@@ -21,6 +21,7 @@ private:
 	//Value Vairables
 	String FrontVal;
 	uint16_t BackVal;
+	uint16_t TempVal;
 	uint8_t LittleInc;
 	uint8_t BigInc;
 	uint16_t MaxVal;
@@ -69,6 +70,8 @@ inline void setFrontVal(String str) { setFrontVal(str.c_str()); }
 const char* getFrontVal();
 void setBackVal(uint16_t NewBackVal);
 uint16_t getBackVal();
+void setTempVal(uint16_t NewTempVal);
+uint16_t getTempVal();
 void setLittleInc(uint8_t NewLittleInc);
 uint8_t getLittleInc();
 void setBigInc(uint8_t NewBigInc);
@@ -107,13 +110,10 @@ void DownCommand();
 void LeftCommand();
 void RightCommand();
 void EnterCommand();
-void (LCDLabels::*EnterPull)();
-void (LCDLabels::*EnterCommit)();
-
-
 
 protected:
 private:
+const char* MIDItoString(uint8_t midi);
 };
 
 #endif

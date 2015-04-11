@@ -100,13 +100,23 @@ void ArchInterfaceManager::Update()
 			OrbitalLCD->ClearScreen();
 			tmp->setReturnMenu(Menu);
 			Menu = Cursor->getNextMenu();
+			Menu->CallEnterPull();
 			Menu->DrawMe();
 			Cursor = Menu->getCursorHome();
 			Cursor->setMode(LABEL_HOVER);
 		}
-		else if (Cursor->getType() == LABEL_VALUE_NUMBER && Cursor->getMode() == LABEL_HOVER)
+		else if ((Cursor->getType() == LABEL_VALUE_NUMBER || Cursor->getType() == LABEL_VALUE_NOTE) 
+			   && Cursor->getMode() == LABEL_HOVER)
 		{
 			Cursor->setMode(LABEL_SELECTED);
+			Cursor->setTempVal(Cursor->getBackVal());
+		}
+		else if ((Cursor->getType() == LABEL_VALUE_NUMBER || Cursor->getType() == LABEL_VALUE_NOTE)
+		&& Cursor->getMode() == LABEL_SELECTED)
+		{
+			Menu->CallEnterCommit();
+			Cursor->setMode(LABEL_HOVER);
+			Cursor->setBackVal(Cursor->getTempVal());
 		}
 	}
 	else if (cmd == LCD_HOME)
@@ -130,5 +140,4 @@ void ArchInterfaceManager::Update()
 		Cursor = Menu->getCursorHome();
 		Cursor->setMode(LABEL_HOVER);
 	}
-
 }

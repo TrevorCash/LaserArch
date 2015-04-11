@@ -9,6 +9,7 @@ LCDMenu* DefineMenu_OperationMode();
 LCDMenu* DefineMenu_ChromaticMode();
 LCDMenu* DefineMenu_CustomMappingMode();
 LCDMenu* DefineMenu_PitchBendingMode();
+void NullFunc();
 
 #endif
 

@@ -1,6 +1,9 @@
 #include "LCDMenu.h"
 
-LCDMenu::LCDMenu() {}
+LCDMenu::LCDMenu(uint8_t NewWhichMenuMode) 
+{
+	WhichMenuMode = NewWhichMenuMode;
+}
 LCDMenu::~LCDMenu() {}
 
 
@@ -44,4 +47,17 @@ void LCDMenu::setReturnMenu(LCDMenu* NewReturnMenu)
 LCDMenu* LCDMenu::getReturnMenu()
 {
 	return ReturnMenu;
+}
+
+void LCDMenu::CallEnterPull()
+{
+	if (WhichMenuMode == MENU_NONE)
+		return;
+	else if (WhichMenuMode == MENU_CHROMATIC)
+		
+}
+void LCDMenu::CallEnterCommit()
+{
+	if (WhichMenuMode == MENU_NONE)
+		return;	
 }

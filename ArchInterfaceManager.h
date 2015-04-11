@@ -14,6 +14,7 @@ class LCDLabels;
 
 #include <i2c_t3/i2c_t3.h>
 #include "PrimaryDefines.h"
+#include "MIDINoteDefines.h"
 
 #ifndef _LCDLABELS_h
 #include "LCDLabels.h"

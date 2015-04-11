@@ -77,7 +77,7 @@
 #define LABEL_HOVER			1
 #define LABEL_SELECTED		2
 
-//LCD Default Values//
+//LCD Button Values//
 #define LCD_BACK			65
 #define LCD_HOME			71
 #define LCD_ENTER			69
@@ -85,6 +85,13 @@
 #define LCD_DOWN			72
 #define LCD_RIGHT			67
 #define LCD_LEFT			68
+
+//Menu Indicators//
+#define MENU_NONE			0
+#define MENU_CHROMATIC		1
+#define MENU_CUSTOM			2
+#define MENU_CUSTOM_REGION	3
+#define MENU_PITCHBENDING	4
 
 
 #endif /* PRIMARYDEFINES_H_ */
