@@ -5,23 +5,45 @@
 * Author: 7002815
 */
 
+class ArchLCD;
+class LCDMenu;
+class LCDLabels;
 
 #ifndef __ARCHINTERFACEMANAGER_H__
 #define __ARCHINTERFACEMANAGER_H__
 
-//manages the user interface and lcd screen.
-//provides access to the menu system.
-//Perhaps internally.
-//	GetCurrentMenu()
-//	GetSubMenus()
-//	NavigateToMenu()
-//	NavigateBack()
-//	SetLighting()...
+#include <i2c_t3/i2c_t3.h>
+#include "PrimaryDefines.h"
+
+#ifndef _LCDLABELS_h
+#include "LCDLabels.h"
+#define _LCDLABELS_h
+#endif
+
+#ifndef _LCDMENU_h
+#include "LCDMenu.h"
+#define _LCDMENU_h
+#endif
+
+#ifndef __ARCHLCD_H__
+#include "ArchLCD.h"
+#define __ARCHLCD_H__
+#endif
+
+#ifndef _LCDMENUSETUP_h
+#include "LCDMenuSetup.h"
+#define _LCDMENUSETUP_h
+#endif
+
 //	
 class ArchInterfaceManager
 {
 //variables
 public:
+	LCDMenu* MenuHome;
+	LCDMenu* Menu;
+	LCDLabels* Cursor;
+	ArchLCD* OrbitalLCD;
 protected:
 private:
 
@@ -29,6 +51,8 @@ private:
 public:
 	ArchInterfaceManager();
 	~ArchInterfaceManager();
+	void Initialize();
+	void Update();
 protected:
 private:
 	ArchInterfaceManager( const ArchInterfaceManager &c );

@@ -343,11 +343,7 @@ void LCDLabels::DrawFilledRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2
 void LCDLabels::UpCommand()
 {
 	if (Type == LABEL_VALUE_NUMBER)
-	{
-		Serial.println("pre");
 		setBackVal((BackVal+LittleInc <= MaxVal ? BackVal+LittleInc : MaxVal ));
-		Serial.println("post");
-	}
 	else if (Type == LABEL_VALUE_NOTE) {}
 		//Something To Be Decided
 }

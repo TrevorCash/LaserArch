@@ -3,7 +3,7 @@
 #ifndef _LCDMENU_h
 #define _LCDMENU_h
 
-#include "ArchLCD.h"
+#include "ArchInterfaceManager.h"
 
 class LCDMenu
 {

@@ -77,8 +77,14 @@
 #define LABEL_HOVER			1
 #define LABEL_SELECTED		2
 
-//LCD Default Values// (There will Come a great number of these)
-
+//LCD Default Values//
+#define LCD_BACK			65
+#define LCD_HOME			71
+#define LCD_ENTER			69
+#define LCD_UP				66
+#define LCD_DOWN			72
+#define LCD_RIGHT			67
+#define LCD_LEFT			68
 
 
 #endif /* PRIMARYDEFINES_H_ */

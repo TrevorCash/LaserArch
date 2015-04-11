@@ -17,9 +17,8 @@
 #include "ArchFingerManager.h"
 #include "ArchLedManager.h"
 #include "ArchNoteManager.h"
+#include "ArchInterfaceManager.h"
 #include "LCDMenuSetup.h"
-#include "LCDMenu.h"
-#include "LCDLabels.h"
 
 //Proto-types
 ////////////////////////////
@@ -64,7 +63,7 @@ ArchFingerManager FingerManager(&BlobManager, &NoteManager);
 
 
 //Make an ArchLCD For Testing.
-ArchLCD OrbitalLCD;
+ArchInterfaceManager InterfaceManager;
 
 
 
@@ -136,21 +135,11 @@ void setup(void) {
 	
 	
 	RegionManager.Initialize(24);
-	
-	
-	//LCD init
-	OrbitalLCD.Initialize();
-	OrbitalLCD.ClearScreen();
-	
+	InterfaceManager.Initialize();
 	
 	//LED Strip Init
 	LedStrip.begin();
-	LedStrip.show();
-	
-	
-	
-	
-	
+	LedStrip.show();	
 	
 	#ifdef CORE_SYSTEM_TEST_MODE
 		SystemTestSetup();
@@ -174,23 +163,21 @@ void SystemTestSetup()
 {
 	
 	Serial.println("ARCH IN TEST MODE:");
-	//OrbitalLCD.SendText("Arch In Test Mode!");
+	//InterfaceManager.OrbitalLCD->SendText("Arch In Test Mode!");
 
 	
 }
 
 void SystemTestLoop()
 {
-	
-	
-	
-	
+	InterfaceManager.Update();
 	FingerManager.Update();
 	LedManager.Update();
 		//GetInputFromTerminal
 		while(Serial.available())
 		{
 			String cmd = Serial.readStringUntil('\n');
+			
 			if(cmd == "motoroff")
 			{
 				MainMotor.Stop();
@@ -239,7 +226,7 @@ void SystemTestLoop()
 			}
 			else if (cmd == "clearscreen")
 			{
-				OrbitalLCD.ClearScreen();
+				InterfaceManager.OrbitalLCD->ClearScreen();
 			}
 			else if (cmd == "testlabel")
 			{	//Top Left Y = 0->63 X = 0->191
@@ -252,103 +239,100 @@ void SystemTestLoop()
 			else if (cmd == "TestMenu")
 			{
 				Serial.println("TestMenu");
-				OrbitalLCD.MenuHome = DefineMenu_OperationMode();
-				OrbitalLCD.Menu = OrbitalLCD.MenuHome;
-				OrbitalLCD.Cursor = OrbitalLCD.MenuHome->getCursorHome();
-				OrbitalLCD.Cursor->setMode(LABEL_HOVER);
-				OrbitalLCD.Menu->DrawMe();
+				InterfaceManager.MenuHome = DefineMenu_OperationMode();
+				InterfaceManager.Menu = InterfaceManager.MenuHome;
+				InterfaceManager.Cursor = InterfaceManager.MenuHome->getCursorHome();
+				InterfaceManager.Cursor->setMode(LABEL_HOVER);
+				InterfaceManager.Menu->DrawMe();
 			}
-			else if (cmd.startsWith("ButtonPress"))
+			else if (cmd == "ButtonPressUp")
 			{
-				if (cmd == "ButtonPressUp")
+				if (InterfaceManager.Cursor->getMode() == LABEL_HOVER && InterfaceManager.Cursor->getUp() != NULL)
 				{
-					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getUp() != NULL)
-					{
-						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
-						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getUp();
-						OrbitalLCD.Cursor->setMode(LABEL_HOVER);					
-					}
-					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
-					{
-						OrbitalLCD.Cursor->UpCommand();
-						OrbitalLCD.Cursor->UpdateLabel();
-					}
+					InterfaceManager.Cursor->setMode(LABEL_CLEAR);
+					InterfaceManager.Cursor = InterfaceManager.Cursor->getUp();
+					InterfaceManager.Cursor->setMode(LABEL_HOVER);					
 				}
-				else if(cmd == "ButtonPressDown")
+				else if (InterfaceManager.Cursor->getMode() == LABEL_SELECTED)
 				{
-					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getDown() != NULL)
-					{
-						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
-						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getDown();
-						OrbitalLCD.Cursor->setMode(LABEL_HOVER);
-					}
-					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
-					{
-						OrbitalLCD.Cursor->DownCommand();
-						OrbitalLCD.Cursor->UpdateLabel();
-					}
+					InterfaceManager.Cursor->UpCommand();
+					InterfaceManager.Cursor->UpdateLabel();
 				}
-				else if(cmd == "ButtonPressLeft")
+			}
+			else if(cmd == "ButtonPressDown")
+			{
+				if (InterfaceManager.Cursor->getMode() == LABEL_HOVER && InterfaceManager.Cursor->getDown() != NULL)
 				{
-					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getLeft() != NULL)
-					{
-						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
-						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getLeft();
-						OrbitalLCD.Cursor->setMode(LABEL_HOVER);
-					}
-					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
-					{
-						OrbitalLCD.Cursor->LeftCommand();
-						OrbitalLCD.Cursor->UpdateLabel();
-					}
+					InterfaceManager.Cursor->setMode(LABEL_CLEAR);
+					InterfaceManager.Cursor = InterfaceManager.Cursor->getDown();
+					InterfaceManager.Cursor->setMode(LABEL_HOVER);
 				}
-				else if(cmd == "ButtonPressRight")
+				else if (InterfaceManager.Cursor->getMode() == LABEL_SELECTED)
 				{
-					if (OrbitalLCD.Cursor->getMode() == LABEL_HOVER && OrbitalLCD.Cursor->getRight() != NULL)
-					{
-						OrbitalLCD.Cursor->setMode(LABEL_CLEAR);
-						OrbitalLCD.Cursor = OrbitalLCD.Cursor->getRight();
-						OrbitalLCD.Cursor->setMode(LABEL_HOVER);
-					}
-					else if (OrbitalLCD.Cursor->getMode() == LABEL_SELECTED)
-					{
-						OrbitalLCD.Cursor->RightCommand();
-						OrbitalLCD.Cursor->UpdateLabel();
-					}
+					InterfaceManager.Cursor->DownCommand();
+					InterfaceManager.Cursor->UpdateLabel();
 				}
-				else if(cmd == "ButtonPressEnter")
+			}
+			else if(cmd == "ButtonPressLeft")
+			{
+				if (InterfaceManager.Cursor->getMode() == LABEL_HOVER && InterfaceManager.Cursor->getLeft() != NULL)
 				{
-					if(OrbitalLCD.Cursor->getType() == LABEL_MENU_PTR && OrbitalLCD.Cursor->getMode() == LABEL_HOVER)
-					{
-						OrbitalLCD.ClearScreen();
-						OrbitalLCD.Menu->setReturnMenu(OrbitalLCD.Menu);
-						OrbitalLCD.Menu = OrbitalLCD.Cursor->getNextMenu();
-						OrbitalLCD.Menu->DrawMe();
-						OrbitalLCD.Cursor = OrbitalLCD.Menu->getCursorHome();
-						OrbitalLCD.Cursor->setMode(LABEL_HOVER);
-					}
-					else if (OrbitalLCD.Cursor->getType() == LABEL_VALUE_NUMBER && OrbitalLCD.Cursor->getMode() == LABEL_HOVER)
-					{
-						OrbitalLCD.Cursor->setMode(LABEL_SELECTED);
-					}
+					InterfaceManager.Cursor->setMode(LABEL_CLEAR);
+					InterfaceManager.Cursor = InterfaceManager.Cursor->getLeft();
+					InterfaceManager.Cursor->setMode(LABEL_HOVER);
+				}
+				else if (InterfaceManager.Cursor->getMode() == LABEL_SELECTED)
+				{
+					InterfaceManager.Cursor->LeftCommand();
+					InterfaceManager.Cursor->UpdateLabel();
+				}
+			}
+			else if(cmd == "ButtonPressRight")
+			{
+				if (InterfaceManager.Cursor->getMode() == LABEL_HOVER && InterfaceManager.Cursor->getRight() != NULL)
+				{
+					InterfaceManager.Cursor->setMode(LABEL_CLEAR);
+					InterfaceManager.Cursor = InterfaceManager.Cursor->getRight();
+					InterfaceManager.Cursor->setMode(LABEL_HOVER);
+				}
+				else if (InterfaceManager.Cursor->getMode() == LABEL_SELECTED)
+				{
+					InterfaceManager.Cursor->RightCommand();
+					InterfaceManager.Cursor->UpdateLabel();
+				}
+			}
+			else if(cmd == "ButtonPressEnter")
+			{
+				if(InterfaceManager.Cursor->getType() == LABEL_MENU_PTR && InterfaceManager.Cursor->getMode() == LABEL_HOVER)
+				{
+					InterfaceManager.OrbitalLCD->ClearScreen();
+					InterfaceManager.Menu->setReturnMenu(InterfaceManager.Menu);
+					InterfaceManager.Menu = InterfaceManager.Cursor->getNextMenu();
+					InterfaceManager.Menu->DrawMe();
+					InterfaceManager.Cursor = InterfaceManager.Menu->getCursorHome();
+					InterfaceManager.Cursor->setMode(LABEL_HOVER);
+				}
+				else if (InterfaceManager.Cursor->getType() == LABEL_VALUE_NUMBER && InterfaceManager.Cursor->getMode() == LABEL_HOVER)
+				{
+					InterfaceManager.Cursor->setMode(LABEL_SELECTED);
 				}
 			}
 			else if(cmd.startsWith("lcd:"))
 			{
 				
-				OrbitalLCD.SendText((char*)cmd.substring(4).c_str());
+				InterfaceManager.OrbitalLCD->SendText((char*)cmd.substring(4).c_str());
 			}
 			else if (cmd == "getversion")
 			{
 				char vcmd = 0x36;
-				OrbitalLCD.SendCommand(&vcmd,1);
-				char d = OrbitalLCD.ReadKey();
+				InterfaceManager.OrbitalLCD->SendCommand(&vcmd,1);
+				char d = InterfaceManager.OrbitalLCD->ReadKey();
 				while(!d){}
 				while(d)
 				{
 					Serial.println("asdasdasdasd");
 					Serial.print(d);
-					d = OrbitalLCD.ReadKey();
+					d = InterfaceManager.OrbitalLCD->ReadKey();
 				}
 			}
 			else if(cmd == "regioninfo")
@@ -436,6 +420,7 @@ void MainSetup()
 
 void MainLoop()
 {
+	
 }
 
 

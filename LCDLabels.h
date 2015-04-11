@@ -3,7 +3,7 @@
 #ifndef _LCDLABELS_h
 #define _LCDLABELS_h
 
-#include "ArchLCD.h"
+#include "ArchInterfaceManager.h"
 
 
 class LCDLabels
@@ -107,6 +107,9 @@ void DownCommand();
 void LeftCommand();
 void RightCommand();
 void EnterCommand();
+void (LCDLabels::*EnterPull)();
+void (LCDLabels::*EnterCommit)();
+
 
 
 protected:

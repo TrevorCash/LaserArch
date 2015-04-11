@@ -336,6 +336,9 @@
     <Compile Include="LCDMenu.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="LCDMenuSetup.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="LCDMenuSetup.h">
       <SubType>compile</SubType>
     </Compile>
