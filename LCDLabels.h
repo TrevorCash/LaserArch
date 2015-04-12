@@ -3,7 +3,7 @@
 #ifndef _LCDLABELS_h
 #define _LCDLABELS_h
 
-#include "ArchLCD.h"
+#include "ArchInterfaceManager.h"
 
 
 class LCDLabels
@@ -21,6 +21,7 @@ private:
 	//Value Vairables
 	String FrontVal;
 	uint16_t BackVal;
+	uint16_t TempVal;
 	uint8_t LittleInc;
 	uint8_t BigInc;
 	uint16_t MaxVal;
@@ -63,12 +64,14 @@ uint8_t getMode();
 void setNextMenu(LCDMenu* NewNextMenu);
 LCDMenu* getNextMenu();
 
-void setFrontVal(char* str);
-inline void setFrontVal(String str) { setFrontVal(str.c_str()); };
+void setFrontVal(const char* str);
+inline void setFrontVal(String str) { setFrontVal(str.c_str()); }
 
 const char* getFrontVal();
 void setBackVal(uint16_t NewBackVal);
 uint16_t getBackVal();
+void setTempVal(uint16_t NewTempVal);
+uint16_t getTempVal();
 void setLittleInc(uint8_t NewLittleInc);
 uint8_t getLittleInc();
 void setBigInc(uint8_t NewBigInc);
@@ -108,9 +111,9 @@ void LeftCommand();
 void RightCommand();
 void EnterCommand();
 
-
 protected:
 private:
+const char* MIDItoString(uint8_t midi);
 };
 
 #endif

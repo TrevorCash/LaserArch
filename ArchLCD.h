@@ -4,25 +4,11 @@
 * Created: 2/20/2015 10:42:14 AM
 * Author: 7002815
 */
-class ArchLCD;
-class LCDMenu;
-class LCDLabels;
 
 #ifndef __ARCHLCD_H__
 #define __ARCHLCD_H__
 
-#include <i2c_t3/i2c_t3.h>
-#include "PrimaryDefines.h"
-
-#ifndef _LCDLABELS_h
-#include "LCDLabels.h"
-#define _LCDLABELS_h
-#endif
-
-#ifndef _LCDMENU_h
-#include "LCDMenu.h"
-#define _LCDMENU_h
-#endif
+#include "ArchInterfaceManager.h"
 
 //provides encapsulated access to the LCD unit via I2C.
 //to be used by the ArchInterfaceManager Primarily.
@@ -30,9 +16,7 @@ class ArchLCD
 {
 //variables
 public:
-	LCDMenu* MenuHome;
-	LCDMenu* Menu;
-	LCDLabels* Cursor;
+
 	
 protected:
 private:
