@@ -7,6 +7,7 @@
 
 
 #include "ArchRegion.h"
+#include "MIDINoteDefines.h"
 
 // default constructor
 ArchRegion::ArchRegion()
@@ -17,6 +18,7 @@ ArchRegion::ArchRegion()
 	colorRed = 255;
 	colorGreen = 0;
 	colorBlue = 0;
+	midiNote = MIDI_C3; 
 	index = 0;
 	
 	IsValid = false;
@@ -32,7 +34,7 @@ ArchRegion::~ArchRegion()
 
 
 //updates all parameters!!  This DOES NOT EFFECT Surrounding regions. Look in ArchRegionManager for that.
-void ArchRegion::UpdateAll(float startDeg, float endDeg, uint8_t red, uint8_t green, uint8_t blue)
+void ArchRegion::SetAll(float startDeg, float endDeg, uint8_t midiNote, uint8_t red, uint8_t green, uint8_t blue)
 {
 	this->startDeg = startDeg;
 	this->endDeg = endDeg;
@@ -40,13 +42,18 @@ void ArchRegion::UpdateAll(float startDeg, float endDeg, uint8_t red, uint8_t gr
 	this->colorRed = red;
 	this->colorGreen = green;
 	this->colorBlue = blue;
+	this->midiNote = midiNote;
 }
-void ArchRegion::UpdateSpan(float startDeg, float endDeg)
+void ArchRegion::SetSpan(float startDeg, float endDeg)
 {
-	UpdateAll(startDeg,endDeg,colorRed, colorGreen, colorBlue);
+	SetAll(startDeg, endDeg, midiNote, colorRed, colorGreen, colorBlue);
+}
+void ArchRegion::SetColors(uint8_t red, uint8_t green, uint8_t blue)
+{
+	SetAll(startDeg, endDeg, midiNote, red, green, blue);
 }
 
-void ArchRegion::UpdateColors(uint8_t red, uint8_t green, uint8_t blue)
+void ArchRegion::SetNote(uint8_t newMidiNote)
 {
-	UpdateAll(startDeg, endDeg,red, green, blue);
+	SetAll(startDeg, endDeg, newMidiNote, colorRed, colorGreen, colorBlue);
 }

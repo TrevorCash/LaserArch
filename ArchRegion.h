@@ -13,20 +13,37 @@
 
 class ArchRegion
 {
-//variables
+
 public:
-	//These functions DO NOT EFFECT Surrounding regions. Look in ArchRegionManager for that.
-	void UpdateAll(float startDeg, float endDeg, uint8_t red, uint8_t green, uint8_t blue);
-	void UpdateSpan(float startDeg, float endDeg);
-	void UpdateColors(uint8_t red, uint8_t green, uint8_t blue);
+	ArchRegion();
+	~ArchRegion();
+	
+
+	//These functions DO NOT EFFECT Surrounding regions. Use ArchRegionManager for that functionality.
+	void SetAll(float startDeg, float endDeg, uint8_t midiNote, uint8_t red, uint8_t green, uint8_t blue);
+	void SetSpan(float startDeg, float endDeg);
+	void SetColors(uint8_t red, uint8_t green, uint8_t blue);
+	void SetNote(uint8_t newMidiNote);
+	
+	uint8_t GetNote(){return midiNote;}
+	void GetColors(uint8_t& red, uint8_t& green, uint8_t& blue)
+	{
+		red = this->colorRed;
+		green = this->colorGreen;
+		blue = this->colorBlue;
+	}	
+
 	
 	
+	//prints some usefull info to the serial port..
 	void PrintInfo()
 	{
 		Serial.print("startDeg: ");
 		Serial.println(startDeg);
 		Serial.print("endDeg: ");
 		Serial.println(endDeg);
+		Serial.print("midiNote: ");
+		Serial.println(midiNote);
 	}
 	
 	boolean IsValid;
@@ -38,28 +55,15 @@ public:
 	uint8_t colorRed;
 	uint8_t colorGreen;
 	uint8_t colorBlue;
+	uint8_t midiNote;
 	
 	//computables
 	float widthDeg;
 	
 	ArchRegion* prevRegion;
 	ArchRegion* nextRegion;
-	
-protected:
-private:
 
 
-	
-	
-
-//functions
-public:
-	ArchRegion();
-	~ArchRegion();
-protected:
-private:
-	ArchRegion( const ArchRegion &c );
-	ArchRegion& operator=( const ArchRegion &c );
 
 }; //ArchRegion
 

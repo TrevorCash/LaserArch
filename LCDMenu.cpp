@@ -54,7 +54,7 @@ void LCDMenu::CallEnterPull()
 	if (WhichMenuMode == MENU_NONE)
 		return;
 	else if (WhichMenuMode == MENU_CHROMATIC)
-		
+		return;//TREVORS Edit
 }
 void LCDMenu::CallEnterCommit()
 {

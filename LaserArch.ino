@@ -134,7 +134,7 @@ void setup(void) {
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 	
 	
-	RegionManager.Initialize(24);
+	RegionManager.Initialize(24, MIDI_C1);
 	InterfaceManager.Initialize();
 	
 	//LED Strip Init
@@ -343,7 +343,7 @@ void SystemTestLoop()
 			{
 				float ang = cmd.substring(10).toFloat();
 				if(debugRegion)
-					debugRegion->UpdateColors(32,32,64);
+					debugRegion->SetColors(32,32,64);
 				debugRegion = RegionManager.FindRegionAtAngle(ang);
 				if(debugRegion)
 				{
@@ -351,7 +351,7 @@ void SystemTestLoop()
 					Serial.print((int)debugRegion);
 					Serial.println(" Currently Selected.");
 					debugRegion->PrintInfo();
-					debugRegion->UpdateColors(64,0,0);
+					debugRegion->SetColors(64,0,0);
 				}
 				else
 				{

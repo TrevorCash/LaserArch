@@ -34,7 +34,7 @@ void ArchNoteManager::OnFingerStart(ArchFinger* finger)
 	ArchRegion* region = regionManager->FindRegionAtTick(finger->centerTime);
 	if(!region) return;
 	
-	region->UpdateColors(255,0,0);
+	region->SetColors(255,0,0);
 
 	
 	
@@ -47,7 +47,7 @@ void ArchNoteManager::OnFingerStop(ArchFinger* finger)
 	ArchRegion* region = regionManager->FindRegionAtTick(finger->centerTime);
 	if(!region) return;
 	
-	region->UpdateColors(0,0,255);
+	region->SetColors(0,0,255);
 
 		
 }

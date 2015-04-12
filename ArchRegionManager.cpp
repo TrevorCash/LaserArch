@@ -26,7 +26,7 @@ ArchRegionManager::~ArchRegionManager()
 } //~ArchRegionManager
 
 
-void ArchRegionManager::Initialize(uint8_t numReqRegions)
+void ArchRegionManager::Initialize(uint8_t numReqRegions, uint8_t midiStartNote)
 {
 	if(numReqRegions < 1)
 		return;
@@ -53,9 +53,9 @@ void ArchRegionManager::Initialize(uint8_t numReqRegions)
 		newRegion->prevRegion = prevRegion;
 		prevRegion = newRegion;
 	
-		newRegion->UpdateSpan(minDeg+(i*regionWidth), minDeg+((i+1)*regionWidth));
-
-		newRegion->UpdateColors((i%2)*32 + 32,((i+1)%3)*32,(i%4)*32);
+		newRegion->SetSpan(minDeg+(i*regionWidth), minDeg+((i+1)*regionWidth));
+		newRegion->SetNote(i + midiStartNote);
+		newRegion->SetColors((i%2)*32 + 32,((i+1)%3)*32,(i%4)*32);
 		
 	}
 	
@@ -260,6 +260,20 @@ ArchRegion* ArchRegionManager::FindRegionAtAngle(float angle)
 }
 
 
+ArchRegion* ArchRegionManager::FindRegionById(uint16_t id)
+{
+		ArchRegion* curRegion = regionListFirst;
+		while(curRegion != NULL)
+		{
+			if(curRegion->index == id)
+				return curRegion;
+				
+			curRegion = curRegion->nextRegion;
+		}
+		
+		return NULL;
+}
+
 
 void ArchRegionManager::PrintRegionInfo()
 {
@@ -270,10 +284,7 @@ void ArchRegionManager::PrintRegionInfo()
 		
 		Serial.print("Region: ");
 		Serial.println(curRegion->index);
-		Serial.print("StartDeg: ");
-		Serial.print(curRegion->startDeg);
-		Serial.print("  EndDeg: ");
-		Serial.println(curRegion->endDeg);
+		curRegion->PrintInfo();
 		
 		curRegion = curRegion->nextRegion;
 	}
@@ -331,7 +342,7 @@ boolean ArchRegionManager::RemoveRegion(ArchRegion* region)
 }
 
 
-//gets rid of linked list behalvior on all regions
+//gets rid of linked list behavior on all regions
 void ArchRegionManager::ClearAllRegions()
 {
 	regionListFirst = NULL;
@@ -341,7 +352,6 @@ void ArchRegionManager::ClearAllRegions()
 	{
 		regionPool[r].prevRegion = NULL;
 		regionPool[r].nextRegion = NULL;
-		
 	}
 	
 }
