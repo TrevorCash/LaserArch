@@ -21,8 +21,6 @@ ArchFinger::ArchFinger()
 	curRegion = NULL;
 	lastRegion = NULL;
 
-	
-	
 	validity = MIN_FINGER_VALIDITY;
 }//ArchFinger
 
@@ -32,39 +30,3 @@ ArchFinger::~ArchFinger()
 } //~ArchFinger
 
 
-void ArchFinger::Validate(uint32_t newTime, uint32_t newWidth)
-{
-	centerTimePrev = centerTime;
-	timeWidthPrev = timeWidth;
-	
-	centerTime = newTime;
-	timeWidth = newWidth;
-	
-	validity++;
-	if(validity >= MAX_FINGER_VALIDITY)
-		validity = MAX_FINGER_VALIDITY;
-	
-}
-
-void ArchFinger::SuperValidate(uint32_t newTime, uint32_t newWidth)
-{
-	centerTime = newTime;
-	timeWidth = newWidth;
-	
-	centerTimePrev = centerTime;
-	timeWidthPrev = timeWidth;
-	
-	validity = MAX_FINGER_VALIDITY;
-}
-
-
-void ArchFinger::DeValidate()
-{
-		validity--;
-		if(validity <= MIN_FINGER_VALIDITY)
-		validity = MIN_FINGER_VALIDITY;
-}
-boolean ArchFinger::IsFullyValid()
-{
-	return (validity >= FINGER_VALIDITY_THRESH);
-}

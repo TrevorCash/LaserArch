@@ -21,8 +21,8 @@
 //maximum number of finger to track!
 #define MAX_FINGERS 15
 
-#define FINGER_VALIDITY_THRESH 3
-#define MAX_FINGER_VALIDITY 6
+#define FINGER_VALIDITY_THRESH 1
+#define MAX_FINGER_VALIDITY 1
 #define MIN_FINGER_VALIDITY 0
 
 //maximum regions avalable.
@@ -37,8 +37,8 @@
 #define SYNC_PHYSICAL_OFFSET_DEGREES 0
 
 //min max cutoff angles (any note edges are immediatly discarded if out of this range (used to get rid of strange edge behaviors)
-#define REJECTION_ANGLE_MIN_DEGREES 100
-#define REJECTION_ANGLE_MAX_DEGREES 260
+#define REJECTION_ANGLE_MIN_DEGREES 80
+#define REJECTION_ANGLE_MAX_DEGREES 280
 
 //global analog write resolution
 #define ANALOG_WRITE_RES 12

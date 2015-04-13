@@ -379,6 +379,10 @@ void SystemTestLoop()
 				debugRegion = NULL;
 				
 			}
+			else
+			{
+				Serial.println("Unknown Command!");
+			}
 		}
 		//BlobManager.LockLastBlobArray();
 		//if(BlobManager.blobsArrayLastCycleSize != 1)

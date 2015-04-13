@@ -30,30 +30,12 @@ public:
 	uint32_t centerTimePrev; 
 	uint32_t timeWidthPrev;
 	
-	
-	
 
 	ArchRegion* curRegion;
 	ArchRegion* lastRegion;	
 	
-	
-	
-	
-	
-	
-	
-	uint8_t validity;
-	
-	//Finger's Midi Note Data
-	
-	
-	boolean IsFullyValid();
-	void Validate(uint32_t newTime, uint32_t newWidth);
-	void SuperValidate(uint32_t newTime, uint32_t newWidth);
-	void DeValidate();
-	
-	
-	
+	uint32_t validity;
+
 protected:
 private:
 	ArchFinger( const ArchFinger &c );

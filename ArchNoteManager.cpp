@@ -24,7 +24,12 @@ ArchNoteManager::~ArchNoteManager()
 
 void ArchNoteManager::OnFingerMove(ArchFinger* finger)
 {
-	//Serial.println("Moving");
+	Serial.print("Moving Finger: ");
+	Serial.println((int)finger);
+	Serial.println(finger->centerTime);
+	
+	finger->centerTimePrev = finger->centerTime;
+	finger->timeWidthPrev = finger->timeWidth;
 }
 void ArchNoteManager::OnFingerStart(ArchFinger* finger)
 {

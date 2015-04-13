@@ -18,7 +18,9 @@ ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManag
 	this->blobManager = blobManager;
 	this->noteManager = noteManager;
 	
-	numActiveFingers = 0;
+	fingerPool[0].validity = MAX_FINGER_VALIDITY;
+	
+	connectionLinksSize = 0;
 } //ArchFingerManager
 
 // default destructor
@@ -30,108 +32,75 @@ ArchFingerManager::~ArchFingerManager()
 void ArchFingerManager::Update()
 {
 	
-	if(blobManager->IsLastBlobArrayUsed())
-	{
-		return;
-	}
-	blobManager->UseLastBlobArray();
+	//if(blobManager->IsLastBlobArrayUsed())
+	//{
+	//	return;
+	//}
+	//blobManager->UseLastBlobArray();
 	
 	//as long as we are referencing the blobs we want to "lock them" so they dont change midway through 
-	//due to intterupts!
+	//due to interupts!
 	blobManager->LockLastBlobArray();
 	
-	uint8_t numBlobs = blobManager->blobsArrayLastCycleSize;
-
-	int f;
-	uint32_t minDist = 0xFFFFFFFF;
-	ArchRawBlob* minBlob = NULL;
-	for(f = 0; f < MAX_FINGERS; f++)
+	connectionLinksSize = 0;
+	
+	
+	int b1;
+	ArchRawBlob* b1p = NULL;
+	for(b1 = 0; b1 < blobManager->blobsArrayLastCycleSize; b1++)
 	{
-		if(!fingerPool[f].IsFullyValid()) continue;
-		
-		minDist = 0xFFFFFFFF;
-		minBlob = NULL;
-		
-		int b;
-		for(b = 0; b < numBlobs; b++)
+		b1p = &blobManager->lastBlobsArray[b1];
+		int f1;
+		ArchFinger* f1p = NULL;
+		int f1_from_b1_closest = -1;
+		uint32_t b1_f1_minDist = 0xFFFFFFFF;
+		for(f1 = 0; f1 < MAX_FINGERS; f1++)
 		{
-			if(blobManager->lastBlobsArray[b].closestFinger != NULL)
-			{
-				continue;
-			}
-			
-			uint32_t dist = abs(blobManager->lastBlobsArray[b].midTime - fingerPool[f].centerTime);
-			if(dist < minDist)
-			{
-				minDist = dist;
-				minBlob = &blobManager->lastBlobsArray[b];
-			}	
+				f1p = &fingerPool[f1];
+				
+				if(f1p->validity < FINGER_VALIDITY_THRESH)
+					continue;
+				
+				
+				//make sure the finger isnt already connected!
+				int k;
+				for(k = 0; k < connectionLinksSize; k++)
+				{
+					if(connectionLinks[k].pFinger == f1p)
+					{
+						k = -1;
+						break;
+					}
+				}
+				if(k == -1)
+					continue;
+					
+					
+				
+				uint32_t dist = BlobFingerDist(b1p,f1p);
+				if(dist < b1_f1_minDist)
+				{
+					f1_from_b1_closest = f1;
+					b1_f1_minDist = dist;
+				}
 		}
-		//Serial.print("F:"); Serial.println(f);
-		//Serial.println((int)minBlob);
-		
-		if(minBlob != NULL)
+		if(f1_from_b1_closest >= 0)
 		{
-			////move finger.
-			fingerPool[f].Validate(minBlob->midTime,minBlob->widthTime);
-			noteManager->OnFingerMove(&fingerPool[f]);
-			minBlob->closestFinger = &fingerPool[f];
-		}
-		else
-		{
-			fingerPool[f].DeValidate();
-			if(!fingerPool[f].IsFullyValid())
-			{
-				noteManager->OnFingerStop(&fingerPool[f]);
-			}
+			ArchFinger* f1_from_b1_closestp = &fingerPool[f1_from_b1_closest];
+			f1_from_b1_closestp->centerTime = b1p->midTime;
+			f1_from_b1_closestp->timeWidth = b1p->widthTime;
+			connectionLinks[connectionLinksSize].distance = b1_f1_minDist;
+			connectionLinks[connectionLinksSize].pBlob = b1p;
+			connectionLinks[connectionLinksSize].pFinger = f1_from_b1_closestp;
+			connectionLinksSize++;
+			noteManager->OnFingerMove(f1_from_b1_closestp);
 		}
 	}
 	
-	int b;
-	for(b = 0; b < numBlobs; b++)
-	{
-		if(blobManager->lastBlobsArray[b].closestFinger) 
-			continue;
-		
-		int32_t f = findUnValidFinger();
-		if(f >= 0 )
-		{
-			//turn finger on!
-			fingerPool[f].SuperValidate(blobManager->lastBlobsArray[b].midTime, blobManager->lastBlobsArray[b].widthTime);
-			noteManager->OnFingerStart(&fingerPool[f]);
-			
-			blobManager->lastBlobsArray[b].closestFinger = &fingerPool[f];
-		}
-		else
-			break;
-		
-	}
 	
-
 	
 	blobManager->UnLockLastBlobArray();
 }
 
 
-int32_t ArchFingerManager::findUnValidFinger()
-{
-		int s;
-		for(s = 0; s < MAX_FINGERS; s++)
-		{
-			if(!fingerPool[s].IsFullyValid())
-				return s;
-		}
-		return -1;
-}
-
-int32_t ArchFingerManager::findValidFinger()
-{
-		int s;
-		for(s = 0; s < MAX_FINGERS; s++)
-		{
-			if(fingerPool[s].IsFullyValid())
-			return s;
-		}
-		return -1;
-}
 

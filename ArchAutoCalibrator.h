@@ -74,7 +74,6 @@ void PrintCharacteristicBuff()
 	 uint16_t characteristicBuffIndx;
 	 uint16_t characteristicBuffAvgIteration;
 	 
-	 int32_t notePhotoLevelAmbient;
 	 
 	 ArchMotor* Motor;
 

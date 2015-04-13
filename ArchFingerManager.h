@@ -24,10 +24,6 @@ public:
 	~ArchFingerManager();
 
 	void Update();//called from main loop;
-	
-	
-	void OnFingerMove(uint32_t oldStart, uint32_t oldEnd, ArchFinger* finger);
-
 
 protected:
 	ArchBlobManager* blobManager;
@@ -36,12 +32,12 @@ private:
 	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
 	
 	ArchFingerBlobConnection connectionLinks[MAX_BLOBS*MAX_FINGERS];
+	uint16_t connectionLinksSize;
 	
-	uint8_t numActiveFingers;
-	
-	int32_t findUnValidFinger();
-	int32_t findValidFinger();
-	
+	uint32_t BlobFingerDist(ArchRawBlob* blob, ArchFinger* finger)
+	{
+		return abs(blob->midTime - finger->centerTime);
+	}
 
 }; //ArchFingerManager
 

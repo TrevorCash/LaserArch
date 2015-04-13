@@ -24,15 +24,12 @@ class ArchRawBlob
 	void Begin(uint32_t startSyncTimerTime)
 	{
 		startTime = startSyncTimerTime;
-		closestFinger = NULL;
 	}
 	void End(uint32_t endSyncTimerTime)
 	{
 		endTime = endSyncTimerTime;
 		midTime = (endTime + startTime)*0.5;
 		widthTime = startTime - endTime;
-		
-		closestFinger = NULL;
 	}
 public:
 	uint32_t startTime;
@@ -40,8 +37,6 @@ public:
 	//calculatables based on startTime and endTime;
 	uint32_t midTime;
 	uint32_t widthTime;
-	
-	ArchFinger* closestFinger;
 
 }; //ArchRawBlob
 
