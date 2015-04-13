@@ -35,7 +35,7 @@ public:
 
 	
 	
-	//prints some usefull info to the serial port..
+	//prints some useful info to the serial port..
 	void PrintInfo()
 	{
 		Serial.print("startDeg: ");

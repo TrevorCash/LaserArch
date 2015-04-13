@@ -124,10 +124,9 @@ void setup(void) {
 	
 	
 	//Laser Pins
-	pinMode(GREEN_LASER_PWM_TEENSY_PIN,OUTPUT);
-	analogWriteFrequency(GREEN_LASER_PWM_TEENSY_PIN,ARCH_TIMER_0_PWM_FREQ);
+	pinMode(GREEN_LASER_PWM_TEENSY_PIN, OUTPUT);
 	analogWriteFrequency(MOTOR_PWM_TEENSY_PIN,ARCH_TIMER_0_PWM_FREQ);
-	analogWrite(GREEN_LASER_PWM_TEENSY_PIN,0);
+	digitalWrite(GREEN_LASER_PWM_TEENSY_PIN, LOW);
 	
 	//Dac output configure
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
@@ -188,20 +187,20 @@ void SystemTestLoop()
 			}
 			else if(cmd == "greenon")
 			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_ON);
+				digitalWrite(GREEN_LASER_PWM_TEENSY_PIN, HIGH);
 			}
 			else if(cmd == "greenoff")
 			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_OFF);
+				digitalWrite(GREEN_LASER_PWM_TEENSY_PIN, LOW);
 			}
 			else if(cmd == "alloff")
 			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,0);
+				digitalWrite(GREEN_LASER_PWM_TEENSY_PIN, LOW);
 				MainMotor.Stop();
 			}
 			else if(cmd == "allon")
 			{
-				analogWrite(GREEN_LASER_PWM_TEENSY_PIN,GREEN_LASER_PWM_DUTY_CYCLE_ON);
+				digitalWrite(GREEN_LASER_PWM_TEENSY_PIN, HIGH);
 				MainMotor.Start();
 			}
 			else if(cmd.startsWith("dac"))
