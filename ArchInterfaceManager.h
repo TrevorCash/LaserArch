@@ -8,6 +8,7 @@
 class ArchLCD;
 class LCDMenu;
 class LCDLabels;
+class ArchRegionManager;
 
 #ifndef __ARCHINTERFACEMANAGER_H__
 #define __ARCHINTERFACEMANAGER_H__
@@ -15,6 +16,11 @@ class LCDLabels;
 #include <i2c_t3/i2c_t3.h>
 #include "PrimaryDefines.h"
 #include "MIDINoteDefines.h"
+
+#ifndef __ARCHREGIONMANAGER_H__
+#include "ArchRegionManager.h"
+#define __ARCHREGIONMANAGER_H__
+#endif
 
 #ifndef _LCDLABELS_h
 #include "LCDLabels.h"
@@ -36,6 +42,8 @@ class LCDLabels;
 #define _LCDMENUSETUP_h
 #endif
 
+
+
 //	
 class ArchInterfaceManager
 {
@@ -53,7 +61,7 @@ public:
 	ArchInterfaceManager();
 	~ArchInterfaceManager();
 	void Initialize();
-	void Update();
+	void Update(ArchRegionManager* RegionManager);
 protected:
 private:
 	ArchInterfaceManager( const ArchInterfaceManager &c );

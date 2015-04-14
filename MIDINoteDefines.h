@@ -57,7 +57,3 @@
 #define MIDI_F5 77
 #define MIDI_Gb5 78
 #define MIDI_G5 79
-
-#ifndef __MIDI_NOTE_DEFINES__
-#define MIDI___MIDI_NOTE_DEFINES__
-#endif

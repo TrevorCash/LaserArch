@@ -1,8 +1,9 @@
 #include "LCDMenu.h"
 
-LCDMenu::LCDMenu(uint8_t NewWhichMenuMode) 
+LCDMenu::LCDMenu(void (*NewEnterPull)(ArchRegionManager* RegionManager, LCDMenu* Menu), void (*NewEnterCommit)(ArchRegionManager* RegionManager, LCDMenu* Menu)) 
 {
-	WhichMenuMode = NewWhichMenuMode;
+	CallEnterPull = NewEnterPull;
+	CallEnterCommit = NewEnterCommit;
 }
 LCDMenu::~LCDMenu() {}
 
@@ -47,17 +48,4 @@ void LCDMenu::setReturnMenu(LCDMenu* NewReturnMenu)
 LCDMenu* LCDMenu::getReturnMenu()
 {
 	return ReturnMenu;
-}
-
-void LCDMenu::CallEnterPull()
-{
-	if (WhichMenuMode == MENU_NONE)
-		return;
-	else if (WhichMenuMode == MENU_CHROMATIC)
-		return;//TREVORS Edit
-}
-void LCDMenu::CallEnterCommit()
-{
-	if (WhichMenuMode == MENU_NONE)
-		return;	
 }
