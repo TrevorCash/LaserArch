@@ -30,12 +30,10 @@ void ArchInterfaceManager::Initialize()
 	Cursor->setMode(LABEL_HOVER);
 }
 
-void ArchInterfaceManager::Update()
+void ArchInterfaceManager::Update(ArchRegionManager* RegionManager)
 {
 	uint8_t cmd;
 	cmd = OrbitalLCD->ReadKey();
-	if (cmd != 0)
-		Serial.println(cmd);
 	if (cmd == LCD_UP)
 	{
 		if (Cursor->getMode() == LABEL_HOVER && Cursor->getUp() != NULL)
@@ -100,7 +98,8 @@ void ArchInterfaceManager::Update()
 			OrbitalLCD->ClearScreen();
 			tmp->setReturnMenu(Menu);
 			Menu = Cursor->getNextMenu();
-			Menu->CallEnterPull();
+			if (Menu->CallEnterPull != NULL)
+				Menu->CallEnterPull(RegionManager, Menu);
 			Menu->DrawMe();
 			Cursor = Menu->getCursorHome();
 			Cursor->setMode(LABEL_HOVER);
@@ -114,7 +113,8 @@ void ArchInterfaceManager::Update()
 		else if ((Cursor->getType() == LABEL_VALUE_NUMBER || Cursor->getType() == LABEL_VALUE_NOTE)
 		&& Cursor->getMode() == LABEL_SELECTED)
 		{
-			Menu->CallEnterCommit();
+			if (Menu->CallEnterCommit != NULL)
+				Menu->CallEnterCommit(RegionManager, Menu);
 			Cursor->setMode(LABEL_HOVER);
 			Cursor->setBackVal(Cursor->getTempVal());
 		}

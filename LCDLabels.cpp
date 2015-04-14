@@ -245,7 +245,9 @@ void LCDLabels::AutoResizeLabel()
 {
 	ClearLabel();
 	X2 = X1 + 7*FrontVal.length() + 2;
-	Y2 = Y1 + 11;	
+	Y2 = Y1 + 11;
+	InitializeLabel();
+	IndicateMode();
 }
 
 //void LCDLabels::InitializeLabel()
@@ -346,19 +348,19 @@ void LCDLabels::DrawFilledRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2
 
 void LCDLabels::UpCommand()
 {
-	setTempVal((BackVal+LittleInc <= MaxVal ? BackVal+LittleInc : MaxVal ));
+	setTempVal((TempVal+LittleInc <= MaxVal ? TempVal+LittleInc : MaxVal ));
 }
 void LCDLabels::DownCommand()
 {
-	setTempVal((BackVal-LittleInc >= MinVal ? BackVal-LittleInc : MinVal ));
+	setTempVal((TempVal-LittleInc >= MinVal ? TempVal-LittleInc : MinVal ));
 }
 void LCDLabels::LeftCommand()
 {
-	setTempVal((BackVal-BigInc >= MinVal ? BackVal-BigInc : MinVal ));
+	setTempVal((TempVal-BigInc >= MinVal ? TempVal-BigInc : MinVal ));
 }
 void LCDLabels::RightCommand()
 {
-	setTempVal(((BackVal+BigInc) <= MaxVal ? BackVal+BigInc : MaxVal ));
+	setTempVal(((TempVal+BigInc) <= MaxVal ? TempVal+BigInc : MaxVal ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -373,25 +375,25 @@ const char* LCDLabels::MIDItoString(uint8_t midi)
 	if (midi % 12 == 0)
 	str = "C";
 	else if (midi % 12 == 1)
-	str = "C#";
+	str = "C#/Db";
 	else if (midi % 12 == 2)
 	str = "D";
 	else if (midi % 12 == 3)
-	str = "D#";
+	str = "D#/Eb";
 	else if (midi % 12 == 4)
 	str = "E";
 	else if (midi % 12 == 5)
 	str = "F";
 	else if (midi % 12 == 6)
-	str = "F#";
+	str = "F#/Gb";
 	else if (midi % 12 == 7)
 	str = "G";
 	else if (midi % 12 == 8)
-	str = "G#";
+	str = "G#/Ab";
 	else if (midi % 12 == 9)
 	str = "A";
 	else if (midi % 12 == 10)
-	str = "A#";
+	str = "A#/Bb";
 	else if (midi % 12 == 11)
 	str = "B";
 	str += "-" + (String)((int)(midi/12));

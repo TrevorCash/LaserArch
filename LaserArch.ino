@@ -170,7 +170,7 @@ void SystemTestSetup()
 
 void SystemTestLoop()
 {
-	InterfaceManager.Update();
+	InterfaceManager.Update(&RegionManager);
 	FingerManager.Update();
 	LedManager.Update();
 		//GetInputFromTerminal
