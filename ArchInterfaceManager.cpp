@@ -23,9 +23,13 @@ void ArchInterfaceManager::Initialize()
 {
 	OrbitalLCD->Initialize();
 	OrbitalLCD->ClearScreen();
+	Serial.print("\nClear Screen: ");
+	Serial.print(uint32_t(MenuHome));
+	
 	MenuHome = DefineMenu_OperationMode();
 	Menu = MenuHome;
 	Menu->DrawMe();
+	Serial.println("Success");
 	Cursor = Menu->getCursorHome();
 	Cursor->setMode(LABEL_HOVER);
 }

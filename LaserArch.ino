@@ -97,10 +97,11 @@ boolean showFingerInfo = false;
 
 void setup(void) {
 	Serial.begin(115200);
-	
+	Serial.println("Begin");
 	MIDI.begin();
 	
 	delay(1000);
+	Serial.println("here");
 	
 	//Attach Interupts for the whole program
 	pinMode(SYNC_PHOTOTRANSISTOR_TEENSY_PIN,INPUT);
@@ -133,12 +134,12 @@ void setup(void) {
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
 	RegionManager.Initialize(24, MIDI_C1);
-	//InterfaceManager.Initialize();
+	InterfaceManager.Initialize();
 
 	//LED Strip Init
 	LedStrip.begin();
 	LedStrip.show();	
-	
+
 	#ifdef CORE_SYSTEM_TEST_MODE
 		SystemTestSetup();
 	#else
@@ -168,7 +169,7 @@ void SystemTestSetup()
 
 void SystemTestLoop()
 {
-	//InterfaceManager.Update(&RegionManager);
+	InterfaceManager.Update(&RegionManager);
 	FingerManager.Update();
 	LedManager.Update();
 		//GetInputFromTerminal

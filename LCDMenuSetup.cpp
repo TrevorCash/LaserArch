@@ -37,13 +37,16 @@ LCDMenu* DefineMenu_OperationMode()
 
 LCDMenu* DefineMenu_ChromaticMode()
 {
+	Serial.println("Here");
 	//Define Menu Variables and Labels
 	static LCDMenu ChromaticMode(ChromaticEnterPull, ChromaticEnterCommit);
+	Serial.println("Super Fail");
 	static LCDLabels Title(1, 10, 0, LABEL_PLAIN_TEXT, "CHROMATIC MODE:");
 	static LCDLabels NumRegionsTag(2, 10, 14, LABEL_PLAIN_TEXT, "# of Regions: ");
 	static LCDLabels NumRegionsVal(3, 110, 14, LABEL_VALUE_NUMBER, 30, 1, 5, 0, 99);
 	static LCDLabels StartNoteTag(4, 10, 28, LABEL_PLAIN_TEXT, "Start Note: ");
 	static LCDLabels StartNoteVal(5, 110, 28, LABEL_VALUE_NOTE, 0, 1, 12, 0, 127);
+	Serial.println("here2");
 	
 	//Form the Draw Linked List for Menu
 	ChromaticMode.setDrawList(&Title);

@@ -350,6 +350,7 @@ void ArchRegionManager::ClearAllRegions()
 	int r;
 	for(r = 0; r < MAX_REGIONS; r++)
 	{
+		regionPool[r].IsValid = false;
 		regionPool[r].prevRegion = NULL;
 		regionPool[r].nextRegion = NULL;
 	}
