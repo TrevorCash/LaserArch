@@ -13,13 +13,17 @@
 #include "ArchNoteManager.h"
 
 // default constructor
-ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager)
+ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager)
 {
 	this->blobManager = blobManager;
 	this->noteManager = noteManager;
+	this->regionManager = regionManager;
 	
 	numActiveFingers = 0;
 	connectionLinksCurIdx = 0;
+	
+	
+	printFingerEvents = false;
 } //ArchFingerManager
 
 // default destructor
@@ -92,14 +96,8 @@ void ArchFingerManager::Update()
 		cp->pFinger->isUsed = true;
 		cp->pBlob->isUsed = true;
 		
-		cp->pFinger->centerTime = cp->pBlob->midTime;
-		cp->pFinger->timeWidth = cp->pBlob->widthTime;
-		
-		//call manager callbacks...
-		noteManager->OnFingerMove(cp->pFinger);
-	
-		cp->pFinger->centerTimePrev = cp->pFinger->centerTime;
-		cp->pFinger->timeWidthPrev = cp->pFinger->timeWidth;
+		//move it!
+		FingerMove(cp->pFinger, cp->pBlob);
 	}
 	
 	
@@ -115,8 +113,7 @@ void ArchFingerManager::Update()
 				//call manager callbacks for finger start
 				if(!fingerPool[f].hasStarted)
 				{
-					fingerPool[f].hasStarted = true;
-					noteManager->OnFingerStart(&fingerPool[f]);
+					FingerStart(&fingerPool[f]);
 				}
 						
 			}
@@ -134,8 +131,7 @@ void ArchFingerManager::Update()
 				//call manager callbacks for finger stop
 				if(fingerPool[f].hasStarted)
 				{
-					fingerPool[f].hasStarted = false;
-					noteManager->OnFingerStop(&fingerPool[f]);	
+					FingerStop(&fingerPool[f]);
 				}
 			}
 			else if(fingerPool[f].validity < MIN_FINGER_VALIDITY)
@@ -191,3 +187,56 @@ void ArchFingerManager::Update()
 
 
 
+void ArchFingerManager::FingerStart(ArchFinger* finger)
+{
+	
+	finger->hasStarted = true;
+	
+	//map the finger to it's starting region
+	finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
+	finger->lastRegion = finger->curRegion;
+	
+	
+	
+	if(printFingerEvents)
+	{
+		Serial.print("FingerStart: ");
+		Serial.println((int)finger);
+	}
+	
+	noteManager->OnFingerStart(finger);
+}
+void ArchFingerManager::FingerMove(ArchFinger* finger, ArchRawBlob* blob)
+{
+	finger->centerTime = blob->midTime;
+	finger->timeWidth = blob->widthTime;
+	
+	//switch regions with some histeresis(TODO)
+	finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
+	
+	
+	
+	//call manager callbacks...
+	noteManager->OnFingerMove(finger);
+	
+	
+	
+	finger->lastRegion = finger->curRegion;
+	
+	finger->centerTimePrev = finger->centerTime;
+	finger->timeWidthPrev = finger->timeWidth;
+}
+void ArchFingerManager::FingerStop(ArchFinger* finger)
+{
+	finger->hasStarted = false;
+
+	if(printFingerEvents)
+	{
+		Serial.print("FingerStop: ");
+		Serial.println((int)finger);
+	}
+	noteManager->OnFingerStop(finger);
+	
+	finger->curRegion = NULL;
+
+}

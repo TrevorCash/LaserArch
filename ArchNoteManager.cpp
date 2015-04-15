@@ -7,12 +7,12 @@
 
 
 #include "ArchNoteManager.h"
+#include "MIDI.h"
 
 // default constructor
 ArchNoteManager::ArchNoteManager( ArchRegionManager* regionManager)
 {
 	this->regionManager = regionManager;
-	
 	
 } //ArchNoteManager
 
@@ -24,41 +24,19 @@ ArchNoteManager::~ArchNoteManager()
 
 void ArchNoteManager::OnFingerMove(ArchFinger* finger)
 {
-	//Serial.print("Moving Finger: ");
-	//Serial.println((int)finger);
-	//Serial.println(finger->centerTime);
+	if(finger->curRegion != finger->lastRegion)
+	{
+		MIDI.sendNoteOff(finger->lastRegion->midiNote,0,1);
+		MIDI.sendNoteOn(finger->curRegion->midiNote,127,1);
+	}
 }
 void ArchNoteManager::OnFingerStart(ArchFinger* finger)
 {
-	
-	Serial.print("Start Finger: ");
-	Serial.println((int)finger);
-	
-	
-	finger->lastRegion = finger->curRegion;
-	
-	//find the region!
-	ArchRegion* region = regionManager->FindRegionAtTick(finger->centerTime);
-	if(!region) return;
-	
-	region->SetColors(255,0,0);
-	
-	//cross reference finger pos with region note...
-	//finger.curnote = that note
-	//midinoteon(that note)
+	MIDI.sendNoteOn(finger->curRegion->midiNote,127,1);
 }
 void ArchNoteManager::OnFingerStop(ArchFinger* finger)
 {
-	Serial.print("Stop Finger: ");
-	Serial.println((int)finger);
-		
-	
-	ArchRegion* region = regionManager->FindRegionAtTick(finger->centerTime);
-	if(!region) return;
-	
-	region->SetColors(0,0,255);
-
-		
+	MIDI.sendNoteOff(finger->curRegion->midiNote,0,1);	
 }
 
 

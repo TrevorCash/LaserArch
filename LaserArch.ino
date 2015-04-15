@@ -58,7 +58,7 @@ ArchNoteManager NoteManager(&RegionManager);
 
 
 //make a fingers manager - manage finger tracking.
-ArchFingerManager FingerManager(&BlobManager, &NoteManager);
+ArchFingerManager FingerManager(&BlobManager, &NoteManager, &RegionManager);
 
 
 
@@ -98,7 +98,7 @@ boolean showFingerInfo = false;
 void setup(void) {
 	Serial.begin(115200);
 	
-	//MIDI.begin();
+	MIDI.begin();
 	
 	delay(1000);
 	
@@ -224,6 +224,7 @@ void SystemTestLoop()
 			}
 			else if(cmd == "fingerinfo")
 			{
+				FingerManager.printFingerEvents = !FingerManager.printFingerEvents;
 				showFingerInfo = !showFingerInfo;
 			}
 			else if (cmd == "clearscreen")
@@ -407,7 +408,7 @@ void SystemTestLoop()
 		
 		if(showFingerInfo)
 		{
-			Serial.println(FingerManager.numActiveFingers);
+			//Serial.println(FingerManager.numActiveFingers);
 			
 		}
 		

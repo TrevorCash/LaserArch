@@ -20,15 +20,17 @@ class ArchFingerManager
 
 //functions
 public:
-	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager);
+	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager);
 	~ArchFingerManager();
 	uint16_t numActiveFingers;
+	boolean printFingerEvents;
 
 	void Update();//called from main loop;
 
 protected:
 	ArchBlobManager* blobManager;
 	ArchNoteManager* noteManager;
+	ArchRegionManager* regionManager;
 private:
 	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
 	
@@ -36,11 +38,13 @@ private:
 	ArchFingerBlobConnection connectionLinks[MAX_BLOBS*MAX_FINGERS];
 	uint16_t connectionLinksCurIdx;
 	
-	uint32_t BlobFingerDist(ArchRawBlob* blob, ArchFinger* finger)
-	{
-		return abs(blob->midTime - finger->centerTime);
-	}
-
+	//the functions call other manager callback functions by design..
+	void FingerStart(ArchFinger* finger);
+	void FingerMove(ArchFinger* finger, ArchRawBlob* blob);
+	void FingerStop(ArchFinger* finger);
+	
+	
+	
 }; //ArchFingerManager
 
 #endif //__ARCHFINGERMANAGER_H__
