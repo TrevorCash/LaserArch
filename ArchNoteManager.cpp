@@ -24,15 +24,17 @@ ArchNoteManager::~ArchNoteManager()
 
 void ArchNoteManager::OnFingerMove(ArchFinger* finger)
 {
-	Serial.print("Moving Finger: ");
-	Serial.println((int)finger);
-	Serial.println(finger->centerTime);
-	
-	finger->centerTimePrev = finger->centerTime;
-	finger->timeWidthPrev = finger->timeWidth;
+	//Serial.print("Moving Finger: ");
+	//Serial.println((int)finger);
+	//Serial.println(finger->centerTime);
 }
 void ArchNoteManager::OnFingerStart(ArchFinger* finger)
 {
+	
+	Serial.print("Start Finger: ");
+	Serial.println((int)finger);
+	
+	
 	finger->lastRegion = finger->curRegion;
 	
 	//find the region!
@@ -40,8 +42,6 @@ void ArchNoteManager::OnFingerStart(ArchFinger* finger)
 	if(!region) return;
 	
 	region->SetColors(255,0,0);
-
-	
 	
 	//cross reference finger pos with region note...
 	//finger.curnote = that note
@@ -49,6 +49,10 @@ void ArchNoteManager::OnFingerStart(ArchFinger* finger)
 }
 void ArchNoteManager::OnFingerStop(ArchFinger* finger)
 {
+	Serial.print("Stop Finger: ");
+	Serial.println((int)finger);
+		
+	
 	ArchRegion* region = regionManager->FindRegionAtTick(finger->centerTime);
 	if(!region) return;
 	

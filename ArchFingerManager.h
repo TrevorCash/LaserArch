@@ -22,6 +22,7 @@ class ArchFingerManager
 public:
 	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager);
 	~ArchFingerManager();
+	uint16_t numActiveFingers;
 
 	void Update();//called from main loop;
 
@@ -31,8 +32,9 @@ protected:
 private:
 	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
 	
+	
 	ArchFingerBlobConnection connectionLinks[MAX_BLOBS*MAX_FINGERS];
-	uint16_t connectionLinksSize;
+	uint16_t connectionLinksCurIdx;
 	
 	uint32_t BlobFingerDist(ArchRawBlob* blob, ArchFinger* finger)
 	{

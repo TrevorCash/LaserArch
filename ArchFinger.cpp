@@ -22,6 +22,8 @@ ArchFinger::ArchFinger()
 	lastRegion = NULL;
 
 	validity = MIN_FINGER_VALIDITY;
+	isUsed = false;
+	hasStarted = false;
 }//ArchFinger
 
 // default destructor

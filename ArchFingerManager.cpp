@@ -18,9 +18,8 @@ ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManag
 	this->blobManager = blobManager;
 	this->noteManager = noteManager;
 	
-	fingerPool[0].validity = MAX_FINGER_VALIDITY;
-	
-	connectionLinksSize = 0;
+	numActiveFingers = 0;
+	connectionLinksCurIdx = 0;
 } //ArchFingerManager
 
 // default destructor
@@ -32,69 +31,157 @@ ArchFingerManager::~ArchFingerManager()
 void ArchFingerManager::Update()
 {
 	
-	//if(blobManager->IsLastBlobArrayUsed())
-	//{
-	//	return;
-	//}
-	//blobManager->UseLastBlobArray();
+	if(blobManager->IsLastBlobArrayUsed())
+	{
+		return;
+	}
+	blobManager->UseLastBlobArray();
 	
 	//as long as we are referencing the blobs we want to "lock them" so they dont change midway through 
 	//due to interupts!
 	blobManager->LockLastBlobArray();
 	
-	connectionLinksSize = 0;
 	
-	
-	int b1;
-	ArchRawBlob* b1p = NULL;
-	for(b1 = 0; b1 < blobManager->blobsArrayLastCycleSize; b1++)
+	//prepare for the pass
+	connectionLinksCurIdx = 0;
+	int f;
+	for(f = 0; f < MAX_FINGERS; f++)
 	{
-		b1p = &blobManager->lastBlobsArray[b1];
-		int f1;
-		ArchFinger* f1p = NULL;
-		int f1_from_b1_closest = -1;
-		uint32_t b1_f1_minDist = 0xFFFFFFFF;
-		for(f1 = 0; f1 < MAX_FINGERS; f1++)
+		fingerPool[f].isUsed = false;
+	}
+		
+	
+	
+	
+	
+	//Setup Connections For This Pass
+	int b;
+	for(b = 0; b < blobManager->blobsArrayLastCycleSize; b++)
+	{
+		ArchRawBlob* bp = &blobManager->lastBlobsArray[b];
+		bp->isUsed = false;
+		int f;
+		for(f = 0; f < MAX_FINGERS; f++)
 		{
-				f1p = &fingerPool[f1];
-				
-				if(f1p->validity < FINGER_VALIDITY_THRESH)
-					continue;
-				
-				
-				//make sure the finger isnt already connected!
-				int k;
-				for(k = 0; k < connectionLinksSize; k++)
-				{
-					if(connectionLinks[k].pFinger == f1p)
-					{
-						k = -1;
-						break;
-					}
-				}
-				if(k == -1)
-					continue;
-					
-					
-				
-				uint32_t dist = BlobFingerDist(b1p,f1p);
-				if(dist < b1_f1_minDist)
-				{
-					f1_from_b1_closest = f1;
-					b1_f1_minDist = dist;
-				}
+			ArchFinger* fp = &fingerPool[f];
+			if(!fp->validity)
+				continue;
+			
+			uint32_t dist = abs(bp->midTime - fp->centerTime);	
+			
+			connectionLinks[connectionLinksCurIdx].pBlob = bp;
+			connectionLinks[connectionLinksCurIdx].pFinger= fp;
+			connectionLinks[connectionLinksCurIdx].distance = dist;
+			connectionLinksCurIdx++;
+			
 		}
-		if(f1_from_b1_closest >= 0)
+	}
+	
+	//Sort the connections List by distance
+	quick_sort_fingerCon(connectionLinks, connectionLinksCurIdx);
+	
+	
+	int c;
+	for(c = 0; c < connectionLinksCurIdx; c++)
+	{
+		ArchFingerBlobConnection* cp = &connectionLinks[c];
+		
+		if(cp->pFinger->isUsed || cp->pBlob->isUsed)
+			continue;
+			
+		cp->pFinger->isUsed = true;
+		cp->pBlob->isUsed = true;
+		
+		cp->pFinger->centerTime = cp->pBlob->midTime;
+		cp->pFinger->timeWidth = cp->pBlob->widthTime;
+		
+		//call manager callbacks...
+		noteManager->OnFingerMove(cp->pFinger);
+	
+		cp->pFinger->centerTimePrev = cp->pFinger->centerTime;
+		cp->pFinger->timeWidthPrev = cp->pFinger->timeWidth;
+	}
+	
+	
+	//update validities of all fingers
+	for(f = 0; f < MAX_FINGERS; f++)
+	{
+		if(fingerPool[f].isUsed)
 		{
-			ArchFinger* f1_from_b1_closestp = &fingerPool[f1_from_b1_closest];
-			f1_from_b1_closestp->centerTime = b1p->midTime;
-			f1_from_b1_closestp->timeWidth = b1p->widthTime;
-			connectionLinks[connectionLinksSize].distance = b1_f1_minDist;
-			connectionLinks[connectionLinksSize].pBlob = b1p;
-			connectionLinks[connectionLinksSize].pFinger = f1_from_b1_closestp;
-			connectionLinksSize++;
-			noteManager->OnFingerMove(f1_from_b1_closestp);
+			fingerPool[f].validity++;
+			
+			if(fingerPool[f].validity == MAX_FINGER_VALIDITY)
+			{
+				//call manager callbacks for finger start
+				if(!fingerPool[f].hasStarted)
+				{
+					fingerPool[f].hasStarted = true;
+					noteManager->OnFingerStart(&fingerPool[f]);
+				}
+						
+			}
+			else if(fingerPool[f].validity > MAX_FINGER_VALIDITY)
+			{
+				fingerPool[f].validity = MAX_FINGER_VALIDITY;
+			}
 		}
+		else
+		{
+			fingerPool[f].validity--;
+			if(fingerPool[f].validity == MIN_FINGER_VALIDITY)
+			{
+				numActiveFingers--;
+				//call manager callbacks for finger stop
+				if(fingerPool[f].hasStarted)
+				{
+					fingerPool[f].hasStarted = false;
+					noteManager->OnFingerStop(&fingerPool[f]);	
+				}
+			}
+			else if(fingerPool[f].validity < MIN_FINGER_VALIDITY)
+			{
+				fingerPool[f].validity = MIN_FINGER_VALIDITY;
+			}
+		}
+	}
+	
+	//jump start new fingers if needed into positive validity
+	if(numActiveFingers < blobManager->blobsArrayLastCycleSize)
+	{
+		int b;
+		for(b = 0; b < blobManager->blobsArrayLastCycleSize; b++)
+		{
+			if(blobManager->lastBlobsArray[b].isUsed)
+				continue;
+			
+			//look for non-active fingers in the the pool
+			int f;
+			for(f = 0; f < MAX_FINGERS; f++)
+			{
+				if(fingerPool[f].validity == 0)//we found one!
+				{
+					numActiveFingers++;
+					fingerPool[f].validity = 1;
+				
+					//physically set the finger close the the blob so next pass he gets a good connection
+					fingerPool[f].centerTime = blobManager->lastBlobsArray[b].midTime;
+					fingerPool[f].timeWidth = blobManager->lastBlobsArray[b].widthTime;
+					fingerPool[f].centerTimePrev = fingerPool[f].centerTime;
+					fingerPool[f].timeWidthPrev = fingerPool[f].timeWidth;
+					
+					//for good measure
+					fingerPool[f].isUsed = true;
+					blobManager->lastBlobsArray[b].isUsed = true;
+					
+					break;
+				
+				}
+			
+			}	
+		}
+		
+		
+		
 	}
 	
 	

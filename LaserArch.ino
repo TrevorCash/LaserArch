@@ -91,14 +91,14 @@ volatile uint32_t syncTimerVal = 0;
 volatile uint32_t numNoteEdges = 0;
 volatile uint32_t numNoteEdgesCounter = 0;
 ArchRegion* debugRegion = NULL;
-
+boolean showBlobInfo = false;
+boolean showFingerInfo = false;
 
 
 void setup(void) {
 	Serial.begin(115200);
 	
 	//MIDI.begin();
-	
 	
 	delay(1000);
 	
@@ -131,11 +131,10 @@ void setup(void) {
 	//Dac output configure
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
-	
-	
+
 	RegionManager.Initialize(24, MIDI_C1);
-	InterfaceManager.Initialize();
-	
+	//InterfaceManager.Initialize();
+
 	//LED Strip Init
 	LedStrip.begin();
 	LedStrip.show();	
@@ -169,7 +168,7 @@ void SystemTestSetup()
 
 void SystemTestLoop()
 {
-	InterfaceManager.Update(&RegionManager);
+	//InterfaceManager.Update(&RegionManager);
 	FingerManager.Update();
 	LedManager.Update();
 		//GetInputFromTerminal
@@ -221,7 +220,11 @@ void SystemTestLoop()
 			}
 			else if(cmd == "blobinfo")
 			{
-				
+				showBlobInfo = !showBlobInfo;
+			}
+			else if(cmd == "fingerinfo")
+			{
+				showFingerInfo = !showFingerInfo;
 			}
 			else if (cmd == "clearscreen")
 			{
@@ -389,17 +392,26 @@ void SystemTestLoop()
 		//Serial.println(BlobManager.blobsArrayLastCycleSize );
 		//
 		//BlobManager.UnLockLastBlobArray();
-		//if(BlobManager.blobsArrayLastCycleSize)
-		//{	Serial.println("Blob Info:");
-			//int i;
-			//for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
-			//{
-				//Serial.print("Blob: ");
-				//Serial.println(i);
-				//Serial.print("Mid Time: ");
-				//Serial.println(BlobManager.lastBlobsArray[i].midTime);
-			//}
-		//}
+		if(showBlobInfo)
+		if(BlobManager.blobsArrayLastCycleSize)
+		{	Serial.println("Blob Info:");
+			int i;
+			for(i = 0; i < BlobManager.blobsArrayLastCycleSize; i++)
+			{
+				Serial.print("Blob: ");
+				Serial.println(i);
+				Serial.print("Mid Time: ");
+				Serial.println(BlobManager.lastBlobsArray[i].midTime);
+			}
+		}
+		
+		if(showFingerInfo)
+		{
+			Serial.println(FingerManager.numActiveFingers);
+			
+		}
+		
+		
 		//Serial.println(MainMotor.AveragePeriod());
 		//Serial.print(uint32_t(numNoteEdges),10);
 		//Serial.println("");

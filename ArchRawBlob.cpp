@@ -13,6 +13,7 @@ ArchRawBlob::ArchRawBlob()
 {
 	Begin(0);
 	End(0);
+	isUsed = false;
 } //ArchRawBlob
 
 // default destructor

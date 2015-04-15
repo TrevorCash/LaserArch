@@ -34,7 +34,11 @@ public:
 	ArchRegion* curRegion;
 	ArchRegion* lastRegion;	
 	
-	uint32_t validity;
+	int32_t validity;
+	
+	boolean hasStarted;//
+	
+	boolean isUsed;
 
 protected:
 private:

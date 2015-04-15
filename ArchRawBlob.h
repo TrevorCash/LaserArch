@@ -38,6 +38,7 @@ public:
 	uint32_t midTime;
 	uint32_t widthTime;
 
+	boolean isUsed;//used with fingermanager passes
 }; //ArchRawBlob
 
 #endif //__ARCHRAWBLOB_H__
