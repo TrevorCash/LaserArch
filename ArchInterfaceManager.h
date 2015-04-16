@@ -62,6 +62,11 @@ public:
 	~ArchInterfaceManager();
 	void Initialize();
 	void Update(ArchRegionManager* RegionManager);
+	
+	
+	
+	
+
 protected:
 private:
 	ArchInterfaceManager( const ArchInterfaceManager &c );
