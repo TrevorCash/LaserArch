@@ -19,6 +19,7 @@ ArchRegion::ArchRegion()
 	colorGreen = 0;
 	colorBlue = 0;
 	midiNote = MIDI_C3; 
+	fingerCount = 0;
 	index = 0;
 	
 	IsValid = false;

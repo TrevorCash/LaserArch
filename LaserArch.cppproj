@@ -63,22 +63,21 @@
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
-      <Value></Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/lib/gcc/avr/4.3.2/include/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/avr/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries</Value>
       <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/libraries</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3</Value>
       <Value>../../LaserArch</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/variants/standard</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/cores/arduino</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -102,22 +101,21 @@
   </avrgcccpp.compiler.symbols.DefSymbols>
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
-      <Value></Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/lib/gcc/avr/4.3.2/include/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/avr/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries</Value>
       <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/libraries</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3</Value>
       <Value>../../LaserArch</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/variants/standard</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/cores/arduino</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
@@ -159,22 +157,21 @@
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
-      <Value></Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/lib/gcc/avr/4.3.2/include/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/avr/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries</Value>
       <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/libraries</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3</Value>
       <Value>../../LaserArch</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/variants/standard</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/cores/arduino</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -198,22 +195,21 @@
   </avrgcccpp.compiler.symbols.DefSymbols>
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
-      <Value></Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include/</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/lib/gcc/arm-none-eabi/4.7.2/include</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/tools/arm-none-eabi/arm-none-eabi/include</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/lib/gcc/avr/4.3.2/include/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/avr/</Value>
+      <Value>c:/users/7002815/documents/folder programs/arduino-1.0.5-r2/hardware/tools/avr/avr/include/</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries</Value>
       <Value>C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/libraries</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/libraries</Value>
       <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/libraries</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI/utility</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/MIDI</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3/utility</Value>
       <Value>C:/Users/7002815/Documents/Arduino/libraries/i2c_t3</Value>
       <Value>../../LaserArch</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/avr</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3/utils</Value>
-      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/teensy/cores/teensy3</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/variants/standard</Value>
+      <Value>C:/Users/7002815/Documents/Folder Programs/arduino-1.0.5-r2/hardware/arduino/cores/arduino</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>

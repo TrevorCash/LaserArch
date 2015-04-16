@@ -57,6 +57,8 @@ public:
 	uint8_t colorBlue;
 	uint8_t midiNote;
 	
+	uint8_t fingerCount;
+	
 	//computables
 	float widthDeg;
 	

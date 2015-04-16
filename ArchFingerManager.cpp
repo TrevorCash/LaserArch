@@ -71,7 +71,7 @@ void ArchFingerManager::Update()
 			if(!fp->validity)
 				continue;
 			
-			uint32_t dist = abs(bp->midTime - fp->centerTime);	
+			uint32_t dist = abs(int32_t(bp->midTime - fp->centerTime));	
 			
 			connectionLinks[connectionLinksCurIdx].pBlob = bp;
 			connectionLinks[connectionLinksCurIdx].pFinger= fp;
@@ -85,10 +85,25 @@ void ArchFingerManager::Update()
 	quick_sort_fingerCon(connectionLinks, connectionLinksCurIdx);
 	
 	
+	//print connection links for varification
+	
+	
+	
+	
 	int c;
+	//Serial.println("Printing Connections Found:");
 	for(c = 0; c < connectionLinksCurIdx; c++)
 	{
 		ArchFingerBlobConnection* cp = &connectionLinks[c];
+		
+		//Serial.print(c);
+		//Serial.print(" ");
+		//Serial.print(cp->distance);
+		//Serial.print(" ");
+		//Serial.print(cp->pBlob->isUsed);
+		//Serial.print(" ");
+		//Serial.println(cp->pFinger->isUsed);
+
 		
 		if(cp->pFinger->isUsed || cp->pBlob->isUsed)
 			continue;
@@ -175,9 +190,6 @@ void ArchFingerManager::Update()
 			
 			}	
 		}
-		
-		
-		
 	}
 	
 	
@@ -205,32 +217,34 @@ void ArchFingerManager::FingerStart(ArchFinger* finger)
 	}
 	
 	noteManager->OnFingerStart(finger);
+	
+	
 }
 void ArchFingerManager::FingerMove(ArchFinger* finger, ArchRawBlob* blob)
-{
+{	
+	
+	finger->centerTimePrev = finger->centerTime;
+	finger->timeWidthPrev = finger->timeWidth;
+		
 	finger->centerTime = blob->midTime;
 	finger->timeWidth = blob->widthTime;
 	
-	//switch regions with some histeresis(TODO)
+	//switch regions with some hysteresis(TODO)
+	finger->lastRegion = finger->curRegion;
 	finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
 	
-	if(printFingerEvents)
-	{
-		Serial.print("FingerMove: ");
-		Serial.print((int)finger);
-		Serial.print(" to position: ");
-		Serial.println(finger->centerTime);
-	}
+
+	//if(printFingerEvents)
+	//{
+		//Serial.print("FingerMove: ");
+		//Serial.print((int)finger);
+		//Serial.print(" to position: ");
+		//Serial.println(finger->centerTime);
+	//}
 	
 	//call manager callbacks...
 	noteManager->OnFingerMove(finger);
 	
-	
-	
-	finger->lastRegion = finger->curRegion;
-	
-	finger->centerTimePrev = finger->centerTime;
-	finger->timeWidthPrev = finger->timeWidth;
 }
 void ArchFingerManager::FingerStop(ArchFinger* finger)
 {
@@ -241,6 +255,7 @@ void ArchFingerManager::FingerStop(ArchFinger* finger)
 		Serial.print("FingerStop: ");
 		Serial.println((int)finger);
 	}
+	
 	noteManager->OnFingerStop(finger);
 	
 	finger->curRegion = NULL;

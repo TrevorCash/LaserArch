@@ -133,8 +133,8 @@ void setup(void) {
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
-	RegionManager.Initialize(24, MIDI_C1);
-	InterfaceManager.Initialize();
+	RegionManager.Initialize(24, MIDI_C5);
+	//InterfaceManager.Initialize();
 
 	//LED Strip Init
 	LedStrip.begin();
@@ -162,14 +162,13 @@ void SystemTestSetup()
 {
 	
 	Serial.println("ARCH IN TEST MODE:");
-	//InterfaceManager.OrbitalLCD->SendText("Arch In Test Mode!");
 
 	
 }
 
 void SystemTestLoop()
 {
-	InterfaceManager.Update(&RegionManager);
+	//InterfaceManager.Update(&RegionManager);
 	FingerManager.Update();
 	LedManager.Update();
 		//GetInputFromTerminal
@@ -227,6 +226,10 @@ void SystemTestLoop()
 			{
 				FingerManager.printFingerEvents = !FingerManager.printFingerEvents;
 				showFingerInfo = !showFingerInfo;
+			}
+			else if(cmd == "printfingers")
+			{
+				FingerManager.PrintFingerInfo();
 			}
 			else if (cmd == "clearscreen")
 			{
