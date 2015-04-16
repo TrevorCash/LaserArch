@@ -133,7 +133,7 @@ void setup(void) {
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
-	RegionManager.Initialize(24, MIDI_C5);
+	RegionManager.Initialize(4, MIDI_C5);
 	//InterfaceManager.Initialize();
 
 	//LED Strip Init
