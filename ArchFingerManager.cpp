@@ -214,7 +214,13 @@ void ArchFingerManager::FingerMove(ArchFinger* finger, ArchRawBlob* blob)
 	//switch regions with some histeresis(TODO)
 	finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
 	
-	
+	if(printFingerEvents)
+	{
+		Serial.print("FingerMove: ");
+		Serial.print((int)finger);
+		Serial.print(" to position: ");
+		Serial.println(finger->centerTime);
+	}
 	
 	//call manager callbacks...
 	noteManager->OnFingerMove(finger);
