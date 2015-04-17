@@ -28,6 +28,11 @@
 #define FINGER_REGION_HYSTERESIS_MAX_DEG 0.5
 #define FINGER_REGION_HYSTERESIS_MIN_RATIO_OF_SPAN 0.25
 
+//width modulation limits
+#define FINGER_EXPECTED_WIDTH_IN_PLAYABLE_REGION_DEG 4.0 //this should be tweeked to the average finger playing where humans like to play (used as reference);
+#define FINGER_WIDTH_MODULATION_MAX_CHANGE_DEG 6.0 //modulation should max out when width varies from original to +- this define.
+#define FINGER_WIDTH_MODULATION_MIN_DEG (FINGER_EXPECTED_WIDTH_IN_PLAYABLE_REGION_DEG/2.0)
+
 
 //motor period filtering coefficients
 #define MOTOR_PERIOD_PROPORTIONAL_CONST 0.8 // higher is faster (more high frequencies)
