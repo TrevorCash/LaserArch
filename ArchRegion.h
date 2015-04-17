@@ -32,7 +32,13 @@ public:
 		green = this->colorGreen;
 		blue = this->colorBlue;
 	}	
-
+	float GetSpan(){return endDeg - startDeg;}
+	
+	//gets the angles of transition for fingers using hysteresis
+	float GetTransitionAngleToNext();
+	float GetTransitionAngleToPrev();
+	
+	
 	
 	
 	//prints some useful info to the serial port..
@@ -56,6 +62,8 @@ public:
 	uint8_t colorGreen;
 	uint8_t colorBlue;
 	uint8_t midiNote;
+	
+	uint8_t fingerCount;
 	
 	//computables
 	float widthDeg;

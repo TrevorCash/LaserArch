@@ -51,7 +51,7 @@ ArchRegionManager RegionManager(REJECTION_ANGLE_MIN_DEGREES,REJECTION_ANGLE_MAX_
 ArchNoteManager NoteManager(&RegionManager);
 
 //make a fingers manager - manage finger tracking.
-ArchFingerManager FingerManager(&BlobManager, &NoteManager, &RegionManager);
+ArchFingerManager FingerManager(&BlobManager, &NoteManager, &RegionManager, &MainMotor);
 
 //Make an ArchLCD For Testing.
 ArchInterfaceManager InterfaceManager(&RegionManager);
@@ -64,7 +64,7 @@ const int config = WS2811_GRB | WS2811_800kHz;
 OctoWS2811 LedStrip(ledsPerStrip, displayMemory, drawingMemory, config);
 
 
-ArchLedManager LedManager(&LedStrip, &RegionManager, &FingerManager);
+ArchLedManager LedManager(&LedStrip, &RegionManager, &FingerManager, &MainMotor);
 
 
 
@@ -120,7 +120,7 @@ void setup(void) {
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
-	RegionManager.Initialize(24, MIDI_C1);
+	RegionManager.Initialize(33, MIDI_C3);
 	InterfaceManager.Initialize();
 
 	//LED Strip Init
@@ -149,7 +149,6 @@ void SystemTestSetup()
 {
 	
 	Serial.println("ARCH IN TEST MODE:");
-	//InterfaceManager.OrbitalLCD->SendText("Arch In Test Mode!");
 
 	
 }
@@ -214,6 +213,10 @@ void SystemTestLoop()
 			{
 				FingerManager.printFingerEvents = !FingerManager.printFingerEvents;
 				showFingerInfo = !showFingerInfo;
+			}
+			else if(cmd == "printfingers")
+			{
+				FingerManager.PrintFingerInfo();
 			}
 			else if (cmd == "clearscreen")
 			{
@@ -300,8 +303,8 @@ void SystemTestLoop()
 			{
 				Serial.print("Blob: ");
 				Serial.println(i);
-				Serial.print("Mid Time: ");
-				Serial.println(BlobManager.lastBlobsArray[i].midTime);
+				Serial.print("width Time: ");
+				Serial.println(BlobManager.lastBlobsArray[i].widthTime);
 			}
 		}
 		

@@ -29,7 +29,7 @@ class ArchRawBlob
 	{
 		endTime = endSyncTimerTime;
 		midTime = (endTime + startTime)*0.5;
-		widthTime = startTime - endTime;
+		widthTime = endTime - startTime;
 	}
 public:
 	uint32_t startTime;

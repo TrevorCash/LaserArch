@@ -22,7 +22,7 @@ private:
 
 //functions
 public:
-	ArchLedManager(OctoWS2811* ledObject, ArchRegionManager* regionManager, ArchFingerManager* fingerManager);
+	ArchLedManager(OctoWS2811* ledObject, ArchRegionManager* regionManager, ArchFingerManager* fingerManager, ArchMotor* mainMotor);
 	~ArchLedManager();
 	
 	void Update();
@@ -34,7 +34,7 @@ public:
 		float frac = (angle - regionManager->minDeg)/(regionManager->maxDeg - regionManager->minDeg);
 		//Serial.println(frac);
 		//Serial.println(uint8_t(frac*144.0));
-		return frac*144.0;
+		return (frac)*144.0;
 	}
 	
 protected:
@@ -42,7 +42,7 @@ private:
 ArchRegionManager* regionManager;
 ArchFingerManager* fingerManager;
 OctoWS2811* ledStrip;
-
+ArchMotor* mainMotor;
 
 }; //ArchLedManager
 

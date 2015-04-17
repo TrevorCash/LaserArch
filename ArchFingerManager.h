@@ -14,26 +14,47 @@
 #include "Arduino.h"
 #include "ArchFingerBlobConnection.h"
 #include "ArchNoteManager.h"
+#include "ArchMotor.h"
 
 class ArchFingerManager
 {
 
 //functions
 public:
-	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager);
+	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager, ArchMotor* mainMotor);
 	~ArchFingerManager();
 	uint16_t numActiveFingers;
-	boolean printFingerEvents;
+	boolean printFingerEvents;	
+	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
+	
 
 	void Update();//called from main loop;
+	
+	//print all finger info
+	void PrintFingerInfo()
+	{
+		Serial.println("Finger Pool Information:");
+		int f;
+		for(f = 0; f < MAX_FINGERS; f++)
+		{
+			Serial.print("Finger: ");
+			Serial.println((int)&fingerPool[f]);
+			Serial.print("Validity: ");
+			Serial.println(fingerPool[f].validity);
+			Serial.print("IsUsed: ");
+			Serial.println(fingerPool[f].isUsed);
+			Serial.print("HasStarted: ");
+			Serial.println(fingerPool[f].hasStarted);
+		}
+	}
 
 protected:
 	ArchBlobManager* blobManager;
 	ArchNoteManager* noteManager;
 	ArchRegionManager* regionManager;
+	ArchMotor* mainMotor;
 private:
-	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
-	
+
 	
 	ArchFingerBlobConnection connectionLinks[MAX_BLOBS*MAX_FINGERS];
 	uint16_t connectionLinksCurIdx;

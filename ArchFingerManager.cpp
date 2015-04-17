@@ -13,11 +13,12 @@
 #include "ArchNoteManager.h"
 
 // default constructor
-ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager)
+ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager, ArchMotor* mainMotor)
 {
 	this->blobManager = blobManager;
 	this->noteManager = noteManager;
 	this->regionManager = regionManager;
+	this->mainMotor = mainMotor;
 	
 	numActiveFingers = 0;
 	connectionLinksCurIdx = 0;
@@ -71,7 +72,7 @@ void ArchFingerManager::Update()
 			if(!fp->validity)
 				continue;
 			
-			uint32_t dist = abs(bp->midTime - fp->centerTime);	
+			uint32_t dist = abs(int32_t(bp->midTime - fp->centerTime));	
 			
 			connectionLinks[connectionLinksCurIdx].pBlob = bp;
 			connectionLinks[connectionLinksCurIdx].pFinger= fp;
@@ -85,10 +86,25 @@ void ArchFingerManager::Update()
 	quick_sort_fingerCon(connectionLinks, connectionLinksCurIdx);
 	
 	
+	//print connection links for varification
+	
+	
+	
+	
 	int c;
+	//Serial.println("Printing Connections Found:");
 	for(c = 0; c < connectionLinksCurIdx; c++)
 	{
 		ArchFingerBlobConnection* cp = &connectionLinks[c];
+		
+		//Serial.print(c);
+		//Serial.print(" ");
+		//Serial.print(cp->distance);
+		//Serial.print(" ");
+		//Serial.print(cp->pBlob->isUsed);
+		//Serial.print(" ");
+		//Serial.println(cp->pFinger->isUsed);
+
 		
 		if(cp->pFinger->isUsed || cp->pBlob->isUsed)
 			continue;
@@ -175,9 +191,6 @@ void ArchFingerManager::Update()
 			
 			}	
 		}
-		
-		
-		
 	}
 	
 	
@@ -196,7 +209,8 @@ void ArchFingerManager::FingerStart(ArchFinger* finger)
 	finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
 	finger->lastRegion = finger->curRegion;
 	
-	
+	//increment the number of finger in the region
+	finger->curRegion->fingerCount++;
 	
 	if(printFingerEvents)
 	{
@@ -205,32 +219,57 @@ void ArchFingerManager::FingerStart(ArchFinger* finger)
 	}
 	
 	noteManager->OnFingerStart(finger);
+	
+	
 }
 void ArchFingerManager::FingerMove(ArchFinger* finger, ArchRawBlob* blob)
-{
-	finger->centerTime = blob->midTime;
-	finger->timeWidth = blob->widthTime;
-	
-	//switch regions with some histeresis(TODO)
-	finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
-	
-	if(printFingerEvents)
-	{
-		Serial.print("FingerMove: ");
-		Serial.print((int)finger);
-		Serial.print(" to position: ");
-		Serial.println(finger->centerTime);
-	}
-	
-	//call manager callbacks...
-	noteManager->OnFingerMove(finger);
-	
-	
-	
-	finger->lastRegion = finger->curRegion;
+{	
 	
 	finger->centerTimePrev = finger->centerTime;
 	finger->timeWidthPrev = finger->timeWidth;
+		
+	finger->centerTime = blob->midTime;
+	finger->timeWidth = blob->widthTime;
+	
+	if(finger->hasStarted)
+	{
+		//switch regions with some hysteresis(TODO)
+		finger->lastRegion = finger->curRegion;
+		finger->lastRegion->fingerCount--;
+		
+	
+			if(mainMotor->AngleFromTicksLast(finger->centerTime) > finger->curRegion->GetTransitionAngleToNext())
+			{
+				if(finger->curRegion->nextRegion)
+				{
+					finger->curRegion = finger->curRegion->nextRegion;
+				}
+				else
+					finger->curRegion = NULL;
+			}
+			else if(mainMotor->AngleFromTicksLast(finger->centerTime)  < finger->curRegion->GetTransitionAngleToPrev())
+			{
+				if(finger->curRegion->prevRegion)
+					finger->curRegion = finger->curRegion->prevRegion;
+				else
+					finger->curRegion = NULL;
+			}
+		
+		finger->curRegion->fingerCount++;
+		
+		
+
+		if(printFingerEvents)
+		{
+			Serial.print("FingerMove: ");
+			Serial.print((int)finger);
+			Serial.print(" to position: ");
+			Serial.println(finger->centerTime);
+		}
+	
+		//call manager callbacks...
+		noteManager->OnFingerMove(finger);
+	}
 }
 void ArchFingerManager::FingerStop(ArchFinger* finger)
 {
@@ -241,6 +280,9 @@ void ArchFingerManager::FingerStop(ArchFinger* finger)
 		Serial.print("FingerStop: ");
 		Serial.println((int)finger);
 	}
+
+	finger->curRegion->fingerCount--;
+	
 	noteManager->OnFingerStop(finger);
 	
 	finger->curRegion = NULL;

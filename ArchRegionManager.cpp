@@ -55,7 +55,7 @@ void ArchRegionManager::Initialize(uint8_t numReqRegions, uint8_t midiStartNote)
 	
 		newRegion->SetSpan(minDeg+(i*regionWidth), minDeg+((i+1)*regionWidth));
 		newRegion->SetNote(midiStartNote - i);
-		newRegion->SetColors((i%2)*32 + 32,((i+1)%3)*32,(i%4)*32);
+		newRegion->SetColors((i%2)*255,(i+1)%2*255,0);
 		
 	}
 	

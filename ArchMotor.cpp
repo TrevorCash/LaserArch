@@ -27,10 +27,11 @@ void ArchMotor::TickPeriod(uint32_t currentTimerTime)
 {
 	lastPeriod = currentTimerTime;
 	
+	///////////////////////////////////
+	//Rolling Average
 	
 	//Add the new sample to the rolling average
 	avgPeriod += lastPeriod/ARCH_MOTOR_BUFFER_SIZE;
-	
 	
 	//Remove last sample in the circular buffer from the rolling average
 	avgPeriod -= periodBuffer[periodBufferIndx]/ARCH_MOTOR_BUFFER_SIZE;
@@ -38,6 +39,7 @@ void ArchMotor::TickPeriod(uint32_t currentTimerTime)
 	periodBufferIndx++;
 	periodBufferIndx = periodBufferIndx % ARCH_MOTOR_BUFFER_SIZE;
 	
+
 	
 }
 
@@ -90,6 +92,7 @@ unsigned int ArchMotor::LastPeriod()
 {
 	return lastPeriod;
 }
+
 
 
 float ArchMotor::AngleFromTicksAve(uint32_t ticks)
