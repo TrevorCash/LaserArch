@@ -39,6 +39,10 @@ public:
 	boolean hasStarted;//
 	
 	boolean isUsed;
+	
+	
+	
+	
 
 protected:
 private:

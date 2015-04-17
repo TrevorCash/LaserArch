@@ -208,7 +208,8 @@ void ArchFingerManager::FingerStart(ArchFinger* finger)
 	finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
 	finger->lastRegion = finger->curRegion;
 	
-	
+	//increment the number of finger in the region
+	finger->curRegion->fingerCount++;
 	
 	if(printFingerEvents)
 	{
@@ -229,22 +230,27 @@ void ArchFingerManager::FingerMove(ArchFinger* finger, ArchRawBlob* blob)
 	finger->centerTime = blob->midTime;
 	finger->timeWidth = blob->widthTime;
 	
-	//switch regions with some hysteresis(TODO)
-	finger->lastRegion = finger->curRegion;
-	finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
-	
+	if(finger->hasStarted)
+	{
+		
 
-	//if(printFingerEvents)
-	//{
-		//Serial.print("FingerMove: ");
-		//Serial.print((int)finger);
-		//Serial.print(" to position: ");
-		//Serial.println(finger->centerTime);
-	//}
+		//switch regions with some hysteresis(TODO)
+		finger->lastRegion = finger->curRegion;
+		finger->lastRegion->fingerCount--;
+		finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
+		finger->curRegion->fingerCount++;
+
+		//if(printFingerEvents)
+		//{
+			//Serial.print("FingerMove: ");
+			//Serial.print((int)finger);
+			//Serial.print(" to position: ");
+			//Serial.println(finger->centerTime);
+		//}
 	
-	//call manager callbacks...
-	noteManager->OnFingerMove(finger);
-	
+		//call manager callbacks...
+		noteManager->OnFingerMove(finger);
+	}
 }
 void ArchFingerManager::FingerStop(ArchFinger* finger)
 {
@@ -255,6 +261,8 @@ void ArchFingerManager::FingerStop(ArchFinger* finger)
 		Serial.print("FingerStop: ");
 		Serial.println((int)finger);
 	}
+
+	finger->curRegion->fingerCount--;
 	
 	noteManager->OnFingerStop(finger);
 	

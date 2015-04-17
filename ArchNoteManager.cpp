@@ -26,7 +26,8 @@ void ArchNoteManager::OnFingerMove(ArchFinger* finger)
 {
 	if((finger->curRegion != finger->lastRegion) && finger->curRegion != NULL && finger->lastRegion != NULL)
 	{
-			MIDI.sendNoteOn(finger->lastRegion->midiNote,0,1);
+		if(finger->lastRegion->fingerCount == 0)
+			MIDI.sendNoteOff(finger->lastRegion->midiNote,0,1);
 		
 		MIDI.sendNoteOn(finger->curRegion->midiNote,127,1);
 	}
@@ -37,7 +38,8 @@ void ArchNoteManager::OnFingerStart(ArchFinger* finger)
 }
 void ArchNoteManager::OnFingerStop(ArchFinger* finger)
 {
-		MIDI.sendNoteOn(finger->curRegion->midiNote,0,1);	
+	if(finger->curRegion->fingerCount == 0)
+		MIDI.sendNoteOff(finger->curRegion->midiNote,0,1);	
 }
 
 
