@@ -32,7 +32,13 @@ public:
 		green = this->colorGreen;
 		blue = this->colorBlue;
 	}	
-
+	float GetSpan(){return endDeg - startDeg;}
+	
+	//gets the angles of transition for fingers using hysteresis
+	float GetTransitionAngleToNext();
+	float GetTransitionAngleToPrev();
+	
+	
 	
 	
 	//prints some useful info to the serial port..

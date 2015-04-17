@@ -24,15 +24,30 @@ public:
 	ArchFinger();
 	~ArchFinger();
 	
+	
+	//low level, these are updated as often as the finger manager can update them.
 	uint32_t centerTime; //center of the finger in time
 	uint32_t timeWidth;//width of the finger in time
 	
-	uint32_t centerTimePrev; 
-	uint32_t timeWidthPrev;
+	uint32_t StartTime(){return (centerTime - timeWidth/2);}
+	uint32_t EndTime(){return (centerTime + timeWidth/2);}
+	
+	uint32_t centerTimePrev;//center time previous 
+	uint32_t timeWidthPrev;//width time previous
+			
+	ArchRegion* curRegion;
+	ArchRegion* lastRegion;
+		
+	uint32_t initialCenterTime;//center time when the finger was first "started"
+	uint32_t initialTimeWidth;//width time when the finger was first "started"
 	
 
-	ArchRegion* curRegion;
-	ArchRegion* lastRegion;	
+	//returns deltas from initial start action.
+	int32_t deltaTimeFromStart(){return int32_t(centerTime - initialCenterTime);}
+	int32_t deltaTimeWidthFromStart(){return int32_t(timeWidth - initialTimeWidth);}
+	
+	
+
 	
 	int32_t validity;
 	
@@ -40,10 +55,6 @@ public:
 	
 	boolean isUsed;
 	
-	
-	
-	
-
 protected:
 private:
 	ArchFinger( const ArchFinger &c );

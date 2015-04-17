@@ -8,6 +8,7 @@
 
 #include "ArchRegion.h"
 #include "MIDINoteDefines.h"
+#include "PrimaryDefines.h"
 
 // default constructor
 ArchRegion::ArchRegion()
@@ -57,4 +58,38 @@ void ArchRegion::SetColors(uint8_t red, uint8_t green, uint8_t blue)
 void ArchRegion::SetNote(uint8_t newMidiNote)
 {
 	SetAll(startDeg, endDeg, newMidiNote, colorRed, colorGreen, colorBlue);
+}
+
+
+
+
+
+//gets the angles of transition for fingers using hysteresis
+float ArchRegion::GetTransitionAngleToNext()
+{
+	if(nextRegion)
+	{
+		if(nextRegion->GetSpan() < FINGER_REGION_HYSTERESIS_MAX_DEG/FINGER_REGION_HYSTERESIS_MIN_RATIO_OF_SPAN)
+			return endDeg + nextRegion->GetSpan()*FINGER_REGION_HYSTERESIS_MIN_RATIO_OF_SPAN;
+		else
+			return endDeg + FINGER_REGION_HYSTERESIS_MAX_DEG;
+	}
+	else
+	{
+		return endDeg;
+	}
+}
+float ArchRegion::GetTransitionAngleToPrev()
+{
+	if(prevRegion)
+	{
+		if(prevRegion->GetSpan() < FINGER_REGION_HYSTERESIS_MAX_DEG/FINGER_REGION_HYSTERESIS_MIN_RATIO_OF_SPAN)
+		return startDeg - prevRegion->GetSpan()*FINGER_REGION_HYSTERESIS_MIN_RATIO_OF_SPAN;
+		else
+		return startDeg - FINGER_REGION_HYSTERESIS_MAX_DEG;
+	}
+	else
+	{
+		return startDeg;
+	}	
 }

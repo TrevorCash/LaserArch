@@ -13,11 +13,12 @@
 #include "ArchNoteManager.h"
 
 // default constructor
-ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager)
+ArchFingerManager::ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager, ArchMotor* mainMotor)
 {
 	this->blobManager = blobManager;
 	this->noteManager = noteManager;
 	this->regionManager = regionManager;
+	this->mainMotor = mainMotor;
 	
 	numActiveFingers = 0;
 	connectionLinksCurIdx = 0;
@@ -232,21 +233,39 @@ void ArchFingerManager::FingerMove(ArchFinger* finger, ArchRawBlob* blob)
 	
 	if(finger->hasStarted)
 	{
-		
-
 		//switch regions with some hysteresis(TODO)
 		finger->lastRegion = finger->curRegion;
 		finger->lastRegion->fingerCount--;
-		finger->curRegion = regionManager->FindRegionAtTick(finger->centerTime);
+		
+	
+			if(mainMotor->AngleFromTicksLast(finger->centerTime) > finger->curRegion->GetTransitionAngleToNext())
+			{
+				if(finger->curRegion->nextRegion)
+				{
+					finger->curRegion = finger->curRegion->nextRegion;
+				}
+				else
+					finger->curRegion = NULL;
+			}
+			else if(mainMotor->AngleFromTicksLast(finger->centerTime)  < finger->curRegion->GetTransitionAngleToPrev())
+			{
+				if(finger->curRegion->prevRegion)
+					finger->curRegion = finger->curRegion->prevRegion;
+				else
+					finger->curRegion = NULL;
+			}
+		
 		finger->curRegion->fingerCount++;
+		
+		
 
-		//if(printFingerEvents)
-		//{
-			//Serial.print("FingerMove: ");
-			//Serial.print((int)finger);
-			//Serial.print(" to position: ");
-			//Serial.println(finger->centerTime);
-		//}
+		if(printFingerEvents)
+		{
+			Serial.print("FingerMove: ");
+			Serial.print((int)finger);
+			Serial.print(" to position: ");
+			Serial.println(finger->centerTime);
+		}
 	
 		//call manager callbacks...
 		noteManager->OnFingerMove(finger);

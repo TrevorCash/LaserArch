@@ -14,13 +14,14 @@
 #include "Arduino.h"
 #include "ArchFingerBlobConnection.h"
 #include "ArchNoteManager.h"
+#include "ArchMotor.h"
 
 class ArchFingerManager
 {
 
 //functions
 public:
-	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager);
+	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager, ArchMotor* mainMotor);
 	~ArchFingerManager();
 	uint16_t numActiveFingers;
 	boolean printFingerEvents;
@@ -49,6 +50,7 @@ protected:
 	ArchBlobManager* blobManager;
 	ArchNoteManager* noteManager;
 	ArchRegionManager* regionManager;
+	ArchMotor* mainMotor;
 private:
 	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
 	

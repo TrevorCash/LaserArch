@@ -58,7 +58,7 @@ ArchNoteManager NoteManager(&RegionManager);
 
 
 //make a fingers manager - manage finger tracking.
-ArchFingerManager FingerManager(&BlobManager, &NoteManager, &RegionManager);
+ArchFingerManager FingerManager(&BlobManager, &NoteManager, &RegionManager, &MainMotor);
 
 
 
@@ -133,7 +133,7 @@ void setup(void) {
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
-	RegionManager.Initialize(25, MIDI_C5);
+	RegionManager.Initialize(33, MIDI_C3);
 	//InterfaceManager.Initialize();
 
 	//LED Strip Init

@@ -24,12 +24,19 @@
 #define MAX_FINGER_VALIDITY 2
 #define MIN_FINGER_VALIDITY 0
 
+//finger-region hysteresis
+#define FINGER_REGION_HYSTERESIS_MAX_DEG 0.5
+#define FINGER_REGION_HYSTERESIS_MIN_RATIO_OF_SPAN 0.25
+
+
+//motor period filtering coefficients
+#define MOTOR_PERIOD_PROPORTIONAL_CONST 0.8 // higher is faster (more high frequencies)
+
 //maximum regions avalable.
 #define  MAX_REGIONS 100
 
 //minimum region size.
 #define MIN_REGION_SIZE_DEG 0.2
-
 
 
 //angle offset of sync phototransistor (use this to counter time constant or physical offset of the sync photo-transistor
