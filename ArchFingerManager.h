@@ -24,7 +24,9 @@ public:
 	ArchFingerManager(ArchBlobManager* blobManager, ArchNoteManager* noteManager, ArchRegionManager* regionManager, ArchMotor* mainMotor);
 	~ArchFingerManager();
 	uint16_t numActiveFingers;
-	boolean printFingerEvents;
+	boolean printFingerEvents;	
+	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
+	
 
 	void Update();//called from main loop;
 	
@@ -52,8 +54,7 @@ protected:
 	ArchRegionManager* regionManager;
 	ArchMotor* mainMotor;
 private:
-	ArchFinger fingerPool[MAX_FINGERS]; //memory for holding the fingers
-	
+
 	
 	ArchFingerBlobConnection connectionLinks[MAX_BLOBS*MAX_FINGERS];
 	uint16_t connectionLinksCurIdx;

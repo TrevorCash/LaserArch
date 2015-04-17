@@ -77,7 +77,7 @@ const int config = WS2811_GRB | WS2811_800kHz;
 OctoWS2811 LedStrip(ledsPerStrip, displayMemory, drawingMemory, config);
 
 
-ArchLedManager LedManager(&LedStrip, &RegionManager, &FingerManager);
+ArchLedManager LedManager(&LedStrip, &RegionManager, &FingerManager, &MainMotor);
 
 
 
@@ -405,8 +405,8 @@ void SystemTestLoop()
 			{
 				Serial.print("Blob: ");
 				Serial.println(i);
-				Serial.print("Mid Time: ");
-				Serial.println(BlobManager.lastBlobsArray[i].midTime);
+				Serial.print("width Time: ");
+				Serial.println(BlobManager.lastBlobsArray[i].widthTime);
 			}
 		}
 		
