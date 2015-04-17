@@ -1,10 +1,12 @@
 // Labels.h
 
-#ifndef _LCDLABELS_h
-#define _LCDLABELS_h
+#ifndef __LCDLABELS_INCLUDE
+#define __LCDLABELS_INCLUDE
+	
+#include "Arduino.h"
+#include "PrimaryDefines.h"
 
-#include "ArchInterfaceManager.h"
-
+class LCDMenu;
 
 class LCDLabels
 {
@@ -51,9 +53,13 @@ private:
 //functions
 public:
 //Constructors and Destructor
+LCDLabels();
 LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal);
-LCDLabels(uint8_t NewID, uint8_t NewX, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal);
+LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal);
 ~LCDLabels();
+
+void Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal);
+void Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal);
 
 //Gets and Sets
 

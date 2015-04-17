@@ -5,10 +5,6 @@
 * Author: 7002815
 */
 
-class ArchLCD;
-class LCDMenu;
-class LCDLabels;
-class ArchRegionManager;
 
 #ifndef __ARCHINTERFACEMANAGER_H__
 #define __ARCHINTERFACEMANAGER_H__
@@ -16,62 +12,90 @@ class ArchRegionManager;
 #include <i2c_t3/i2c_t3.h>
 #include "PrimaryDefines.h"
 #include "MIDINoteDefines.h"
-
-#ifndef __ARCHREGIONMANAGER_H__
 #include "ArchRegionManager.h"
-#define __ARCHREGIONMANAGER_H__
-#endif
 
-#ifndef _LCDLABELS_h
+
+
+class ArchLCD;
+
 #include "LCDLabels.h"
-#define _LCDLABELS_h
-#endif
-
-#ifndef _LCDMENU_h
 #include "LCDMenu.h"
-#define _LCDMENU_h
-#endif
-
-#ifndef __ARCHLCD_H__
-#include "ArchLCD.h"
-#define __ARCHLCD_H__
-#endif
-
-#ifndef _LCDMENUSETUP_h
-#include "LCDMenuSetup.h"
-#define _LCDMENUSETUP_h
-#endif
 
 
-
-//	
 class ArchInterfaceManager
 {
 //variables
 public:
+
 	LCDMenu* MenuHome;
 	LCDMenu* Menu;
 	LCDLabels* Cursor;
 	ArchLCD* OrbitalLCD;
+
+	//Operation Mode Variables
+	LCDMenu OpMode_OperationMode;
+	LCDLabels OpMode_Title;
+	LCDLabels OpMode_Chromatic;
+	LCDLabels OpMode_Custom;
+	LCDLabels OpMode_PitchBending;
+	
+	//Chromatic Mode Variables
+	LCDMenu ChromMode_ChromaticMode;
+	LCDLabels ChromMode_Title;
+	LCDLabels ChromMode_NumRegionsTag;
+	LCDLabels ChromMode_NumRegionsVal;
+	LCDLabels ChromMode_StartNoteTag;
+	LCDLabels ChromMode_StartNoteVal;
+	
+	//Custom Mode Variables
+	LCDMenu CustMode_CustomMode;
+	LCDLabels CustMode_Title;
+	LCDLabels CustMode_NumRegionsTag;
+	LCDLabels CustMode_NumRegionsVal;
+	LCDLabels CustMode_EditRegionTag;
+	LCDLabels CustMode_EditRegionVal;
+	LCDLabels CustMode_EditRegionGo;
+	
+	//Custom Region Mode Variables
+	LCDMenu CustReg_CustomRegionMode;
+	LCDLabels CustReg_EditRegionTag;
+	LCDLabels CustReg_EditRegionVal;
+	LCDLabels CustReg_StartDegTag;
+	LCDLabels CustReg_StartDegVal;
+	LCDLabels CustReg_EndDegTag;
+	LCDLabels CustReg_EndDegVal;
+	LCDLabels CustReg_NoteTag;
+	LCDLabels CustReg_NoteVal;
+
 protected:
 private:
+
+
+
 
 //functions
 public:
-	ArchInterfaceManager();
+	ArchInterfaceManager(ArchRegionManager* NewRegionManager);
 	~ArchInterfaceManager();
 	void Initialize();
-	void Update(ArchRegionManager* RegionManager);
-	
-	
-	
-	
+	void Update();
 
 protected:
 private:
-	ArchInterfaceManager( const ArchInterfaceManager &c );
-	ArchInterfaceManager& operator=( const ArchInterfaceManager &c );
 
+	ArchRegionManager* RegionManager;
+
+	LCDMenu* DefineMenu_OperationMode();
+	LCDMenu* DefineMenu_ChromaticMode();
+	LCDMenu* DefineMenu_CustomMode();
+	LCDMenu* DefineMenu_CustomRegionMode();
+	LCDMenu* DefineMenu_PitchBendingMode();
+
+public:
+
+
+	
+	
 }; //ArchInterfaceManager
 
 #endif //__ARCHINTERFACEMANAGER_H__

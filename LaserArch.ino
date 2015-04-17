@@ -36,14 +36,10 @@ void OnCalibrationTimerInterupt();
 //Make a motor manager to manage motor control and diagnostics
 ArchMotor MainMotor(MOTOR_PWM_TEENSY_PIN);
 
-
 //Make a note calibrator to manage the auto-calibration
 ArchAutoCalibrator NoteSensorCalibrator(NOTE_PHOTOTRANSISTOR_ADC_TEENSY_PIN,
 										NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,
 										&MainMotor);
-
-
-
 
 //make a note region manager to manage the dynamic note regions.
 ArchBlobManager BlobManager(&MainMotor);
@@ -51,23 +47,14 @@ ArchBlobManager BlobManager(&MainMotor);
 //ArchRegionManager
 ArchRegionManager RegionManager(REJECTION_ANGLE_MIN_DEGREES,REJECTION_ANGLE_MAX_DEGREES, &MainMotor);
 
-
 //make the note manager.
 ArchNoteManager NoteManager(&RegionManager);
-
-
 
 //make a fingers manager - manage finger tracking.
 ArchFingerManager FingerManager(&BlobManager, &NoteManager, &RegionManager);
 
-
-
 //Make an ArchLCD For Testing.
-ArchInterfaceManager InterfaceManager;
-
-
-
-
+ArchInterfaceManager InterfaceManager(&RegionManager);
 
 //Led Strip object
 const int ledsPerStrip = 144;
@@ -169,7 +156,7 @@ void SystemTestSetup()
 
 void SystemTestLoop()
 {
-	InterfaceManager.Update(&RegionManager);
+	InterfaceManager.Update();
 	FingerManager.Update();
 	LedManager.Update();
 		//GetInputFromTerminal
@@ -231,95 +218,6 @@ void SystemTestLoop()
 			else if (cmd == "clearscreen")
 			{
 				InterfaceManager.OrbitalLCD->ClearScreen();
-			}
-			else if (cmd == "testlabel")
-			{	//Top Left Y = 0->63 X = 0->191
-				LCDLabels testlabel(0, 0, 0, LABEL_CLEAR, "Hello World");
-				testlabel.InitializeLabel();
-
-				//testlabel.UpdateLabel();
-				testlabel.setMode(LABEL_SELECTED);
-			}
-			else if (cmd == "TestMenu")
-			{
-				Serial.println("TestMenu");
-				InterfaceManager.MenuHome = DefineMenu_OperationMode();
-				InterfaceManager.Menu = InterfaceManager.MenuHome;
-				InterfaceManager.Cursor = InterfaceManager.MenuHome->getCursorHome();
-				InterfaceManager.Cursor->setMode(LABEL_HOVER);
-				InterfaceManager.Menu->DrawMe();
-			}
-			else if (cmd == "ButtonPressUp")
-			{
-				if (InterfaceManager.Cursor->getMode() == LABEL_HOVER && InterfaceManager.Cursor->getUp() != NULL)
-				{
-					InterfaceManager.Cursor->setMode(LABEL_CLEAR);
-					InterfaceManager.Cursor = InterfaceManager.Cursor->getUp();
-					InterfaceManager.Cursor->setMode(LABEL_HOVER);					
-				}
-				else if (InterfaceManager.Cursor->getMode() == LABEL_SELECTED)
-				{
-					InterfaceManager.Cursor->UpCommand();
-					InterfaceManager.Cursor->UpdateLabel();
-				}
-			}
-			else if(cmd == "ButtonPressDown")
-			{
-				if (InterfaceManager.Cursor->getMode() == LABEL_HOVER && InterfaceManager.Cursor->getDown() != NULL)
-				{
-					InterfaceManager.Cursor->setMode(LABEL_CLEAR);
-					InterfaceManager.Cursor = InterfaceManager.Cursor->getDown();
-					InterfaceManager.Cursor->setMode(LABEL_HOVER);
-				}
-				else if (InterfaceManager.Cursor->getMode() == LABEL_SELECTED)
-				{
-					InterfaceManager.Cursor->DownCommand();
-					InterfaceManager.Cursor->UpdateLabel();
-				}
-			}
-			else if(cmd == "ButtonPressLeft")
-			{
-				if (InterfaceManager.Cursor->getMode() == LABEL_HOVER && InterfaceManager.Cursor->getLeft() != NULL)
-				{
-					InterfaceManager.Cursor->setMode(LABEL_CLEAR);
-					InterfaceManager.Cursor = InterfaceManager.Cursor->getLeft();
-					InterfaceManager.Cursor->setMode(LABEL_HOVER);
-				}
-				else if (InterfaceManager.Cursor->getMode() == LABEL_SELECTED)
-				{
-					InterfaceManager.Cursor->LeftCommand();
-					InterfaceManager.Cursor->UpdateLabel();
-				}
-			}
-			else if(cmd == "ButtonPressRight")
-			{
-				if (InterfaceManager.Cursor->getMode() == LABEL_HOVER && InterfaceManager.Cursor->getRight() != NULL)
-				{
-					InterfaceManager.Cursor->setMode(LABEL_CLEAR);
-					InterfaceManager.Cursor = InterfaceManager.Cursor->getRight();
-					InterfaceManager.Cursor->setMode(LABEL_HOVER);
-				}
-				else if (InterfaceManager.Cursor->getMode() == LABEL_SELECTED)
-				{
-					InterfaceManager.Cursor->RightCommand();
-					InterfaceManager.Cursor->UpdateLabel();
-				}
-			}
-			else if(cmd == "ButtonPressEnter")
-			{
-				if(InterfaceManager.Cursor->getType() == LABEL_MENU_PTR && InterfaceManager.Cursor->getMode() == LABEL_HOVER)
-				{
-					InterfaceManager.OrbitalLCD->ClearScreen();
-					InterfaceManager.Menu->setReturnMenu(InterfaceManager.Menu);
-					InterfaceManager.Menu = InterfaceManager.Cursor->getNextMenu();
-					InterfaceManager.Menu->DrawMe();
-					InterfaceManager.Cursor = InterfaceManager.Menu->getCursorHome();
-					InterfaceManager.Cursor->setMode(LABEL_HOVER);
-				}
-				else if (InterfaceManager.Cursor->getType() == LABEL_VALUE_NUMBER && InterfaceManager.Cursor->getMode() == LABEL_HOVER)
-				{
-					InterfaceManager.Cursor->setMode(LABEL_SELECTED);
-				}
 			}
 			else if(cmd.startsWith("lcd:"))
 			{

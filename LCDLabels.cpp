@@ -1,9 +1,14 @@
 #include "LCDLabels.h"
+#include "i2c_t3.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //						Constructors/Destructors							  //
 ////////////////////////////////////////////////////////////////////////////////
 
+LCDLabels::LCDLabels()
+{
+	//Nothing	
+}
 LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal)
 {
 	ID = NewID;
@@ -52,6 +57,40 @@ LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewTyp
 }
 LCDLabels::~LCDLabels()
 {
+}
+
+void LCDLabels::Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal)
+{
+	ID = NewID;
+	X1 = NewX1;
+	Y1 = NewY1;
+	
+	Type = NewType;
+	Mode = LABEL_CLEAR;
+	FrontVal = NewFrontVal;
+	X2 = X1 + 7*FrontVal.length() + 2;
+	Y2 = Y1 + 11;
+}
+void LCDLabels::Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal)
+{
+	ID = NewID;
+	X1 = NewX1;
+	Y1 = NewY1;
+		
+	Type = NewType;
+	Mode = LABEL_CLEAR;
+	BackVal = NewBackVal;
+	if (Type == LABEL_VALUE_NUMBER)
+	FrontVal = (String)(BackVal);
+	else if (Type == LABEL_VALUE_NOTE)
+	FrontVal = MIDItoString(BackVal);
+	X2 = X1 + 7*FrontVal.length() + 2;
+	Y2 = Y1 + 11;
+
+	LittleInc = NewLittleInc;
+	BigInc = NewBigInc;
+	MinVal = NewMinVal;
+	MaxVal = NewMaxVal;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
