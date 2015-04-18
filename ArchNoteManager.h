@@ -15,10 +15,7 @@
 
 class ArchNoteManager
 {
-//variables
-public:
-protected:
-private:
+
 
 //functions
 public:
@@ -33,6 +30,7 @@ public:
 	
 protected:
 private:
+	
 	ArchRegionManager* regionManager;
 
 }; //ArchNoteManager

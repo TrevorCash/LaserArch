@@ -52,3 +52,32 @@ void quick_sort_fingerCon(ArchFingerBlobConnection *a, int n)
 	quick_sort_fingerCon(a + i, n - i);	
 }
 
+
+
+
+
+
+//midi scale tools
+uint8_t GetMidiScaleValue(uint8_t baseNote, uint8_t stepOffset, MusicScales scaleType)
+{
+	//const int NUM_STEPS_IN_MAJOR_SCALE = 7;
+	//static int MajorScaleLookupTable[NUM_STEPS_IN MAJOR_SCALE] = {0, 2, 4, 5, 7, 9, 11};
+	//
+	//
+	//if(scaleType == MajorScale)
+	//{
+		//int scaleStep = stepOffset%(NUM_STEPS_IN_MAJOR_SCALE + 1);
+		//int octaveOffset = stepOffset - scaleStep;
+	//}
+	//else if(scaleType == MinorScale)
+	//{
+		//
+		//
+	//}
+	//else if(scaleType == ChromaticScale)
+	//{
+		//return baseNote + stepOffset;
+	//}
+	//
+	
+}
