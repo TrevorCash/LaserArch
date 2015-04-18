@@ -133,7 +133,7 @@ void setup(void) {
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
-	RegionManager.Initialize(33, MIDI_C3);
+	RegionManager.Initialize(25, MIDI_C4);
 	//InterfaceManager.Initialize();
 
 	//LED Strip Init
@@ -387,6 +387,20 @@ void SystemTestLoop()
 				debugRegion = NULL;
 				
 			}
+			else if(cmd.startsWith("ledstart:"))
+			{
+				float angle = cmd.substring(9).toFloat();
+				Serial.print("Setting Led Strip Start Angle To: ");
+				Serial.println(angle);
+				LedManager.SetStripStartAngle(angle);
+			}
+			else if(cmd.startsWith("ledend:"))
+			{
+				float angle = cmd.substring(7).toFloat();
+				Serial.print("Setting Led Strip End Angle To: ");
+				Serial.println(angle);
+				LedManager.SetStripEndAngle(angle);
+			}
 			else
 			{
 				Serial.println("Unknown Command!");
@@ -405,8 +419,8 @@ void SystemTestLoop()
 			{
 				Serial.print("Blob: ");
 				Serial.println(i);
-				Serial.print("width Time: ");
-				Serial.println(BlobManager.lastBlobsArray[i].widthTime);
+				Serial.print("angle: ");
+				Serial.println(MainMotor.AngleFromTicksLast(BlobManager.lastBlobsArray[i].midTime));
 			}
 		}
 		

@@ -18,6 +18,9 @@ ArchLedManager::ArchLedManager(OctoWS2811* ledObject, ArchRegionManager* regionM
 	this->ledStrip = ledObject;
 	this->mainMotor = mainMotor;
 	
+	startDeg = LED_STRIP_START_DEG;
+	endDeg = LED_STRIP_END_DEG;
+	
 	
 } //ArchLedManager
 
@@ -62,7 +65,7 @@ void ArchLedManager::Update()
 			int f;
 			for(f = pixStart; f < pixEnd; f++)
 			{
-				ledStrip->setPixel(f,0,64,0);	
+				ledStrip->setPixel(f,0,128,0);	
 			}
 		}
 		

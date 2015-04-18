@@ -31,10 +31,25 @@ public:
 	
 	uint8_t AngleToLedIdx(float angle)
 	{
-		float frac = (angle - regionManager->minDeg)/(regionManager->maxDeg - regionManager->minDeg);
+		float frac = (angle - startDeg)/(endDeg - startDeg);
 		//Serial.println(frac);
 		//Serial.println(uint8_t(frac*144.0));
-		return (frac)*144.0;
+		if(frac < 0 )
+			return 0;
+		else if(frac > 1.0)
+			return 144;
+		else 
+			return (frac*144.0);
+	}
+	
+	
+	void SetStripStartAngle(float angle)
+	{
+		startDeg = angle;
+	}
+	void SetStripEndAngle(float angle)
+	{
+		endDeg = angle;
 	}
 	
 protected:
@@ -43,6 +58,9 @@ ArchRegionManager* regionManager;
 ArchFingerManager* fingerManager;
 OctoWS2811* ledStrip;
 ArchMotor* mainMotor;
+
+float startDeg;
+float endDeg;
 
 }; //ArchLedManager
 
