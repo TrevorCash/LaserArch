@@ -1,5 +1,6 @@
 #include "LCDLabels.h"
 #include "i2c_t3.h"
+#include "ArchLCD.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //						Constructors/Destructors							  //
@@ -9,8 +10,9 @@ LCDLabels::LCDLabels()
 {
 	//Nothing	
 }
-LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal)
+LCDLabels::LCDLabels(ArchLCD* NewLCD, uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal)
 {
+	LCD = NewLCD;
 	ID = NewID;
 	X1 = NewX1;
 	Y1 = NewY1;
@@ -28,8 +30,9 @@ LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewTyp
 	//Background = 0;
 	//CharSpacing = 2;
 }
-LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal)
+LCDLabels::LCDLabels(ArchLCD* NewLCD, uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal)
 {
+	LCD = NewLCD;
 	ID = NewID;
 	X1 = NewX1;
 	Y1 = NewY1;
@@ -41,6 +44,11 @@ LCDLabels::LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewTyp
 		FrontVal = (String)(BackVal);
 	else if (Type == LABEL_VALUE_NOTE)
 		FrontVal = MIDItoString(BackVal);
+	else if (Type == LABEL_VALUE_COLOR)
+		FrontVal = ColorToString(BackVal);
+	else if (Type == LABEL_VALUE_SCALE)
+		FrontVal = ScaleToString(BackVal);
+
 	X2 = X1 + 7*FrontVal.length() + 2;
 	Y2 = Y1 + 11;
 
@@ -59,8 +67,9 @@ LCDLabels::~LCDLabels()
 {
 }
 
-void LCDLabels::Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal)
+void LCDLabels::Initialize(ArchLCD* NewLCD, uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal)
 {
+	LCD = NewLCD;
 	ID = NewID;
 	X1 = NewX1;
 	Y1 = NewY1;
@@ -71,8 +80,9 @@ void LCDLabels::Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t 
 	X2 = X1 + 7*FrontVal.length() + 2;
 	Y2 = Y1 + 11;
 }
-void LCDLabels::Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal)
+void LCDLabels::Initialize(ArchLCD* NewLCD, uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal)
 {
+	LCD = NewLCD;
 	ID = NewID;
 	X1 = NewX1;
 	Y1 = NewY1;
@@ -81,9 +91,12 @@ void LCDLabels::Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t 
 	Mode = LABEL_CLEAR;
 	BackVal = NewBackVal;
 	if (Type == LABEL_VALUE_NUMBER)
-	FrontVal = (String)(BackVal);
+		FrontVal = (String)(BackVal);
 	else if (Type == LABEL_VALUE_NOTE)
-	FrontVal = MIDItoString(BackVal);
+		FrontVal = MIDItoString(BackVal);
+	else if (Type == LABEL_VALUE_COLOR)
+		FrontVal = MIDItoString(BackVal);
+		
 	X2 = X1 + 7*FrontVal.length() + 2;
 	Y2 = Y1 + 11;
 
@@ -126,16 +139,25 @@ LCDMenu* LCDLabels::getNextMenu()
 {
 	return NextMenu;
 }
+void LCDLabels::setLCD(ArchLCD* NewLCD)
+{
+	LCD = NewLCD;
+}
+ArchLCD* LCDLabels::getLCD()
+{
+	return LCD;
+}
 
-void LCDLabels::setFrontVal(const char* str)
+
+void LCDLabels::setFrontVal(String str)
 {
 	FrontVal = str;
 	AutoResizeLabel();
 }
 
-const char* LCDLabels::getFrontVal()
+String LCDLabels::getFrontVal()
 {
-	return FrontVal.c_str();
+	return FrontVal;
 }
 
 void LCDLabels::setBackVal(uint16_t NewBackVal)
@@ -144,7 +166,11 @@ void LCDLabels::setBackVal(uint16_t NewBackVal)
 	if (Type == LABEL_VALUE_NUMBER)
 		setFrontVal((String)(BackVal));
 	else if (Type == LABEL_VALUE_NOTE)
-		setFrontVal(MIDItoString((uint8_t)(TempVal)));
+		setFrontVal(MIDItoString((uint8_t)(BackVal)));
+	else if (Type == LABEL_VALUE_COLOR)
+		setFrontVal(ColorToString(BackVal));
+	else if (Type == LABEL_VALUE_SCALE)
+		setFrontVal(ScaleToString(BackVal));
 }
 
 uint16_t LCDLabels::getBackVal()
@@ -158,6 +184,10 @@ void LCDLabels::setTempVal(uint16_t NewTempVal)
 		setFrontVal((String)(TempVal));
 	else if (Type == LABEL_VALUE_NOTE)
 		setFrontVal(MIDItoString((uint8_t)(TempVal)));
+	else if (Type == LABEL_VALUE_COLOR)
+		setFrontVal(ColorToString(TempVal));
+	else if (Type == LABEL_VALUE_NOTE)
+		setFrontVal(ScaleToString(TempVal));
 }
 uint16_t LCDLabels::getTempVal()
 {
@@ -195,6 +225,41 @@ void LCDLabels::setMinVal(uint16_t NewMinVal)
 uint16_t LCDLabels::getMinVal()
 {
 	return MinVal;
+}
+void LCDLabels::setColor(uint8_t red, uint8_t green, uint8_t blue)
+{
+	if (red == 255 && green == 0 && blue == 0)
+		setBackVal(COLOR_RED);
+}
+void LCDLabels::getRGB(uint8_t& red, uint8_t& green, uint8_t& blue)
+{
+	if (Type != LABEL_VALUE_COLOR)
+		return;
+
+	if (BackVal == COLOR_RED)
+	{
+		red = 255;
+		green = 0;
+		blue = 0;
+	}
+	else if (BackVal == COLOR_GREEN)
+	{
+		red = 0;
+		green = 255;
+		blue = 0;
+	}
+	else if (BackVal == COLOR_BLUE)
+	{
+		red = 0;
+		green = 0;
+		blue = 255;
+	}
+	else if (BackVal == COLOR_CYAN)
+	{
+		red = 0;
+		green = 255;
+		blue = 255;
+	}
 }
 
 uint8_t LCDLabels::getX1()
@@ -254,30 +319,16 @@ LCDLabels* LCDLabels::getNext()
 //						Mid-Level Commands									  //
 ////////////////////////////////////////////////////////////////////////////////
 
-void LCDLabels::InitializeLabel()
-{
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(0xFE);
-	Wire.write(0x79);
-	Wire.write(X1+2);
-	Wire.write(Y1+2);
-	Wire.endTransmission();
-	
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(FrontVal.c_str());
-	Wire.endTransmission();
-}
-
 void LCDLabels::UpdateLabel()
 {
-	DrawFilledRect(0, X1, Y1, X2, Y2);
-	InitializeLabel();
+	LCD->DrawFilledRect(0, X1, Y1, X2, Y2);
+	LCD->DrawLabel(X1, Y1, FrontVal.c_str());
 	IndicateMode();
 }
 
 void LCDLabels::ClearLabel()
 {
-	DrawFilledRect(0, X1, Y1, X2, Y2);
+	LCD->DrawFilledRect(0, X1, Y1, X2, Y2);
 }
 
 void LCDLabels::AutoResizeLabel()
@@ -285,7 +336,7 @@ void LCDLabels::AutoResizeLabel()
 	ClearLabel();
 	X2 = X1 + 7*FrontVal.length() + 2;
 	Y2 = Y1 + 11;
-	InitializeLabel();
+	LCD->DrawLabel(X1, Y1, FrontVal.c_str());
 	IndicateMode();
 }
 
@@ -321,65 +372,19 @@ void LCDLabels::IndicateMode()
 {
 	if (Mode == LABEL_CLEAR)
 	{
-		DrawRect(0, X1, Y1, X2, Y2);
+		LCD->DrawRect(0, X1, Y1, X2, Y2);
 	}
 	else if (Mode == LABEL_HOVER)
 	{
-		DrawLine(1, X1, Y2,X2, Y2);
+		LCD->DrawLine(1, X1, Y2, X2, Y2);
 	}
 	else if (Mode == LABEL_SELECTED)
 	{
-		DrawRect(1, X1, Y1, X2, Y2);
+		LCD->DrawRect(1, X1, Y1, X2, Y2);
 	}
 }
 
-void LCDLabels::DrawLine(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2)
-{
-	//Set the Drawing Color
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(0xFE);
-	Wire.write(0x63);
-	Wire.write(color);
-	Wire.endTransmission();
-	
-	//Draw the Line
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(0xFE);
-	Wire.write(0x6C);
-	Wire.write(X1);
-	Wire.write(Y1);
-	Wire.write(X2);
-	Wire.write(Y2);
-	Wire.endTransmission();
-}
 
-void LCDLabels::DrawRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2)
-{
-	//Draw the Rectangle
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(0xFE);
-	Wire.write(0x72);
-	Wire.write(color);
-	Wire.write(X1);
-	Wire.write(Y1);
-	Wire.write(X2);
-	Wire.write(Y2);
-	Wire.endTransmission();
-}
-
-void LCDLabels::DrawFilledRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2)
-{
-	//Draw the Rectangle
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(0xFE);
-	Wire.write(0x78);
-	Wire.write(color);
-	Wire.write(X1);
-	Wire.write(Y1);
-	Wire.write(X2);
-	Wire.write(Y2);
-	Wire.endTransmission();	
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //						High-Level Commands									  //
@@ -406,10 +411,13 @@ void LCDLabels::RightCommand()
 //						Private Commands									  //
 ////////////////////////////////////////////////////////////////////////////////
 
-const char* LCDLabels::MIDItoString(uint8_t midi)
+String LCDLabels::MIDItoString(uint8_t midi)
 {
 	if (midi > 127)
-	return "Error";
+	{
+		String str = "Error: " + String(midi);
+		return str.c_str();
+	}
 	String str;
 	if (midi % 12 == 0)
 	str = "C";
@@ -436,5 +444,32 @@ const char* LCDLabels::MIDItoString(uint8_t midi)
 	else if (midi % 12 == 11)
 	str = "B";
 	str += "-" + (String)((int)(midi/12));
-	return str.c_str();
+	return str;
+}
+
+
+String LCDLabels::ColorToString(uint16_t color)
+{
+	String str;
+	if (color == COLOR_RED)
+		str = "Red";
+	else if (color == COLOR_BLUE)
+		str = "Blue";
+	else if (color == COLOR_GREEN)
+		str = "Green";
+	else if (color == COLOR_CYAN)
+		str = "Cyan";
+	return str;
+}
+
+String LCDLabels::ScaleToString(uint16_t scale)
+{
+	String str;
+	if (scale == SCALE_NONE)
+		str = "None";
+	else if (scale == SCALE_MAJOR)
+		str = "Major";
+	else if (scale == SCALE_MINOR)
+		str = "Minor";
+	return str;
 }

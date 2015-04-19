@@ -88,7 +88,6 @@ void setup(void) {
 	MIDI.begin();
 	
 	delay(1000);
-	Serial.println("here");
 	
 	//Attach Interupts for the whole program
 	pinMode(SYNC_PHOTOTRANSISTOR_TEENSY_PIN,INPUT);

@@ -24,13 +24,10 @@ void ArchInterfaceManager::Initialize()
 {
 	OrbitalLCD->Initialize();
 	OrbitalLCD->ClearScreen();
-	Serial.print("\nClear Screen: ");
-	Serial.print(uint32_t(MenuHome));
 	
 	MenuHome = DefineMenu_OperationMode();
 	Menu = MenuHome;
 	Menu->DrawMe();
-	Serial.println("Success");
 	Cursor = Menu->getCursorHome();
 	Cursor->setMode(LABEL_HOVER);
 }
@@ -108,14 +105,12 @@ void ArchInterfaceManager::Update()
 			Cursor = Menu->getCursorHome();
 			Cursor->setMode(LABEL_HOVER);
 		}
-		else if ((Cursor->getType() == LABEL_VALUE_NUMBER || Cursor->getType() == LABEL_VALUE_NOTE) 
-			   && Cursor->getMode() == LABEL_HOVER)
+		else if ((Cursor->getType() >= 3) && Cursor->getMode() == LABEL_HOVER)
 		{
 			Cursor->setMode(LABEL_SELECTED);
 			Cursor->setTempVal(Cursor->getBackVal());
 		}
-		else if ((Cursor->getType() == LABEL_VALUE_NUMBER || Cursor->getType() == LABEL_VALUE_NOTE)
-		&& Cursor->getMode() == LABEL_SELECTED)
+		else if ((Cursor->getType() >= 3) && Cursor->getMode() == LABEL_SELECTED)
 		{
 			Menu->CallEnterCommit();
 			Cursor->setMode(LABEL_HOVER);
@@ -133,13 +128,10 @@ void ArchInterfaceManager::Update()
 	else if (cmd == LCD_BACK)
 	{
 		OrbitalLCD->ClearScreen();
-		Serial.println("Cleared");
 		Menu = Menu->getReturnMenu();
 		if (Menu == NULL)
 			Menu = MenuHome;
-		Serial.println((int)(Menu));
 		Menu->DrawMe();
-		Serial.println("Drawn");
 		Cursor = Menu->getCursorHome();
 		Cursor->setMode(LABEL_HOVER);
 	}
@@ -151,28 +143,28 @@ LCDMenu* ArchInterfaceManager::DefineMenu_OperationMode()
 {
 	//Define Menu Variables and Labels
 	OpMode_OperationMode.Initialize(MENU_NONE, RegionManager);
-	OpMode_Title.Initialize(1, 10, 0, LABEL_PLAIN_TEXT, "OPERATION MODES:");
-	OpMode_Chromatic.Initialize(2, 10, 14, LABEL_MENU_PTR, "1) Chromatic");
-	OpMode_Custom.Initialize(3, 10, 28, LABEL_MENU_PTR, "2) Custom Mapping");
-	OpMode_PitchBending.Initialize(4, 10, 42, LABEL_MENU_PTR, "3) Pitch Bending");
+	OpMode_Title.Initialize(OrbitalLCD, 1, 10, 0, LABEL_PLAIN_TEXT, "OPERATION MODES:");
+	OpMode_Chromatic.Initialize(OrbitalLCD, 2, 10, 14, LABEL_MENU_PTR, "1) Chromatic");
+	OpMode_Custom.Initialize(OrbitalLCD, 3, 10, 28, LABEL_MENU_PTR, "2) Custom Mapping");
+	OpMode_ScaleMode.Initialize(OrbitalLCD, 4, 10, 42, LABEL_MENU_PTR, "3) Scale Mode");
 	
 	//Form the Draw Linked List for Menu
 	OpMode_OperationMode.setDrawList(&OpMode_Title);
 	OpMode_Title.setNext(&OpMode_Chromatic);
 	OpMode_Chromatic.setNext(&OpMode_Custom);
-	OpMode_Custom.setNext(&OpMode_PitchBending);
-	OpMode_PitchBending.setNext(NULL);
+	OpMode_Custom.setNext(&OpMode_ScaleMode);
+	OpMode_ScaleMode.setNext(NULL);
 	
 	//Form the Cursor QuadPtr Linked List
 	OpMode_OperationMode.setCursorHome(&OpMode_Chromatic);
-	OpMode_Chromatic.setQuadPtr(&OpMode_PitchBending, &OpMode_Custom, NULL, NULL);
-	OpMode_Custom.setQuadPtr(&OpMode_Chromatic, &OpMode_PitchBending, NULL, NULL);
-	OpMode_PitchBending.setQuadPtr(&OpMode_Custom, &OpMode_Chromatic, NULL, NULL);
+	OpMode_Chromatic.setQuadPtr(&OpMode_ScaleMode, &OpMode_Custom, NULL, NULL);
+	OpMode_Custom.setQuadPtr(&OpMode_Chromatic, &OpMode_ScaleMode, NULL, NULL);
+	OpMode_ScaleMode.setQuadPtr(&OpMode_Custom, &OpMode_Chromatic, NULL, NULL);
 	
 	//Set up the MenuPtrs
 	OpMode_Chromatic.setNextMenu(DefineMenu_ChromaticMode());
 	OpMode_Custom.setNextMenu(DefineMenu_CustomMode());
-	OpMode_PitchBending.setNextMenu(DefineMenu_PitchBendingMode());
+	OpMode_ScaleMode.setNextMenu(DefineMenu_ScaleMode());
 	
 	return &OpMode_OperationMode;
 }
@@ -181,11 +173,11 @@ LCDMenu* ArchInterfaceManager::DefineMenu_ChromaticMode()
 {
 	//Define Menu Variables and Labels
 	ChromMode_ChromaticMode.Initialize(MENU_CHROMATIC, RegionManager);
-	ChromMode_Title.Initialize(1, 10, 0, LABEL_PLAIN_TEXT, "CHROMATIC MODE:");
-	ChromMode_NumRegionsTag.Initialize(2, 10, 14, LABEL_PLAIN_TEXT, "# of Regions: ");
-	ChromMode_NumRegionsVal.Initialize(3, 110, 14, LABEL_VALUE_NUMBER, 30, 1, 5, 0, 99);
-	ChromMode_StartNoteTag.Initialize(4, 10, 28, LABEL_PLAIN_TEXT, "Start Note: ");
-	ChromMode_StartNoteVal.Initialize(5, 110, 28, LABEL_VALUE_NOTE, 0, 1, 12, 0, 127);
+	ChromMode_Title.Initialize(OrbitalLCD, 1, 10, 0, LABEL_PLAIN_TEXT, "CHROMATIC MODE:");
+	ChromMode_NumRegionsTag.Initialize(OrbitalLCD, 2, 10, 14, LABEL_PLAIN_TEXT, "# of Regions: ");
+	ChromMode_NumRegionsVal.Initialize(OrbitalLCD, 3, 110, 14, LABEL_VALUE_NUMBER, 30, 1, 5, 0, 99);
+	ChromMode_StartNoteTag.Initialize(OrbitalLCD, 4, 10, 28, LABEL_PLAIN_TEXT, "Start Note: ");
+	ChromMode_StartNoteVal.Initialize(OrbitalLCD, 5, 110, 28, LABEL_VALUE_NOTE, 0, 1, 12, 0, 127);
 	
 	//Form the Draw Linked List for Menu
 	ChromMode_ChromaticMode.setDrawList(&ChromMode_Title);
@@ -211,12 +203,12 @@ LCDMenu* ArchInterfaceManager::DefineMenu_CustomMode()
 {
 	//Define Menu Variables and Labels
 	CustMode_CustomMode.Initialize(MENU_CUSTOM, RegionManager);
-	CustMode_Title.Initialize(1, 10, 0, LABEL_PLAIN_TEXT, "CUSTOM MODE:");
-	CustMode_NumRegionsTag.Initialize(2, 10, 14, LABEL_PLAIN_TEXT, "# of Regions: ");
-	CustMode_NumRegionsVal.Initialize(3, 110, 14, LABEL_VALUE_NUMBER, 24, 1, 5, 0, 99);
-	CustMode_EditRegionTag.Initialize(4, 10, 28, LABEL_PLAIN_TEXT, "Edit Region: ");
-	CustMode_EditRegionVal.Initialize(5, 110, 28, LABEL_VALUE_NUMBER, 0, 1, 5, 0, 99);
-	CustMode_EditRegionGo.Initialize(6, 130, 28, LABEL_MENU_PTR, "Enter");
+	CustMode_Title.Initialize(OrbitalLCD, 1, 10, 0, LABEL_PLAIN_TEXT, "CUSTOM MODE:");
+	CustMode_NumRegionsTag.Initialize(OrbitalLCD, 2, 10, 14, LABEL_PLAIN_TEXT, "# of Regions: ");
+	CustMode_NumRegionsVal.Initialize(OrbitalLCD, 3, 110, 14, LABEL_VALUE_NUMBER, 24, 1, 5, 0, 99);
+	CustMode_EditRegionTag.Initialize(OrbitalLCD, 4, 10, 28, LABEL_PLAIN_TEXT, "Edit Region: ");
+	CustMode_EditRegionVal.Initialize(OrbitalLCD, 5, 110, 28, LABEL_VALUE_NUMBER, 0, 1, 5, 0, 99);
+	CustMode_EditRegionGo.Initialize(OrbitalLCD, 6, 130, 28, LABEL_MENU_PTR, "Enter");
 	
 	//Form the Draw Linked List for Menu
 	CustMode_CustomMode.setDrawList(&CustMode_Title);
@@ -245,14 +237,16 @@ LCDMenu* ArchInterfaceManager::DefineMenu_CustomRegionMode()
 {
 	//Define Menu Variables and Labels
 	CustReg_CustomRegionMode.Initialize(MENU_CUSTOM_REGION, RegionManager);
-	CustReg_EditRegionTag.Initialize(1, 10, 0, LABEL_PLAIN_TEXT, "Edit Region: ");
-	CustReg_EditRegionVal.Initialize(2, 110, 0, LABEL_VALUE_NUMBER, 0, 1, 5, 0, 99);
-	CustReg_StartDegTag.Initialize(3, 10, 14, LABEL_PLAIN_TEXT, "Start Degrees: ");
-	CustReg_StartDegVal.Initialize(4, 110, 14, LABEL_VALUE_NUMBER, 0, 1, 10, 0, 180);
-	CustReg_EndDegTag.Initialize(5, 10, 28, LABEL_PLAIN_TEXT, "End Degrees: ");
-	CustReg_EndDegVal.Initialize(6, 110, 28, LABEL_VALUE_NUMBER, 0, 1, 10, 0, 180);
-	CustReg_NoteTag.Initialize(7, 10, 42, LABEL_PLAIN_TEXT, "Note Value: ");
-	CustReg_NoteVal.Initialize(8, 110, 42, LABEL_VALUE_NOTE, 24, 1, 12, 0, 127);
+	CustReg_EditRegionTag.Initialize(OrbitalLCD, 1, 10, 0, LABEL_PLAIN_TEXT, "Edit Region: ");
+	CustReg_EditRegionVal.Initialize(OrbitalLCD, 2, 110, 0, LABEL_VALUE_NUMBER, 0, 1, 5, 0, 99);
+	CustReg_StartDegTag.Initialize(OrbitalLCD, 3, 10, 12, LABEL_PLAIN_TEXT, "Start Degree: ");
+	CustReg_StartDegVal.Initialize(OrbitalLCD, 4, 110, 12, LABEL_VALUE_NUMBER, 0, 1, 10, REJECTION_ANGLE_MIN_DEGREES, REJECTION_ANGLE_MAX_DEGREES);
+	CustReg_EndDegTag.Initialize(OrbitalLCD, 5, 10, 24, LABEL_PLAIN_TEXT, "End Degree: ");
+	CustReg_EndDegVal.Initialize(OrbitalLCD, 6, 110, 24, LABEL_VALUE_NUMBER, 0, 1, 10, REJECTION_ANGLE_MIN_DEGREES, REJECTION_ANGLE_MAX_DEGREES);
+	CustReg_NoteTag.Initialize(OrbitalLCD, 7, 10, 36, LABEL_PLAIN_TEXT, "Note Value: ");
+	CustReg_NoteVal.Initialize(OrbitalLCD, 8, 110, 36, LABEL_VALUE_NOTE, 24, 1, 12, 0, 127);
+	//CustReg_ColorTag.Initialize(OrbitalLCD, 9, 10, 48, LABEL_PLAIN_TEXT, "Color: ");
+	//CustReg_ColorVal.Initialize(OrbitalLCD, 10, 110, 48, LABEL_VALUE_COLOR, 0, 1, 1, 0, 20);
 	
 	//Form the Draw Linked List for Menu
 	CustReg_CustomRegionMode.setDrawList(&CustReg_EditRegionTag);
@@ -264,18 +258,60 @@ LCDMenu* ArchInterfaceManager::DefineMenu_CustomRegionMode()
 	CustReg_EndDegVal.setNext(&CustReg_NoteTag);
 	CustReg_NoteTag.setNext(&CustReg_NoteVal);
 	CustReg_NoteVal.setNext(NULL);
+	//CustReg_ColorTag.setNext(&CustReg_ColorVal);
+	//CustReg_ColorVal.setNext(NULL);	
 	
 	//Form the Cursor QuadPtr Linked List
 	CustReg_CustomRegionMode.setCursorHome(&CustReg_StartDegVal);
 	CustReg_StartDegVal.setQuadPtr(&CustReg_NoteVal, &CustReg_EndDegVal, NULL, NULL);
 	CustReg_EndDegVal.setQuadPtr(&CustReg_StartDegVal, &CustReg_NoteVal, NULL, NULL);
 	CustReg_NoteVal.setQuadPtr(&CustReg_EndDegVal, &CustReg_StartDegVal, NULL, NULL);
+	//CustReg_ColorVal.setQuadPtr(&CustReg_NoteVal, &CustReg_StartDegVal, NULL, NULL);
 	
 	//Set Up Next Menu Ptrs
 	CustReg_EditRegionVal.setNextMenu(NULL);
 	CustReg_StartDegVal.setNextMenu(NULL);
 	CustReg_EndDegVal.setNextMenu(NULL);
 	CustReg_NoteVal.setNextMenu(NULL);
+	//CustReg_ColorVal.setNextMenu(NULL);
 	
 	return &CustReg_CustomRegionMode;
+}
+
+LCDMenu* ArchInterfaceManager::DefineMenu_ScaleMode()
+{
+	//Define Menu Variables and Labels
+	ScaleMode_ScaleMode.Initialize(MENU_SCALE, RegionManager);
+	ScaleMode_Title.Initialize(OrbitalLCD, 1, 10, 0, LABEL_PLAIN_TEXT, "SCALE MODE:");
+	ScaleMode_NumRegionsTag.Initialize(OrbitalLCD, 2, 10, 12, LABEL_PLAIN_TEXT, "# of Regions: ");
+	ScaleMode_NumRegionsVal.Initialize(OrbitalLCD, 3, 110, 12, LABEL_VALUE_NUMBER, 30, 1, 5, 0, 99);
+	ScaleMode_StartNoteTag.Initialize(OrbitalLCD, 4, 10, 24, LABEL_PLAIN_TEXT, "Start Note: ");
+	ScaleMode_StartNoteVal.Initialize(OrbitalLCD, 5, 110, 24, LABEL_VALUE_NOTE, 0, 1, 12, 0, 127);
+	ScaleMode_ScaleTag.Initialize(OrbitalLCD, 6, 10, 36, LABEL_PLAIN_TEXT, "Scale: ");
+	ScaleMode_ScaleVal.Initialize(OrbitalLCD, 7, 110, 36, LABEL_VALUE_SCALE, SCALE_MAJOR, 1, 1, 1, 2);
+	
+	
+	//Form the Draw Linked List for Menu
+	ScaleMode_ScaleMode.setDrawList(&ScaleMode_Title);
+	ScaleMode_Title.setNext(&ScaleMode_NumRegionsTag);
+	ScaleMode_NumRegionsTag.setNext(&ScaleMode_NumRegionsVal);
+	ScaleMode_NumRegionsVal.setNext(&ScaleMode_StartNoteTag);
+	ScaleMode_StartNoteTag.setNext(&ScaleMode_StartNoteVal);
+	ScaleMode_StartNoteVal.setNext(&ScaleMode_ScaleTag);
+	ScaleMode_ScaleTag.setNext(&ScaleMode_ScaleVal);
+	ScaleMode_ScaleVal.setNext(NULL);
+	
+	//Form the Cursor QuadPtr Linked List
+	ScaleMode_ScaleMode.setCursorHome(&ScaleMode_NumRegionsVal);
+	ScaleMode_NumRegionsVal.setQuadPtr(&ScaleMode_ScaleVal, &ScaleMode_StartNoteVal, NULL, NULL);
+	ScaleMode_StartNoteVal.setQuadPtr(&ScaleMode_NumRegionsVal, &ScaleMode_ScaleVal, NULL, NULL);
+	ScaleMode_ScaleVal.setQuadPtr(&ScaleMode_StartNoteVal, &ScaleMode_NumRegionsVal, NULL, NULL);
+	
+	//Set up the MenuPtrs
+	ScaleMode_NumRegionsVal.setNextMenu(NULL);
+	ScaleMode_StartNoteVal.setNextMenu(NULL);
+	ScaleMode_ScaleVal.setNextMenu(NULL);
+	
+	return &ScaleMode_ScaleMode;
+	
 }

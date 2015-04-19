@@ -82,6 +82,8 @@
 #define LABEL_PLAIN_TEXT	2
 #define LABEL_VALUE_NUMBER	3
 #define LABEL_VALUE_NOTE	4
+#define LABEL_VALUE_COLOR	5
+#define LABEL_VALUE_SCALE	6
 
 //Label Modes
 #define LABEL_CLEAR			0
@@ -103,6 +105,18 @@
 #define MENU_CUSTOM			2
 #define MENU_CUSTOM_REGION	3
 #define MENU_PITCHBENDING	4
+#define MENU_SCALE			5
+
+//Colors//
+#define COLOR_RED			0
+#define COLOR_BLUE			1
+#define COLOR_GREEN			2
+#define COLOR_CYAN			3
+
+//Scale//
+#define SCALE_NONE			0
+#define SCALE_MAJOR			1
+#define SCALE_MINOR			2
 
 
 #endif /* PRIMARYDEFINES_H_ */

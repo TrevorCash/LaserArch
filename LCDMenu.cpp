@@ -1,5 +1,6 @@
 #include "LCDMenu.h"
 #include "LCDLabels.h"
+#include "ArchLCD.h"
 #include "ArchInterfaceManager.h"
 
 LCDMenu::LCDMenu()
@@ -57,12 +58,28 @@ LCDMenu* LCDMenu::getReturnMenu()
 void LCDMenu::DrawMe()
 {
 	LCDLabels* ptr = DrawList;
+	if (ptr == NULL)
+		return;
 	do
 	{
-		ptr->InitializeLabel();
+		
+		Serial.print(uint32_t(ptr));
+		Serial.print("   ");
+		Serial.print(ptr->getFrontVal());
+		Serial.print("   ");
+		Serial.print(uint32_t(ptr->getNext()));
+		Serial.print("    ");
+		Serial.print(ptr->getX1());
+		Serial.print(", ");
+		Serial.print(ptr->getY1());
+
+		ptr->getLCD()->DrawLabel(ptr->getX1(), ptr->getY1(), ptr->getFrontVal().c_str());
+		Serial.print("   Drawn");
+		Serial.print("\n");
 		//ptr->UpdateLabel();
 		ptr = ptr->getNext();
 	} while (ptr != NULL);
+	Serial.print("\n\n");
 }
 
 void LCDMenu::CallEnterPull()
@@ -75,6 +92,8 @@ void LCDMenu::CallEnterPull()
 		CustomEnterPull();
 	else if (WhichMenuMode == MENU_CUSTOM_REGION)
 		CustomRegionEnterPull();
+	else if (WhichMenuMode == MENU_SCALE)
+		ScaleEnterPull();
 }
 void LCDMenu::CallEnterCommit()
 {
@@ -86,6 +105,8 @@ void LCDMenu::CallEnterCommit()
 		CustomEnterCommit();
 	else if (WhichMenuMode == MENU_CUSTOM_REGION)
 		CustomRegionEnterCommit();
+	else if (WhichMenuMode == MENU_SCALE)
+		ScaleEnterCommit();
 }
 
 
@@ -143,7 +164,6 @@ void LCDMenu::CustomEnterCommit()
 		EditRegionVal->setBackVal(EditRegionVal->getMaxVal());
 		EditRegionVal->setTempVal(EditRegionVal->getMaxVal());
 	}
-
 }
 void LCDMenu::CustomRegionEnterPull()
 {
@@ -151,19 +171,90 @@ void LCDMenu::CustomRegionEnterPull()
 	LCDLabels* StartDegVal = CursorHome;
 	LCDLabels* EndDegVal = StartDegVal->getDown();
 	LCDLabels* NoteVal = EndDegVal->getDown();
+	LCDLabels* ColorVal = NoteVal->getDown();
+	uint8_t red, green, blue;
 	
 	EditRegionVal->setBackVal(ReturnMenu->getCursorHome()->getDown()->getBackVal());
-	StartDegVal->setBackVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal())->startDeg));
-	StartDegVal->setTempVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal())->startDeg));
-	EndDegVal->setBackVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal())->endDeg));
-	EndDegVal->setTempVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal())->endDeg));
-	NoteVal->setBackVal(RegionManager->FindRegionById(EditRegionVal->getBackVal())->GetNote());
-	NoteVal->setTempVal(RegionManager->FindRegionById(EditRegionVal->getBackVal())->GetNote());
+	StartDegVal->setBackVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->startDeg));
+	StartDegVal->setTempVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->startDeg));
+	EndDegVal->setBackVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->endDeg));
+	EndDegVal->setTempVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->endDeg));
+	NoteVal->setBackVal(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetNote());
+	NoteVal->setTempVal(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetNote());
+	
+	RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetColors(red, green, blue);
+	//ColorVal->setColor(red, green, blue);
+	//ColorVal->setTempVal(ColorVal->getBackVal());
 }
 void LCDMenu::CustomRegionEnterCommit()
 {
 	LCDLabels* EditRegionVal = (DrawList->getNext());
 	LCDLabels* StartDegVal = CursorHome;
 	LCDLabels* EndDegVal = StartDegVal->getDown();
-	LCDLabels* StartNote = EndDegVal->getDown();
+	LCDLabels* NoteVal = EndDegVal->getDown();
+	LCDLabels* ColorVal = NoteVal->getDown();
+	uint8_t red, green, blue;
+	
+	if (StartDegVal->getBackVal() != StartDegVal->getTempVal())
+	{
+		StartDegVal->setBackVal(StartDegVal->getTempVal());
+		RegionManager->ModifyRegionSpan(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1),
+		StartDegVal->getBackVal(),
+		EndDegVal->getBackVal(),
+		ArchRegionManager::RegionLinearStretch);
+	}
+	else if (EndDegVal->getBackVal() != EndDegVal->getTempVal())
+	{
+		EndDegVal->setBackVal(EndDegVal->getTempVal());
+		StartDegVal->setBackVal(StartDegVal->getTempVal());
+		RegionManager->ModifyRegionSpan(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1),
+		StartDegVal->getBackVal(),
+		EndDegVal->getBackVal(),
+		ArchRegionManager::RegionLinearStretch);
+	}
+	else if (NoteVal->getBackVal() != NoteVal->getTempVal())
+	{
+		NoteVal->setBackVal(NoteVal->getTempVal());
+		RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->SetNote(NoteVal->getBackVal());
+	}
+	else if (ColorVal->getBackVal() != ColorVal->getTempVal())
+	{
+		ColorVal->setBackVal(ColorVal->getTempVal());
+		ColorVal->getRGB(red, green, blue);
+		RegionManager->FindRegionById(EditRegionVal->getBackVal())->SetColors(red, green, blue);	
+	}
+}
+
+void LCDMenu::ScaleEnterPull()
+{
+	LCDLabels* NumRegionsVal = CursorHome;
+	LCDLabels* StartNoteVal = NumRegionsVal->getDown();
+	LCDLabels* ScaleVal = StartNoteVal->getDown();
+	
+	NumRegionsVal->setTempVal(RegionManager->NumRegions());
+	NumRegionsVal->setBackVal(RegionManager->NumRegions());
+	
+	StartNoteVal->setTempVal(RegionManager->FindRegionById(1)->GetNote());
+	StartNoteVal->setBackVal(RegionManager->FindRegionById(1)->GetNote());
+	
+	//May Need to Rework but you see the general concept. The value from
+	//getScale() may need to be reworked into what the label expects 1=Major 2=Minor
+	//Label's interpretation can be modified or it can be special case converted here
+	//ScaleVal->setTempVal(RegionManager->getScale());
+	//ScaleVal->setBackVal(RegionManager->getScale());
+}
+void LCDMenu::ScaleEnterCommit()
+{
+	LCDLabels* NumRegionsVal = CursorHome;
+	LCDLabels* StartNoteVal = NumRegionsVal->getDown();
+	LCDLabels* ScaleVal = StartNoteVal->getDown();
+	
+	NumRegionsVal->setBackVal(NumRegionsVal->getTempVal());
+	StartNoteVal->setBackVal(StartNoteVal->getTempVal());
+	ScaleVal->setBackVal(ScaleVal->getTempVal());
+	
+	RegionManager->Initialize(NumRegionsVal->getTempVal(), StartNoteVal->getTempVal());
+	
+	//Once again it may need to be reworked/translated here But you get the idea.
+	//RegionManager->setScale(ScaleVal->getTempVal());
 }

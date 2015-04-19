@@ -7,6 +7,7 @@
 #include "PrimaryDefines.h"
 
 class LCDMenu;
+class ArchLCD;
 
 class LCDLabels
 {
@@ -19,8 +20,9 @@ private:
 	uint8_t Type; // PtrNextMenu or ValueNumber or ValueNote or Plain text
 	uint8_t Mode; // Navigation or Selected for Editing
 	LCDMenu* NextMenu;
+	ArchLCD* LCD;
 	
-	//Value Vairables
+	//Value Variables
 	String FrontVal;
 	uint16_t BackVal;
 	uint16_t TempVal;
@@ -54,12 +56,12 @@ private:
 public:
 //Constructors and Destructor
 LCDLabels();
-LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal);
-LCDLabels(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal);
+LCDLabels(ArchLCD* NewLCD, uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal);
+LCDLabels(ArchLCD* NewLCD, uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal);
 ~LCDLabels();
 
-void Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal);
-void Initialize(uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal);
+void Initialize(ArchLCD* NewLCD, uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, char* NewFrontVal);
+void Initialize(ArchLCD* NewLCD, uint8_t NewID, uint8_t NewX1, uint8_t NewY1, uint8_t NewType, uint16_t NewBackVal, uint8_t NewLittleInc, uint8_t NewBigInc, uint16_t NewMinVal, uint16_t NewMaxVal);
 
 //Gets and Sets
 
@@ -69,11 +71,12 @@ void setMode(uint8_t NewMode);
 uint8_t getMode();
 void setNextMenu(LCDMenu* NewNextMenu);
 LCDMenu* getNextMenu();
+void setLCD(ArchLCD* NewLCD);
+ArchLCD* getLCD();
 
-void setFrontVal(const char* str);
-inline void setFrontVal(String str) { setFrontVal(str.c_str()); }
+void setFrontVal(String str);
 
-const char* getFrontVal();
+String getFrontVal();
 void setBackVal(uint16_t NewBackVal);
 uint16_t getBackVal();
 void setTempVal(uint16_t NewTempVal);
@@ -86,6 +89,9 @@ void setMaxVal(uint16_t NewMaxVal);
 uint16_t getMaxVal();
 void setMinVal(uint16_t NewMinVal);
 uint16_t getMinVal();
+void setColor(uint8_t red, uint8_t green, uint8_t blue);
+void getRGB(uint8_t& red, uint8_t& green, uint8_t& blue);
+
 
 uint8_t getX1();
 uint8_t getY1();
@@ -106,9 +112,7 @@ void UpdateLabel();
 void ClearLabel();
 void AutoResizeLabel();
 void IndicateMode();
-void DrawLine(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2);
-void DrawRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2);
-void DrawFilledRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2);
+
 
 //High Level Commands
 void UpCommand();
@@ -119,7 +123,9 @@ void EnterCommand();
 
 protected:
 private:
-const char* MIDItoString(uint8_t midi);
+String MIDItoString(uint8_t midi);
+String ColorToString(uint16_t color);
+String ScaleToString(uint16_t scale);
 };
 
 #endif

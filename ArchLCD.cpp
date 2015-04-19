@@ -78,34 +78,64 @@ char ArchLCD::ReadKey()
 	return byte;
 }
 
-
-//Makes a fast updatable label found at page 24 of ref manual for orbital lcd
-void ArchLCD::InitializeLabel(uint8_t ID, uint8_t LeftCord, uint8_t RightCord, uint8_t TopCord, uint8_t BottomCord, uint8_t VertAlign, uint8_t HorizAlign, uint16_t FontId, uint8_t BackGround, uint8_t CharSpacing)
+void ArchLCD::DrawLabel(uint8_t X1, uint8_t Y1, const char* str)
 {
-	
 	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
 	Wire.write(0xFE);
-	Wire.write(45);
-	Wire.write(ID);
-	Wire.write(LeftCord);
-	Wire.write(RightCord);
-	Wire.write(TopCord);
-	Wire.write(BottomCord);
-	Wire.write(VertAlign);
-	Wire.write(HorizAlign);
-	Wire.write(FontId);
-	Wire.write(BackGround);
-	Wire.write(CharSpacing);
+	Wire.write(0x79);
+	Wire.write(X1+2);
+	Wire.write(Y1+2);
+	Wire.endTransmission();
+	
+	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	Wire.write(str);
 	Wire.endTransmission();
 }
 
-//update label with null terminated string.
-void ArchLCD::UpdateLabel(uint8_t ID, char* str)
+void ArchLCD::DrawLine(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2)
 {
+	//Set the Drawing Color
 	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-		Wire.write(0xFE);
-		Wire.write(46);
-		Wire.write(ID);
-		Wire.write(str);
+	Wire.write(0xFE);
+	Wire.write(0x63);
+	Wire.write(color);
+	Wire.endTransmission();
+	
+	//Draw the Line
+	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	Wire.write(0xFE);
+	Wire.write(0x6C);
+	Wire.write(X1);
+	Wire.write(Y1);
+	Wire.write(X2);
+	Wire.write(Y2);
+	Wire.endTransmission();
+}
+
+void ArchLCD::DrawRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2)
+{
+	//Draw the Rectangle
+	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	Wire.write(0xFE);
+	Wire.write(0x72);
+	Wire.write(color);
+	Wire.write(X1);
+	Wire.write(Y1);
+	Wire.write(X2);
+	Wire.write(Y2);
+	Wire.endTransmission();
+}
+
+void ArchLCD::DrawFilledRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2)
+{
+	//Draw the Rectangle
+	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
+	Wire.write(0xFE);
+	Wire.write(0x78);
+	Wire.write(color);
+	Wire.write(X1);
+	Wire.write(Y1);
+	Wire.write(X2);
+	Wire.write(Y2);
 	Wire.endTransmission();
 }

@@ -64,6 +64,8 @@ void CustomRegionEnterPull();
 void CustomRegionEnterCommit();
 void PitchBendingEnterPull();
 void PitchBendingEnterCommit();
+void ScaleEnterPull();
+void ScaleEnterCommit();
 
 };
 

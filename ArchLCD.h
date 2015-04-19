@@ -35,8 +35,10 @@ public:
 	char ReadKey();
 	
 	//Mid Level Commands
-	void InitializeLabel(uint8_t ID, uint8_t LeftCord, uint8_t RightCord, uint8_t TopCord, uint8_t BottomCord, uint8_t VertAlign = 0, uint8_t HorizAlign = 0, uint16_t FontId = 1, uint8_t BackGround = 0, uint8_t CharSpacing = 2);
-	void UpdateLabel(uint8_t ID, char* str);
+	void DrawLabel(uint8_t X1, uint8_t Y1, const char* str);
+	void DrawLine(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2);
+	void DrawRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2);
+	void DrawFilledRect(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2);
 	
 protected:
 	

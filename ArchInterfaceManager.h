@@ -37,7 +37,7 @@ public:
 	LCDLabels OpMode_Title;
 	LCDLabels OpMode_Chromatic;
 	LCDLabels OpMode_Custom;
-	LCDLabels OpMode_PitchBending;
+	LCDLabels OpMode_ScaleMode;
 	
 	//Chromatic Mode Variables
 	LCDMenu ChromMode_ChromaticMode;
@@ -66,6 +66,18 @@ public:
 	LCDLabels CustReg_EndDegVal;
 	LCDLabels CustReg_NoteTag;
 	LCDLabels CustReg_NoteVal;
+	LCDLabels CustReg_ColorTag;
+	LCDLabels CustReg_ColorVal;
+	
+	//Scale Mode Variables
+	LCDMenu ScaleMode_ScaleMode;
+	LCDLabels ScaleMode_Title;
+	LCDLabels ScaleMode_NumRegionsTag;
+	LCDLabels ScaleMode_NumRegionsVal;
+	LCDLabels ScaleMode_StartNoteTag;
+	LCDLabels ScaleMode_StartNoteVal;
+	LCDLabels ScaleMode_ScaleTag;
+	LCDLabels ScaleMode_ScaleVal;	
 
 protected:
 private:
@@ -90,6 +102,7 @@ private:
 	LCDMenu* DefineMenu_CustomMode();
 	LCDMenu* DefineMenu_CustomRegionMode();
 	LCDMenu* DefineMenu_PitchBendingMode();
+	LCDMenu* DefineMenu_ScaleMode();
 
 public:
 
