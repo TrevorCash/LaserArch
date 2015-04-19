@@ -60,24 +60,34 @@ void quick_sort_fingerCon(ArchFingerBlobConnection *a, int n)
 //midi scale tools
 uint8_t GetMidiScaleValue(uint8_t baseNote, uint8_t stepOffset, MusicScales scaleType)
 {
-	//const int NUM_STEPS_IN_MAJOR_SCALE = 7;
-	//static int MajorScaleLookupTable[NUM_STEPS_IN MAJOR_SCALE] = {0, 2, 4, 5, 7, 9, 11};
-	//
-	//
-	//if(scaleType == MajorScale)
-	//{
-		//int scaleStep = stepOffset%(NUM_STEPS_IN_MAJOR_SCALE + 1);
-		//int octaveOffset = stepOffset - scaleStep;
-	//}
-	//else if(scaleType == MinorScale)
-	//{
-		//
-		//
-	//}
-	//else if(scaleType == ChromaticScale)
-	//{
-		//return baseNote + stepOffset;
-	//}
-	//
+	const int NUM_STEPS_IN_MAJOR_SCALE = 7;
+	const int MajorScaleLookupTable[NUM_STEPS_IN_MAJOR_SCALE] = {2, 2, 1, 2, 2, 2, 1};
+	
+	if(scaleType == MajorScale)
+	{
+		int curNote = baseNote;
+		int stepCount = 0;
+		int tableIdx = 0;
+		while(stepCount < (baseNote + stepOffset))
+		{
+			stepCount++;
+			curNote += MajorScaleLookupTable[tableIdx];
+			tableIdx++;
+			if(tableIdx == NUM_STEPS_IN_MAJOR_SCALE)
+				tableIdx = 0;
+		}
+		
+		return curNote;
+		
+	}
+	else if(scaleType == MinorScale)
+	{
+		
+	}
+	else if(scaleType == ChromaticScale)
+	{
+		return baseNote + stepOffset;
+	}
+	
 	
 }
