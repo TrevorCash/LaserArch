@@ -36,7 +36,7 @@ enum MusicScales
 	ChromaticScale	
 };
 uint8_t GetMidiScaleValue(uint8_t baseNote, uint8_t stepOffset, MusicScales scaleType);
-
+boolean GetMidiIsOctaveOf(uint8_t note1, uint8_t note2);
 
 
 #endif /* ARCHMATH_H_ */

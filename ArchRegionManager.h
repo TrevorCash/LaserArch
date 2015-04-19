@@ -12,6 +12,7 @@
 #include "ArchRegion.h"
 #include "PrimaryDefines.h"
 #include "ArchMotor.h"
+#include "ArchRegionScheme.h"
 
 class ArchRegionManager
 {
@@ -33,8 +34,8 @@ public:
 	float minDeg;
 	float maxDeg;
 	
-	//Initializes initially to a "checkerboard state" with some preset colors and behalviors.
-	void Initialize(uint8_t numReqRegions, uint8_t midiStartNote);
+	//Initializes all regions based off the region scheme
+	void Initialize(ArchRegionScheme& regionScheme);
 	
 	//modifies a regions span, using the given modify method to effect surrounding regions.  
 	//returns success (may fail if using shift method)(failure will still move regions, but may remove clipped parts).

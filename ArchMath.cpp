@@ -91,3 +91,14 @@ uint8_t GetMidiScaleValue(uint8_t baseNote, uint8_t stepOffset, MusicScales scal
 	
 	
 }
+
+
+
+boolean GetMidiIsOctaveOf(uint8_t note1, uint8_t note2)
+{
+	if(note1%12 == note2%12)
+		return true;
+	
+	return false;
+	
+}

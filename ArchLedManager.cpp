@@ -46,7 +46,7 @@ void ArchLedManager::Update()
 		for(f = pixStart; f < pixEnd; f++)
 		{
 			//Serial.println(f);
-			ledStrip->setPixel(f,curRegion->colorRed/4,curRegion->colorBlue/4,curRegion->colorGreen/4);
+			ledStrip->setPixel(f,curRegion->colorRed/4,curRegion->colorGreen/4,curRegion->colorBlue/4);
 		
 		}
 		curRegion = curRegion->nextRegion;
@@ -58,15 +58,11 @@ void ArchLedManager::Update()
 	{
 		if(fingerManager->fingerPool[f].hasStarted && fingerManager->fingerPool[f].isUsed)
 		{
-			int pixStart = AngleToLedIdx(mainMotor->AngleFromTicksLast(fingerManager->fingerPool[f].StartTime()));
-			int pixEnd = AngleToLedIdx(mainMotor->AngleFromTicksLast(fingerManager->fingerPool[f].EndTime()));
+			int pixMid = AngleToLedIdx(mainMotor->AngleFromTicksLast(fingerManager->fingerPool[f].centerTime));
 			
 			
-			int f;
-			for(f = pixStart; f < pixEnd; f++)
-			{
-				ledStrip->setPixel(f,0,128,0);	
-			}
+			ledStrip->setPixel(pixMid,0,255,0);	
+			
 		}
 		
 	}

@@ -163,7 +163,8 @@ void ChromaticEnterCommit(ArchRegionManager* RegionManager, LCDMenu* Menu)
 	NumRegionsVal->setBackVal(NumRegionsVal->getTempVal());
 	StartNoteVal->setBackVal(StartNoteVal->getTempVal());
 	
-	RegionManager->Initialize(NumRegionsVal->getTempVal(), StartNoteVal->getTempVal());
+	ArchRegionScheme chromaticScheme(ChromaticScheme, StartNoteVal->getTempVal(), NumRegionsVal->getTempVal());
+	RegionManager->Initialize(chromaticScheme);
 }
 void CustomEnterPull(ArchRegionManager* RegionManager, LCDMenu* Menu)
 {

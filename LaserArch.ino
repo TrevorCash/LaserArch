@@ -18,6 +18,7 @@
 #include "ArchLedManager.h"
 #include "ArchNoteManager.h"
 #include "ArchInterfaceManager.h"
+#include "ArchRegionScheme.h"
 #include "LCDMenuSetup.h"
 
 //Proto-types
@@ -133,7 +134,8 @@ void setup(void) {
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
-	RegionManager.Initialize(25, MIDI_C4);
+	ArchRegionScheme defaultScheme(MajorScaleScheme, MIDI_C4, 33);
+	RegionManager.Initialize(defaultScheme);
 	//InterfaceManager.Initialize();
 
 	//LED Strip Init

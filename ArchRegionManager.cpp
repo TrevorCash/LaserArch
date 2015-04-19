@@ -7,6 +7,7 @@
 
 
 #include "ArchRegionManager.h"
+#include "ArchRegionScheme.h"
 
 // default constructor
 ArchRegionManager::ArchRegionManager(float minDeg, float maxDeg, ArchMotor* motor)
@@ -26,18 +27,18 @@ ArchRegionManager::~ArchRegionManager()
 } //~ArchRegionManager
 
 
-void ArchRegionManager::Initialize(uint8_t numReqRegions, uint8_t midiStartNote)
+void ArchRegionManager::Initialize(ArchRegionScheme& regionScheme)
 {
-	if(numReqRegions < 1)
+	if(regionScheme.numRegions < 1)
 		return;
 	
 	ClearAllRegions();
 	
 	int i;
-	this->numRegions = numReqRegions;
-	float regionWidth = (maxDeg - minDeg)/numReqRegions;
+	this->numRegions = regionScheme.numRegions;
+	float regionWidth = (maxDeg - minDeg)/regionScheme.numRegions;
 	ArchRegion* prevRegion = NULL;
-	for(i = 0; i < numReqRegions; i++)
+	for(i = 0; i < regionScheme.numRegions; i++)
 	{
 		ArchRegion* newRegion = FindUnValidRegion();
 		
@@ -53,10 +54,8 @@ void ArchRegionManager::Initialize(uint8_t numReqRegions, uint8_t midiStartNote)
 		newRegion->prevRegion = prevRegion;
 		prevRegion = newRegion;
 	
-		newRegion->SetSpan(minDeg+(i*regionWidth), minDeg+((i+1)*regionWidth));
-		newRegion->SetNote(midiStartNote  + i);
-		newRegion->SetColors((i%2)*255,(i+1)%2*255,0);
-		
+		regionScheme.AssignRegionAttributes(newRegion);
+		newRegion->SetSpan(minDeg+(i*regionWidth), minDeg+((i+1)*regionWidth));	
 	}
 	
 	
