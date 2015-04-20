@@ -10,6 +10,7 @@
 #define __ARCHREGIONSCHEME_H__
 
 #include "Arduino.h"
+#include "MIDINoteDefines.h"
 
 enum ArchRegionSchemes
 {
@@ -28,13 +29,20 @@ class ArchRegionScheme
 
 //functions
 public:
-	ArchRegionScheme(ArchRegionSchemes schemeEnum, uint8_t midiBaseNote, uint16_t numRegions);
+	ArchRegionScheme(ArchRegionSchemes schemeEnum = ChromaticScheme, uint8_t midiBaseNote = MIDI_C4, uint16_t numRegions = 25);
 	~ArchRegionScheme();
 	
 	
 	//based off the schemeType, the region's settings are altered based on the scheme (setting color, note, etc)
 	//NOTE: BUT NOT SPAN - RIGHT NOW THAT IS STILL REGION MANAGER's JOB
 	boolean AssignRegionAttributes(ArchRegion* region);
+	void SetSchemeType(ArchRegionSchemes schemeEnum) { schemeType = schemeEnum; }
+	void SetBaseNote(uint8_t note){midiBaseNote = note;}
+	void SetNumRegions(uint16_t num){numRegions = num;}
+		
+	uint8_t GetBaseNote(){return midiBaseNote;}
+	ArchRegionSchemes GetSchemeType(){return schemeType;}
+	uint16_t GetNumRegions(){return numRegions;}
 	
 	ArchRegionSchemes schemeType;
 	uint8_t midiBaseNote;

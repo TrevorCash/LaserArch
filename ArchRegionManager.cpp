@@ -8,6 +8,7 @@
 
 #include "ArchRegionManager.h"
 #include "ArchRegionScheme.h"
+#include "MIDINoteDefines.h"
 
 // default constructor
 ArchRegionManager::ArchRegionManager(float minDeg, float maxDeg, ArchMotor* motor)
@@ -19,6 +20,7 @@ ArchRegionManager::ArchRegionManager(float minDeg, float maxDeg, ArchMotor* moto
 	
 	regionListFirst = NULL;
 	numRegions = 0;
+
 } //ArchRegionManager
 
 // default destructor
@@ -27,11 +29,12 @@ ArchRegionManager::~ArchRegionManager()
 } //~ArchRegionManager
 
 
-void ArchRegionManager::Initialize(ArchRegionScheme& regionScheme)
+boolean ArchRegionManager::Initialize(ArchRegionScheme regionScheme)
 {
 	if(regionScheme.numRegions < 1)
-		return;
+		return false;
 	
+	scheme = regionScheme;
 	ClearAllRegions();
 	
 	int i;
@@ -58,7 +61,7 @@ void ArchRegionManager::Initialize(ArchRegionScheme& regionScheme)
 		newRegion->SetSpan(minDeg+(i*regionWidth), minDeg+((i+1)*regionWidth));	
 	}
 	
-	
+	return true;
 }
 
 

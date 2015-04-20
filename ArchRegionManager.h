@@ -14,6 +14,8 @@
 #include "ArchMotor.h"
 #include "ArchRegionScheme.h"
 
+enum ArchRegionSchemes;
+
 class ArchRegionManager
 {
 //enums
@@ -34,8 +36,14 @@ public:
 	float minDeg;
 	float maxDeg;
 	
-	//Initializes all regions based off the region scheme
-	void Initialize(ArchRegionScheme& regionScheme);
+	
+
+	//Re-Initializes all regions based off the given region scheme and copies the scheme internally
+	boolean Initialize(ArchRegionScheme regionScheme);
+	
+	ArchRegionScheme GetScheme(){return scheme;}
+	ArchRegionSchemes GetSchemeType(){return scheme.GetSchemeType();}
+
 	
 	//modifies a regions span, using the given modify method to effect surrounding regions.  
 	//returns success (may fail if using shift method)(failure will still move regions, but may remove clipped parts).
@@ -83,6 +91,9 @@ private:
 	ArchRegion regionPool[MAX_REGIONS];
 	
 	ArchMotor* motor;
+
+	ArchRegionScheme scheme;
+
 	
 	ArchRegion* FindUnValidRegion();
 	void ClearAllRegions();
