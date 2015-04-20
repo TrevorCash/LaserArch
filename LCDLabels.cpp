@@ -340,34 +340,6 @@ void LCDLabels::AutoResizeLabel()
 	IndicateMode();
 }
 
-//void LCDLabels::InitializeLabel()
-//{
-	//Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	//Wire.write(0xFE);
-	//Wire.write(45);
-	//Wire.write(ID);
-	//Wire.write(X1);
-	//Wire.write(Y1);
-	//Wire.write(X2);
-	//Wire.write(Y2);
-	//Wire.write(VertAlign);
-	//Wire.write(HorizAlign);
-	//Wire.write(FontID);
-	//Wire.write(Background);
-	//Wire.write(CharSpacing);
-	//Wire.endTransmission();
-//}
-
-//void LCDLabels::UpdateLabel()
-//{
-	//Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	//Wire.write(0xFE);
-	//Wire.write(0x2E);
-	//Wire.write(ID);
-	//Wire.write(FrontVal.c_str());
-	//Wire.endTransmission();
-//}
-
 void LCDLabels::IndicateMode()
 {
 	if (Mode == LABEL_CLEAR)
@@ -392,20 +364,38 @@ void LCDLabels::IndicateMode()
 
 void LCDLabels::UpCommand()
 {
-	Serial.println(TempVal);
-	setTempVal((TempVal+LittleInc <= MaxVal ? TempVal+LittleInc : MaxVal ));
+	int tmp = int(TempVal)+LittleInc;
+	if (tmp > MaxVal && Type)
+		tmp = tmp - MaxVal + MinVal - 1;
+	setTempVal(uint16_t(tmp));
 }
 void LCDLabels::DownCommand()
 {
-	setTempVal((TempVal-LittleInc >= MinVal ? TempVal-LittleInc : MinVal ));
+	int tmp = int(TempVal) - LittleInc;
+	if (tmp < MinVal && Type)
+		tmp = tmp + MaxVal - MinVal + 1;
+	setTempVal(uint16_t(tmp));
 }
 void LCDLabels::LeftCommand()
 {
-	setTempVal((TempVal-BigInc >= MinVal ? TempVal-BigInc : MinVal ));
+	int tmp = int(TempVal) - BigInc;
+	if (tmp < MinVal && Type != LABEL_VALUE_NOTE)
+		tmp = tmp + MaxVal - MinVal +1 ;
+	else if (tmp < MinVal && Type == LABEL_VALUE_NOTE)
+		if (TempVal < 8)
+			tmp = TempVal+120;
+		else
+			tmp = TempVal+108;
+	setTempVal(uint16_t(tmp));
 }
 void LCDLabels::RightCommand()
 {
-	setTempVal(((TempVal+BigInc) <= MaxVal ? TempVal+BigInc : MaxVal ));
+	int tmp = int(TempVal)+BigInc;
+	if (tmp > MaxVal && Type != LABEL_VALUE_NOTE)
+		tmp = tmp - MaxVal + MinVal - 1;
+	else if (tmp > MaxVal && Type == LABEL_VALUE_NOTE)
+		tmp = tmp % 12;
+	setTempVal(uint16_t(tmp));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -465,7 +455,6 @@ String LCDLabels::ColorToString(uint16_t color)
 
 String LCDLabels::ScaleToString(uint16_t scale)
 {
-	Serial.println(scale);
 	String str;
 	if (scale == ChromaticScheme)
 	{
@@ -479,10 +468,5 @@ String LCDLabels::ScaleToString(uint16_t scale)
 	{
 		str = "Minor";
 	}
-	else if (scale == MinorScaleScheme)
-	{
-		str = "Minor";
-	}
-	Serial.println("Scale end");
 	return str;
 }

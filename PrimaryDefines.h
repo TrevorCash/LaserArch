@@ -96,7 +96,7 @@
 #define LCD_LEFT			68
 
 //Menu Indicators//
-#define MENU_NONE			0
+#define MENU_OPMODE			0
 #define MENU_CHROMATIC		1
 #define MENU_CUSTOM			2
 #define MENU_CUSTOM_REGION	3

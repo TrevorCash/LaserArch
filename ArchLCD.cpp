@@ -87,9 +87,11 @@ void ArchLCD::DrawLabel(uint8_t X1, uint8_t Y1, const char* str)
 	Wire.write(Y1+2);
 	Wire.endTransmission();
 	
-	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
-	Wire.write(str);
-	Wire.endTransmission();
+	//this is weird and without it we get stuck here....
+	//TODO
+	delay(10);
+	
+	SendText((char*)str);
 }
 
 void ArchLCD::DrawLine(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_t Y2)

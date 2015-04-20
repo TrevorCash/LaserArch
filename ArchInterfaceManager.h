@@ -20,6 +20,7 @@ class ArchLCD;
 
 #include "LCDLabels.h"
 #include "LCDMenu.h"
+#include "ArchLCD.h"
 
 
 class ArchInterfaceManager
@@ -87,7 +88,7 @@ private:
 
 //functions
 public:
-	ArchInterfaceManager(ArchRegionManager* NewRegionManager);
+	ArchInterfaceManager(ArchRegionManager* NewRegionManager, ArchLCD* lcd);
 	~ArchInterfaceManager();
 	void Initialize();
 	void Update();

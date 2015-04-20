@@ -56,6 +56,8 @@ protected:
 
 
 private:
+void OpModeEnterPull();
+void OpModeEnterCommit();
 void ChromaticEnterPull();
 void ChromaticEnterCommit();
 void CustomEnterPull();

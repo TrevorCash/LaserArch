@@ -54,8 +54,10 @@ ArchNoteManager NoteManager(&RegionManager);
 //make a fingers manager - manage finger tracking.
 ArchFingerManager FingerManager(&BlobManager, &NoteManager, &RegionManager, &MainMotor);
 
-//Make an ArchLCD For Testing.
-ArchInterfaceManager InterfaceManager(&RegionManager);
+//Make an ArchLCD
+ArchLCD OrbitalLCD;
+ArchInterfaceManager InterfaceManager(&RegionManager, &OrbitalLCD);
+
 
 //Led Strip object
 const int ledsPerStrip = 144;
@@ -122,7 +124,7 @@ void setup(void) {
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
-	ArchRegionScheme defaultScheme(MinorScaleScheme, MIDI_F4, 8);
+	ArchRegionScheme defaultScheme(ChromaticScheme, MIDI_F4, 25);
 	RegionManager.Initialize(defaultScheme);
 	InterfaceManager.Initialize();
 
@@ -152,7 +154,7 @@ void SystemTestSetup()
 {
 	
 	Serial.println("ARCH IN TEST MODE:");
-	MainMotor.Start();
+	//MainMotor.Start();
 	
 	//wait for motor to start up.
 	delay(2000);

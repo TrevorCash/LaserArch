@@ -63,29 +63,37 @@ void LCDMenu::DrawMe()
 	do
 	{
 		
-		//Serial.print(uint32_t(ptr));
-		//Serial.print("   ");
-		//Serial.print(ptr->getFrontVal());
-		//Serial.print("   ");
-		//Serial.print(uint32_t(ptr->getNext()));
-		//Serial.print("    ");
-		//Serial.print(ptr->getX1());
-		//Serial.print(", ");
-		//Serial.print(ptr->getY1());
+		Serial.print(uint32_t(ptr));
+		Serial.print("   ");
+		Serial.print(ptr->getFrontVal());
+		Serial.print("   ");
+		Serial.print(uint32_t(ptr->getNext()));
+		Serial.print("    ");
+		Serial.print(ptr->getX1());
+		Serial.print(", ");
+		Serial.print(ptr->getY1());
+		Serial.print("   ");
+		Serial.print(ptr->getX2());
+		Serial.print(", ");
+		Serial.print(ptr->getY2());
+		Serial.print("   ");
+		Serial.print(uint32_t(ptr->getLCD()));
+		
 
 		ptr->getLCD()->DrawLabel(ptr->getX1(), ptr->getY1(), ptr->getFrontVal().c_str());
-		//Serial.print("   Drawn");
-		//Serial.print("\n");
-		//ptr->UpdateLabel();
+		Serial.print("   Drawn");
+		
+		
+		Serial.print("\n");
 		ptr = ptr->getNext();
 	} while (ptr != NULL);
-	//Serial.print("\n\n");
+	Serial.print("\n\n");
 }
 
 void LCDMenu::CallEnterPull()
 {
-	if (WhichMenuMode == MENU_NONE)
-		return;
+	if (WhichMenuMode == MENU_OPMODE)
+		OpModeEnterPull();
 	else if (WhichMenuMode == MENU_CHROMATIC)
 		ChromaticEnterPull();
 	else if (WhichMenuMode == MENU_CUSTOM)
@@ -97,8 +105,8 @@ void LCDMenu::CallEnterPull()
 }
 void LCDMenu::CallEnterCommit()
 {
-	if (WhichMenuMode == MENU_NONE)
-		return;
+	if (WhichMenuMode == MENU_OPMODE)
+		OpModeEnterCommit();
 	else if (WhichMenuMode == MENU_CHROMATIC)
 		ChromaticEnterCommit();
 	else if (WhichMenuMode == MENU_CUSTOM)
@@ -114,6 +122,21 @@ void LCDMenu::CallEnterCommit()
 //						CommitPullFunctions									  //
 ////////////////////////////////////////////////////////////////////////////////
 
+void LCDMenu::OpModeEnterPull()
+{
+	LCDLabels* ChromaticMode = CursorHome;
+	LCDLabels* CustomMode = ChromaticMode->getDown();
+	LCDLabels* ScaleMode = CustomMode->getDown();
+	
+	ChromaticMode->setMode(LABEL_CLEAR);
+	CustomMode->setMode(LABEL_CLEAR);
+	ScaleMode->setMode(LABEL_CLEAR);
+}
+void LCDMenu::OpModeEnterCommit()
+{
+	
+}
+
 void LCDMenu::ChromaticEnterPull()
 {
 	LCDLabels* NumRegionsVal = CursorHome;
@@ -124,9 +147,6 @@ void LCDMenu::ChromaticEnterPull()
 	
 	StartNoteVal->setTempVal(RegionManager->FirstRegion()->GetNote());
 	StartNoteVal->setBackVal(RegionManager->FirstRegion()->GetNote());
-	
-	Serial.println(RegionManager->FirstRegion()->GetNote());
-	Serial.println(StartNoteVal->getTempVal());
 	
 	NumRegionsVal->setMode(LABEL_CLEAR);
 	StartNoteVal->setMode(LABEL_CLEAR);
@@ -261,13 +281,25 @@ void LCDMenu::ScaleEnterPull()
 	
 	ScaleVal->setTempVal(RegionManager->GetSchemeType());
 	ScaleVal->setBackVal(RegionManager->GetSchemeType());
-
+	
+	Serial.println(ScaleVal->getTempVal());
+	if (ScaleVal->getBackVal() < ScaleVal->getMinVal() || ScaleVal->getBackVal() > ScaleVal->getMaxVal())
+	{
+		ScaleVal->setTempVal(MajorScaleScheme);
+		ScaleVal->setBackVal(MajorScaleScheme);
+	}
+	Serial.println("Pos Scale set");
+	
 	NumRegionsVal->setMode(LABEL_CLEAR);
 	StartNoteVal->setMode(LABEL_CLEAR);
 	ScaleVal->setMode(LABEL_CLEAR);
-
+	
+	Serial.println("Post Clears");
+	
 	ArchRegionScheme Scheme((ArchRegionSchemes)ScaleVal->getBackVal(), StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
 	RegionManager->Initialize(Scheme);
+	
+	Serial.println("Post Initialize");
 }
 void LCDMenu::ScaleEnterCommit()
 {
