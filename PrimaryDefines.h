@@ -34,9 +34,6 @@
 #define FINGER_WIDTH_MODULATION_MIN_DEG (FINGER_EXPECTED_WIDTH_IN_PLAYABLE_REGION_DEG/2.0)
 
 
-//motor period filtering coefficients
-#define MOTOR_PERIOD_PROPORTIONAL_CONST 0.8 // higher is faster (more high frequencies)
-
 //maximum regions avalable.
 #define  MAX_REGIONS 100
 
@@ -69,11 +66,10 @@
 
 
 //Led Strip
-//how many degrees does the led strip cover
-#define LED_ANGLE_COVERAGE 160
+//literal start and end angles of led strip
+#define LED_STRIP_START_DEG 71
+#define LED_STRIP_END_DEG 250
 
-//is there any offset from center (positive <-> negative)
-#define LED_ANGLE_OFFSET 0
 
 //LCD Types and Modes
 

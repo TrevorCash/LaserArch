@@ -186,7 +186,7 @@ void LCDLabels::setTempVal(uint16_t NewTempVal)
 		setFrontVal(MIDItoString((uint8_t)(TempVal)));
 	else if (Type == LABEL_VALUE_COLOR)
 		setFrontVal(ColorToString(TempVal));
-	else if (Type == LABEL_VALUE_NOTE)
+	else if (Type == LABEL_VALUE_SCALE)
 		setFrontVal(ScaleToString(TempVal));
 }
 uint16_t LCDLabels::getTempVal()
@@ -392,6 +392,7 @@ void LCDLabels::IndicateMode()
 
 void LCDLabels::UpCommand()
 {
+	Serial.println(TempVal);
 	setTempVal((TempVal+LittleInc <= MaxVal ? TempVal+LittleInc : MaxVal ));
 }
 void LCDLabels::DownCommand()
@@ -464,12 +465,23 @@ String LCDLabels::ColorToString(uint16_t color)
 
 String LCDLabels::ScaleToString(uint16_t scale)
 {
+	Serial.println(scale);
 	String str;
 	if (scale == SCALE_NONE)
+	{
+		Serial.print("herenone");
 		str = "None";
+	}
 	else if (scale == SCALE_MAJOR)
+	{
+		Serial.println("heremajor");
 		str = "Major";
+	}
 	else if (scale == SCALE_MINOR)
+	{
+		Serial.println("hereminor");
 		str = "Minor";
+	}
+	Serial.println("Scale end");
 	return str;
 }

@@ -321,6 +321,12 @@
     <Compile Include="ArchRegionManager.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ArchRegionScheme.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ArchRegionScheme.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ArchTeensyPins.h">
       <SubType>compile</SubType>
     </Compile>

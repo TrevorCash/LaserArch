@@ -29,12 +29,12 @@ void ArchNoteManager::OnFingerMove(ArchFinger* finger)
 		if(finger->lastRegion->fingerCount == 0)
 			MIDI.sendNoteOff(finger->lastRegion->midiNote,0,1);
 		
-		MIDI.sendNoteOn(finger->curRegion->midiNote,127,1);
+		MIDI.sendNoteOn(finger->curRegion->midiNote,90,1);
 	}
 }
 void ArchNoteManager::OnFingerStart(ArchFinger* finger)
 {
-	MIDI.sendNoteOn(finger->curRegion->midiNote,127,1);
+	MIDI.sendNoteOn(finger->curRegion->midiNote,90,1);
 }
 void ArchNoteManager::OnFingerStop(ArchFinger* finger)
 {

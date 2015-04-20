@@ -63,23 +63,23 @@ void LCDMenu::DrawMe()
 	do
 	{
 		
-		Serial.print(uint32_t(ptr));
-		Serial.print("   ");
-		Serial.print(ptr->getFrontVal());
-		Serial.print("   ");
-		Serial.print(uint32_t(ptr->getNext()));
-		Serial.print("    ");
-		Serial.print(ptr->getX1());
-		Serial.print(", ");
-		Serial.print(ptr->getY1());
+		//Serial.print(uint32_t(ptr));
+		//Serial.print("   ");
+		//Serial.print(ptr->getFrontVal());
+		//Serial.print("   ");
+		//Serial.print(uint32_t(ptr->getNext()));
+		//Serial.print("    ");
+		//Serial.print(ptr->getX1());
+		//Serial.print(", ");
+		//Serial.print(ptr->getY1());
 
 		ptr->getLCD()->DrawLabel(ptr->getX1(), ptr->getY1(), ptr->getFrontVal().c_str());
-		Serial.print("   Drawn");
-		Serial.print("\n");
+		//Serial.print("   Drawn");
+		//Serial.print("\n");
 		//ptr->UpdateLabel();
 		ptr = ptr->getNext();
 	} while (ptr != NULL);
-	Serial.print("\n\n");
+	//Serial.print("\n\n");
 }
 
 void LCDMenu::CallEnterPull()
@@ -98,7 +98,7 @@ void LCDMenu::CallEnterPull()
 void LCDMenu::CallEnterCommit()
 {
 	if (WhichMenuMode == MENU_NONE)
-	return;
+		return;
 	else if (WhichMenuMode == MENU_CHROMATIC)
 		ChromaticEnterCommit();
 	else if (WhichMenuMode == MENU_CUSTOM)
@@ -122,18 +122,28 @@ void LCDMenu::ChromaticEnterPull()
 	NumRegionsVal->setTempVal(RegionManager->NumRegions());
 	NumRegionsVal->setBackVal(RegionManager->NumRegions());
 	
-	StartNoteVal->setTempVal(RegionManager->FindRegionById(1)->GetNote());
-	StartNoteVal->setBackVal(RegionManager->FindRegionById(1)->GetNote());
+	StartNoteVal->setTempVal(RegionManager->FindRegionById(0)->GetNote());
+	StartNoteVal->setBackVal(RegionManager->FindRegionById(0)->GetNote());
+	
+	Serial.println(RegionManager->FindRegionById(0)->GetNote());
+	Serial.println(StartNoteVal->getTempVal());
+	
+	NumRegionsVal->setMode(LABEL_CLEAR);
+	StartNoteVal->setMode(LABEL_CLEAR);
+	
+	ArchRegionScheme Scheme(ChromaticScheme, StartNoteVal->getTempVal(), NumRegionsVal->getTempVal());
+	RegionManager->Initialize(Scheme);
 }
 void LCDMenu::ChromaticEnterCommit()
 {
 	LCDLabels* NumRegionsVal = CursorHome;
 	LCDLabels* StartNoteVal = NumRegionsVal->getDown();
+	ArchRegionScheme Scheme(ChromaticScheme, StartNoteVal->getTempVal(), NumRegionsVal->getTempVal());
 	
 	NumRegionsVal->setBackVal(NumRegionsVal->getTempVal());
 	StartNoteVal->setBackVal(StartNoteVal->getTempVal());
 	
-	RegionManager->Initialize(NumRegionsVal->getTempVal(), StartNoteVal->getTempVal());
+	RegionManager->Initialize(Scheme);
 }
 void LCDMenu::CustomEnterPull()
 {
@@ -148,15 +158,20 @@ void LCDMenu::CustomEnterPull()
 	EditRegionVal->setBackVal(1);
 	EditRegionVal->setMinVal(1);
 	EditRegionVal->setMaxVal(NumRegionsVal->getBackVal());
+	
+	NumRegionsVal->setMode(LABEL_CLEAR);
+	EditRegionVal->setMode(LABEL_CLEAR);
+	EditRegionGo->setMode(LABEL_CLEAR);
 }
 void LCDMenu::CustomEnterCommit()
 {
 	LCDLabels* NumRegionsVal = CursorHome;
 	LCDLabels* EditRegionVal = NumRegionsVal->getDown();
 	LCDLabels* EditRegionGo = EditRegionVal->getRight();
+	ArchRegionScheme Scheme(TriggerScheme, RegionManager->FindRegionById(1)->GetNote(), NumRegionsVal->getTempVal());
 	
 	NumRegionsVal->setBackVal(NumRegionsVal->getTempVal());
-	RegionManager->Initialize(NumRegionsVal->getBackVal(), RegionManager->FindRegionById(1)->GetNote());
+	RegionManager->Initialize(Scheme);
 
 	EditRegionVal->setMaxVal(NumRegionsVal->getBackVal());
 	if (EditRegionVal->getBackVal() > EditRegionVal->getMaxVal())
@@ -174,6 +189,8 @@ void LCDMenu::CustomRegionEnterPull()
 	LCDLabels* ColorVal = NoteVal->getDown();
 	uint8_t red, green, blue;
 	
+
+	
 	EditRegionVal->setBackVal(ReturnMenu->getCursorHome()->getDown()->getBackVal());
 	StartDegVal->setBackVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->startDeg));
 	StartDegVal->setTempVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->startDeg));
@@ -182,7 +199,12 @@ void LCDMenu::CustomRegionEnterPull()
 	NoteVal->setBackVal(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetNote());
 	NoteVal->setTempVal(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetNote());
 	
-	RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetColors(red, green, blue);
+	EditRegionVal->setMode(LABEL_CLEAR);
+	StartDegVal->setMode(LABEL_CLEAR);
+	EndDegVal->setMode(LABEL_CLEAR);
+	NoteVal->setMode(LABEL_CLEAR);
+	
+	//RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetColors(red, green, blue);
 	//ColorVal->setColor(red, green, blue);
 	//ColorVal->setTempVal(ColorVal->getBackVal());
 }
@@ -234,14 +256,18 @@ void LCDMenu::ScaleEnterPull()
 	NumRegionsVal->setTempVal(RegionManager->NumRegions());
 	NumRegionsVal->setBackVal(RegionManager->NumRegions());
 	
-	StartNoteVal->setTempVal(RegionManager->FindRegionById(1)->GetNote());
-	StartNoteVal->setBackVal(RegionManager->FindRegionById(1)->GetNote());
+	StartNoteVal->setTempVal(RegionManager->FindRegionById(0)->GetNote());
+	StartNoteVal->setBackVal(RegionManager->FindRegionById(0)->GetNote());
 	
-	//May Need to Rework but you see the general concept. The value from
-	//getScale() may need to be reworked into what the label expects 1=Major 2=Minor
-	//Label's interpretation can be modified or it can be special case converted here
-	//ScaleVal->setTempVal(RegionManager->getScale());
-	//ScaleVal->setBackVal(RegionManager->getScale());
+	ScaleVal->setTempVal(SCALE_MAJOR);
+	ScaleVal->setBackVal(SCALE_MAJOR);
+
+	NumRegionsVal->setMode(LABEL_CLEAR);
+	StartNoteVal->setMode(LABEL_CLEAR);
+	ScaleVal->setMode(LABEL_CLEAR);
+
+	ArchRegionScheme Scheme(MajorScaleScheme, StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
+	RegionManager->Initialize(Scheme);
 }
 void LCDMenu::ScaleEnterCommit()
 {
@@ -253,8 +279,18 @@ void LCDMenu::ScaleEnterCommit()
 	StartNoteVal->setBackVal(StartNoteVal->getTempVal());
 	ScaleVal->setBackVal(ScaleVal->getTempVal());
 	
-	RegionManager->Initialize(NumRegionsVal->getTempVal(), StartNoteVal->getTempVal());
-	
-	//Once again it may need to be reworked/translated here But you get the idea.
-	//RegionManager->setScale(ScaleVal->getTempVal());
+	if (ScaleVal->getBackVal() == SCALE_MAJOR)
+	{
+		ArchRegionScheme Scheme(MajorScaleScheme, StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
+		RegionManager->Initialize(Scheme);
+	}
+	else if (ScaleVal->getBackVal() == SCALE_MINOR)
+	{
+		ArchRegionScheme Scheme(MinorScaleScheme, StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
+		RegionManager->Initialize(Scheme);
+	}
+	else
+	{
+		//Fuckdooodle
+	}		
 }

@@ -26,4 +26,17 @@ void quick_sort_fingerCon(ArchFingerBlobConnection *a, int n);
 
 
 
+
+
+//midi music scales utils
+enum MusicScales
+{
+	MajorScale,
+	MinorScale,
+	ChromaticScale	
+};
+uint8_t GetMidiScaleValue(uint8_t baseNote, uint8_t stepOffset, MusicScales scaleType);
+boolean GetMidiIsOctaveOf(uint8_t note1, uint8_t note2);
+
+
 #endif /* ARCHMATH_H_ */
