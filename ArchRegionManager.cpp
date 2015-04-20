@@ -65,7 +65,7 @@ boolean ArchRegionManager::Initialize(ArchRegionScheme regionScheme)
 }
 
 
-
+//returns true is EVERYTHING goes well
 boolean ArchRegionManager::ModifyRegionSpan(ArchRegion* region, float newStartDeg, float newEndDeg, RegionModifyMethod method)
 {
 	boolean startSuccess = ModifyRegionStart(region, newStartDeg, method);
@@ -74,7 +74,24 @@ boolean ArchRegionManager::ModifyRegionSpan(ArchRegion* region, float newStartDe
 	
 	CleanupZeroRegions();
 	
-	return startSuccess || endSuccess;
+	return startSuccess && endSuccess;
+}
+
+boolean ArchRegionManager::ModifyRegionSpanStart(ArchRegion* region, float newStartDeg, RegionModifyMethod method)
+{
+	boolean startSuccess = ModifyRegionStart(region, newStartDeg, method);
+	CleanupZeroRegions();
+			
+	return startSuccess;
+}
+
+boolean ArchRegionManager::ModifyRegionSpanEnd(ArchRegion* region, float newEndDeg, RegionModifyMethod method)
+{
+	boolean endSuccess = ModifyRegionEnd(region, newEndDeg, method);
+		
+	CleanupZeroRegions();
+		
+	return endSuccess;
 }
 
 
@@ -97,8 +114,10 @@ boolean ArchRegionManager::ModifyRegionStart(ArchRegion* region, float newStartD
 	
 	//dont allow out of bounds
 	if(newStartDeg < minDeg || newStartDeg > maxDeg)
+	{
 		return false;
-
+	
+	}
 
 	//final - initial
 	float startDelta = newStartDeg - region->startDeg;

@@ -103,6 +103,8 @@ void ArchLCD::DrawLine(uint8_t color, uint8_t X1, uint8_t Y1, uint8_t X2, uint8_
 	Wire.write(color);
 	Wire.endTransmission();
 	
+	delay(10);
+	
 	//Draw the Line
 	Wire.beginTransmission(ORBITAL_I2C_ADDRESS);
 	Wire.write(0xFE);

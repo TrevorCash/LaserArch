@@ -230,6 +230,18 @@ void LCDLabels::setColor(uint8_t red, uint8_t green, uint8_t blue)
 {
 	if (red == 255 && green == 0 && blue == 0)
 		setBackVal(COLOR_RED);
+	if (red == 255 && green == 102 & blue == 0)
+		setBackVal(COLOR_ORANGE);
+	if (red == 255 && green == 255 && blue == 0)
+		setBackVal(COLOR_YELLOW);
+	if (red == 0 && green == 255 && blue == 0)
+		setBackVal(COLOR_GREEN);
+	if (red == 0 && green == 0 && blue == 255)
+		setBackVal(COLOR_BLUE);
+	if (red == 85 && green == 26 && blue == 139)
+		setBackVal(COLOR_PURPLE);
+	if (red == 0 && green == 255 && blue == 255)
+		setBackVal(COLOR_CYAN);
 }
 void LCDLabels::getRGB(uint8_t& red, uint8_t& green, uint8_t& blue)
 {
@@ -260,6 +272,25 @@ void LCDLabels::getRGB(uint8_t& red, uint8_t& green, uint8_t& blue)
 		green = 255;
 		blue = 255;
 	}
+	else if (BackVal == COLOR_YELLOW)
+	{
+		red = 255;
+		green = 255;
+		blue = 0;
+	}
+	else if (BackVal == COLOR_ORANGE)
+	{
+		red = 0xFF;
+		green = 0x66;
+		blue = 0;
+	}
+	else if (BackVal == COLOR_PURPLE)
+	{
+		red = 85;
+		green = 26;
+		blue = 139;
+	}
+
 }
 
 uint8_t LCDLabels::getX1()
@@ -450,6 +481,12 @@ String LCDLabels::ColorToString(uint16_t color)
 		str = "Green";
 	else if (color == COLOR_CYAN)
 		str = "Cyan";
+	else if (color == COLOR_YELLOW)
+		str = "Yellow";
+	else if (color == COLOR_ORANGE)
+		str = "Orange";
+	else if (color == COLOR_PURPLE)
+		str = "Purple";
 	return str;
 }
 

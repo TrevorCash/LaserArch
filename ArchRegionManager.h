@@ -49,6 +49,10 @@ public:
 	//returns success (may fail if using shift method)(failure will still move regions, but may remove clipped parts).
 	boolean ModifyRegionSpan(ArchRegion* region, float newStartDeg, float newEndDeg, RegionModifyMethod method);
 	
+	boolean ModifyRegionSpanStart(ArchRegion* region, float newStartDeg, RegionModifyMethod method);
+	
+	boolean ModifyRegionSpanEnd(ArchRegion* region, float newEndDeg, RegionModifyMethod method);
+	
 	//returns number of active regions
 	uint16_t NumRegions(){return numRegions;}
 

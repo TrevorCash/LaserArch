@@ -59,8 +59,10 @@ boolean ArchRegionScheme::AssignRegionAttributes(ArchRegion* region)
 	}
 	else if(schemeType == TriggerScheme)
 	{
-		
-		
+		uint8_t note = GetMidiScaleValue(midiBaseNote, region->index, ChromaticScale);
+		region->SetNote(note);
+		region->SetColors(255, ((region->index + 1)%2)*255, ((region->index)%2)*255);
+
 	}
 	else 
 		return false;

@@ -62,32 +62,10 @@ void LCDMenu::DrawMe()
 		return;
 	do
 	{
-		
-		Serial.print(uint32_t(ptr));
-		Serial.print("   ");
-		Serial.print(ptr->getFrontVal());
-		Serial.print("   ");
-		Serial.print(uint32_t(ptr->getNext()));
-		Serial.print("    ");
-		Serial.print(ptr->getX1());
-		Serial.print(", ");
-		Serial.print(ptr->getY1());
-		Serial.print("   ");
-		Serial.print(ptr->getX2());
-		Serial.print(", ");
-		Serial.print(ptr->getY2());
-		Serial.print("   ");
-		Serial.print(uint32_t(ptr->getLCD()));
-		
-
+		ptr->setMode(LABEL_CLEAR);
 		ptr->getLCD()->DrawLabel(ptr->getX1(), ptr->getY1(), ptr->getFrontVal().c_str());
-		Serial.print("   Drawn");
-		
-		
-		Serial.print("\n");
 		ptr = ptr->getNext();
 	} while (ptr != NULL);
-	Serial.print("\n\n");
 }
 
 void LCDMenu::CallEnterPull()
@@ -128,9 +106,9 @@ void LCDMenu::OpModeEnterPull()
 	LCDLabels* CustomMode = ChromaticMode->getDown();
 	LCDLabels* ScaleMode = CustomMode->getDown();
 	
-	ChromaticMode->setMode(LABEL_CLEAR);
-	CustomMode->setMode(LABEL_CLEAR);
-	ScaleMode->setMode(LABEL_CLEAR);
+	//ChromaticMode->setMode(LABEL_CLEAR);
+	//CustomMode->setMode(LABEL_CLEAR);
+	//ScaleMode->setMode(LABEL_CLEAR);
 }
 void LCDMenu::OpModeEnterCommit()
 {
@@ -178,10 +156,11 @@ void LCDMenu::CustomEnterPull()
 	EditRegionVal->setBackVal(1);
 	EditRegionVal->setMinVal(1);
 	EditRegionVal->setMaxVal(NumRegionsVal->getBackVal());
-	
-	NumRegionsVal->setMode(LABEL_CLEAR);
-	EditRegionVal->setMode(LABEL_CLEAR);
-	EditRegionGo->setMode(LABEL_CLEAR);
+	if (RegionManager->GetSchemeType() != TriggerScheme)
+	{
+		ArchRegionScheme Scheme(TriggerScheme, RegionManager->FindRegionById(0)->GetNote(), NumRegionsVal->getTempVal());
+		RegionManager->Initialize(Scheme);
+	}
 }
 void LCDMenu::CustomEnterCommit()
 {
@@ -209,8 +188,6 @@ void LCDMenu::CustomRegionEnterPull()
 	LCDLabels* ColorVal = NoteVal->getDown();
 	uint8_t red, green, blue;
 	
-
-	
 	EditRegionVal->setBackVal(ReturnMenu->getCursorHome()->getDown()->getBackVal());
 	StartDegVal->setBackVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->startDeg));
 	StartDegVal->setTempVal(uint16_t(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->startDeg));
@@ -219,14 +196,9 @@ void LCDMenu::CustomRegionEnterPull()
 	NoteVal->setBackVal(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetNote());
 	NoteVal->setTempVal(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetNote());
 	
-	EditRegionVal->setMode(LABEL_CLEAR);
-	StartDegVal->setMode(LABEL_CLEAR);
-	EndDegVal->setMode(LABEL_CLEAR);
-	NoteVal->setMode(LABEL_CLEAR);
-	
-	//RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetColors(red, green, blue);
-	//ColorVal->setColor(red, green, blue);
-	//ColorVal->setTempVal(ColorVal->getBackVal());
+	RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->GetColors(red, green, blue);
+	ColorVal->setColor(red, green, blue);
+	ColorVal->setTempVal(ColorVal->getBackVal());
 }
 void LCDMenu::CustomRegionEnterCommit()
 {
@@ -236,23 +208,33 @@ void LCDMenu::CustomRegionEnterCommit()
 	LCDLabels* NoteVal = EndDegVal->getDown();
 	LCDLabels* ColorVal = NoteVal->getDown();
 	uint8_t red, green, blue;
+	ArchRegion* Region = RegionManager->FindRegionById(EditRegionVal->getBackVal()-1);
+	ArchRegion* FirstRegion = RegionManager->FirstRegion();
+	ArchRegion* LastRegion = RegionManager->LastRegion();
+	bool result = true;
 	
 	if (StartDegVal->getBackVal() != StartDegVal->getTempVal())
-	{
-		StartDegVal->setBackVal(StartDegVal->getTempVal());
-		RegionManager->ModifyRegionSpan(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1),
-		StartDegVal->getBackVal(),
-		EndDegVal->getBackVal(),
+	{		
+		result = RegionManager->ModifyRegionSpanStart(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1),
+		StartDegVal->getTempVal(),
 		ArchRegionManager::RegionLinearStretch);
+
+		if (result)
+			StartDegVal->setBackVal(StartDegVal->getTempVal());
+		else
+			StartDegVal->setTempVal(StartDegVal->getBackVal());
+		
 	}
 	else if (EndDegVal->getBackVal() != EndDegVal->getTempVal())
 	{
-		EndDegVal->setBackVal(EndDegVal->getTempVal());
-		StartDegVal->setBackVal(StartDegVal->getTempVal());
-		RegionManager->ModifyRegionSpan(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1),
-		StartDegVal->getBackVal(),
-		EndDegVal->getBackVal(),
+		result = RegionManager->ModifyRegionSpanEnd(RegionManager->FindRegionById(EditRegionVal->getBackVal()-1),
+		EndDegVal->getTempVal(),
 		ArchRegionManager::RegionLinearStretch);
+
+		if (result)
+			EndDegVal->setBackVal(EndDegVal->getTempVal());
+		else
+			EndDegVal->setTempVal(EndDegVal->getBackVal());
 	}
 	else if (NoteVal->getBackVal() != NoteVal->getTempVal())
 	{
@@ -263,7 +245,14 @@ void LCDMenu::CustomRegionEnterCommit()
 	{
 		ColorVal->setBackVal(ColorVal->getTempVal());
 		ColorVal->getRGB(red, green, blue);
-		RegionManager->FindRegionById(EditRegionVal->getBackVal())->SetColors(red, green, blue);	
+		RegionManager->FindRegionById(EditRegionVal->getBackVal()-1)->SetColors(red, green, blue);	
+	}
+	
+	if (result)
+	{
+		EditRegionVal->setBackVal(Region->index+1);
+		EditRegionVal->setTempVal(Region->index+1);
+		
 	}
 }
 
@@ -282,24 +271,18 @@ void LCDMenu::ScaleEnterPull()
 	ScaleVal->setTempVal(RegionManager->GetSchemeType());
 	ScaleVal->setBackVal(RegionManager->GetSchemeType());
 	
-	Serial.println(ScaleVal->getTempVal());
 	if (ScaleVal->getBackVal() < ScaleVal->getMinVal() || ScaleVal->getBackVal() > ScaleVal->getMaxVal())
 	{
 		ScaleVal->setTempVal(MajorScaleScheme);
 		ScaleVal->setBackVal(MajorScaleScheme);
 	}
-	Serial.println("Pos Scale set");
 	
 	NumRegionsVal->setMode(LABEL_CLEAR);
 	StartNoteVal->setMode(LABEL_CLEAR);
-	ScaleVal->setMode(LABEL_CLEAR);
-	
-	Serial.println("Post Clears");
+	ScaleVal->setMode(LABEL_CLEAR);	
 	
 	ArchRegionScheme Scheme((ArchRegionSchemes)ScaleVal->getBackVal(), StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
 	RegionManager->Initialize(Scheme);
-	
-	Serial.println("Post Initialize");
 }
 void LCDMenu::ScaleEnterCommit()
 {
