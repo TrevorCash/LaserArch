@@ -45,8 +45,8 @@
 #define SYNC_PHYSICAL_OFFSET_DEGREES 0
 
 //min max cutoff angles (any note edges are immediatly discarded if out of this range (used to get rid of strange edge behaviors)
-#define REJECTION_ANGLE_MIN_DEGREES 70
-#define REJECTION_ANGLE_MAX_DEGREES 290
+#define REJECTION_ANGLE_MIN_DEGREES 75
+#define REJECTION_ANGLE_MAX_DEGREES 245
 
 //global analog write resolution
 #define ANALOG_WRITE_RES 12

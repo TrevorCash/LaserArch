@@ -122,10 +122,10 @@ void LCDMenu::ChromaticEnterPull()
 	NumRegionsVal->setTempVal(RegionManager->NumRegions());
 	NumRegionsVal->setBackVal(RegionManager->NumRegions());
 	
-	StartNoteVal->setTempVal(RegionManager->FindRegionById(0)->GetNote());
-	StartNoteVal->setBackVal(RegionManager->FindRegionById(0)->GetNote());
+	StartNoteVal->setTempVal(RegionManager->FirstRegion()->GetNote());
+	StartNoteVal->setBackVal(RegionManager->FirstRegion()->GetNote());
 	
-	Serial.println(RegionManager->FindRegionById(0)->GetNote());
+	Serial.println(RegionManager->FirstRegion()->GetNote());
 	Serial.println(StartNoteVal->getTempVal());
 	
 	NumRegionsVal->setMode(LABEL_CLEAR);
@@ -256,8 +256,8 @@ void LCDMenu::ScaleEnterPull()
 	NumRegionsVal->setTempVal(RegionManager->NumRegions());
 	NumRegionsVal->setBackVal(RegionManager->NumRegions());
 	
-	StartNoteVal->setTempVal(RegionManager->FindRegionById(0)->GetNote());
-	StartNoteVal->setBackVal(RegionManager->FindRegionById(0)->GetNote());
+	StartNoteVal->setTempVal(RegionManager->FirstRegion()->GetNote());
+	StartNoteVal->setBackVal(RegionManager->FirstRegion()->GetNote());
 	
 	ScaleVal->setTempVal(SCALE_MAJOR);
 	ScaleVal->setBackVal(SCALE_MAJOR);

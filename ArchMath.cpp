@@ -63,32 +63,40 @@ uint8_t GetMidiScaleValue(uint8_t baseNote, uint8_t stepOffset, MusicScales scal
 	const int NUM_STEPS_IN_MAJOR_SCALE = 7;
 	const int MajorScaleLookupTable[NUM_STEPS_IN_MAJOR_SCALE] = {2, 2, 1, 2, 2, 2, 1};
 	
+	const int NUM_STEPS_IN_MINOR_SCALE = 7;
+	const int MinorScaleLookupTable[NUM_STEPS_IN_MINOR_SCALE] = {2, 1, 2, 2, 1, 2, 2};
+	
+	int* table;
+	int numSteps;
+	
 	if(scaleType == MajorScale)
 	{
-		int curNote = baseNote;
-		int stepCount = 0;
-		int tableIdx = 0;
-		while(stepCount < (baseNote + stepOffset))
-		{
-			stepCount++;
-			curNote += MajorScaleLookupTable[tableIdx];
-			tableIdx++;
-			if(tableIdx == NUM_STEPS_IN_MAJOR_SCALE)
-				tableIdx = 0;
-		}
-		
-		return curNote;
-		
+		table = (int*)MajorScaleLookupTable;
+		numSteps = NUM_STEPS_IN_MINOR_SCALE;
 	}
 	else if(scaleType == MinorScale)
 	{
-		
+		table = (int*)MinorScaleLookupTable;
+		numSteps = NUM_STEPS_IN_MINOR_SCALE;
 	}
 	else if(scaleType == ChromaticScale)
 	{
 		return baseNote + stepOffset;
 	}
 	
+	int curNote = baseNote;
+	int stepCount = 0;
+	int tableIdx = 0;
+	while(stepCount < (stepOffset))
+	{
+		stepCount++;
+		curNote += *(table + tableIdx);
+		tableIdx++;
+		if(tableIdx == numSteps)
+			tableIdx = 0;
+	}
+	
+	return curNote;
 	
 }
 

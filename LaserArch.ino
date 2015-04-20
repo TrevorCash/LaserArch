@@ -19,7 +19,7 @@
 #include "ArchNoteManager.h"
 #include "ArchInterfaceManager.h"
 #include "ArchRegionScheme.h"
-#include "LCDMenuSetup.h"
+
 
 //Proto-types
 ////////////////////////////
@@ -88,7 +88,7 @@ void setup(void) {
 	Serial.println("Begin");
 	MIDI.begin();
 	
-	delay(1000);
+
 	
 	//Attach Interupts for the whole program
 	pinMode(SYNC_PHOTOTRANSISTOR_TEENSY_PIN,INPUT);
@@ -120,7 +120,7 @@ void setup(void) {
 	pinMode(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN,OUTPUT);
 	analogWrite(NOTE_PHOTOTRANSISTOR_DAC_TEENSY_PIN, 1200);
 
-	ArchRegionScheme defaultScheme(ChromaticScheme, MIDI_C4, 33);
+	ArchRegionScheme defaultScheme(MinorScaleScheme, MIDI_F4, 8);
 	RegionManager.Initialize(defaultScheme);
 	InterfaceManager.Initialize();
 
@@ -150,8 +150,10 @@ void SystemTestSetup()
 {
 	
 	Serial.println("ARCH IN TEST MODE:");
-
+	MainMotor.Start();
 	
+	//wait for motor to start up.
+	delay(2000);
 }
 
 void SystemTestLoop()

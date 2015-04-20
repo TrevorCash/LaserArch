@@ -49,7 +49,12 @@ boolean ArchRegionScheme::AssignRegionAttributes(ArchRegion* region)
 	}
 	else if(schemeType == MinorScaleScheme)
 	{
-		
+		uint8_t note = GetMidiScaleValue(midiBaseNote, region->index, MinorScale);
+		region->SetNote(note);
+		if(GetMidiIsOctaveOf(midiBaseNote, note))
+		region->SetColors(255, 0, 0);
+		else
+		region->SetColors(0, ((region->index + 1)%2)*255, ((region->index)%2)*255);
 		
 	}
 	else if(schemeType == TriggerScheme)
