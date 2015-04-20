@@ -84,6 +84,8 @@ boolean showFingerInfo = false;
 
 
 void setup(void) {
+	
+	delay(1000);
 	Serial.begin(115200);
 	Serial.println("Begin");
 	MIDI.begin();
