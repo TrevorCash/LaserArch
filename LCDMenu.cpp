@@ -259,14 +259,14 @@ void LCDMenu::ScaleEnterPull()
 	StartNoteVal->setTempVal(RegionManager->FirstRegion()->GetNote());
 	StartNoteVal->setBackVal(RegionManager->FirstRegion()->GetNote());
 	
-	ScaleVal->setTempVal(SCALE_MAJOR);
-	ScaleVal->setBackVal(SCALE_MAJOR);
+	ScaleVal->setTempVal(RegionManager->GetSchemeType());
+	ScaleVal->setBackVal(RegionManager->GetSchemeType());
 
 	NumRegionsVal->setMode(LABEL_CLEAR);
 	StartNoteVal->setMode(LABEL_CLEAR);
 	ScaleVal->setMode(LABEL_CLEAR);
 
-	ArchRegionScheme Scheme(MajorScaleScheme, StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
+	ArchRegionScheme Scheme((ArchRegionSchemes)ScaleVal->getBackVal(), StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
 	RegionManager->Initialize(Scheme);
 }
 void LCDMenu::ScaleEnterCommit()
@@ -279,18 +279,8 @@ void LCDMenu::ScaleEnterCommit()
 	StartNoteVal->setBackVal(StartNoteVal->getTempVal());
 	ScaleVal->setBackVal(ScaleVal->getTempVal());
 	
-	if (ScaleVal->getBackVal() == SCALE_MAJOR)
-	{
-		ArchRegionScheme Scheme(MajorScaleScheme, StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
-		RegionManager->Initialize(Scheme);
-	}
-	else if (ScaleVal->getBackVal() == SCALE_MINOR)
-	{
-		ArchRegionScheme Scheme(MinorScaleScheme, StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
-		RegionManager->Initialize(Scheme);
-	}
-	else
-	{
-		//Fuckdooodle
-	}		
+	
+	ArchRegionScheme Scheme((ArchRegionSchemes)ScaleVal->getBackVal(), StartNoteVal->getBackVal(), NumRegionsVal->getBackVal());
+	RegionManager->Initialize(Scheme);
+	
 }

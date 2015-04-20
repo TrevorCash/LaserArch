@@ -8,6 +8,7 @@
 
 #include "ArchInterfaceManager.h"
 #include "ArchLCD.h"
+#include "ArchRegionScheme.h"
 
 // default constructor
 ArchInterfaceManager::ArchInterfaceManager(ArchRegionManager* NewRegionManager)
@@ -288,7 +289,7 @@ LCDMenu* ArchInterfaceManager::DefineMenu_ScaleMode()
 	ScaleMode_StartNoteTag.Initialize(OrbitalLCD, 4, 10, 24, LABEL_PLAIN_TEXT, "Start Note: ");
 	ScaleMode_StartNoteVal.Initialize(OrbitalLCD, 5, 110, 24, LABEL_VALUE_NOTE, 0, 1, 12, 0, 127);
 	ScaleMode_ScaleTag.Initialize(OrbitalLCD, 6, 10, 36, LABEL_PLAIN_TEXT, "Scale: ");
-	ScaleMode_ScaleVal.Initialize(OrbitalLCD, 7, 110, 36, LABEL_VALUE_SCALE, SCALE_MAJOR, 1, 1, 1, 2);
+	ScaleMode_ScaleVal.Initialize(OrbitalLCD, 7, 110, 36, LABEL_VALUE_SCALE, MajorScaleScheme, 1, 1, MajorScaleScheme, MinorScaleScheme);
 	
 	
 	//Form the Draw Linked List for Menu

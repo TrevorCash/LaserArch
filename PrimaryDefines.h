@@ -109,10 +109,7 @@
 #define COLOR_GREEN			2
 #define COLOR_CYAN			3
 
-//Scale//
-#define SCALE_NONE			0
-#define SCALE_MAJOR			1
-#define SCALE_MINOR			2
+
 
 
 #endif /* PRIMARYDEFINES_H_ */

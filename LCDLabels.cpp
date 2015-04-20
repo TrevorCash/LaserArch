@@ -467,19 +467,20 @@ String LCDLabels::ScaleToString(uint16_t scale)
 {
 	Serial.println(scale);
 	String str;
-	if (scale == SCALE_NONE)
+	if (scale == ChromaticScheme)
 	{
-		Serial.print("herenone");
-		str = "None";
+		str = "Chromatic";
 	}
-	else if (scale == SCALE_MAJOR)
+	else if (scale == MajorScaleScheme)
 	{
-		Serial.println("heremajor");
 		str = "Major";
 	}
-	else if (scale == SCALE_MINOR)
+	else if (scale == MinorScaleScheme)
 	{
-		Serial.println("hereminor");
+		str = "Minor";
+	}
+	else if (scale == MinorScaleScheme)
+	{
 		str = "Minor";
 	}
 	Serial.println("Scale end");
