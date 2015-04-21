@@ -154,7 +154,7 @@ void SystemTestSetup()
 {
 	
 	Serial.println("ARCH IN TEST MODE:");
-	//MainMotor.Start();
+	MainMotor.Start();
 	
 	//wait for motor to start up.
 	delay(2000);

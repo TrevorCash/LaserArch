@@ -45,8 +45,8 @@
 #define SYNC_PHYSICAL_OFFSET_DEGREES 0
 
 //min max cutoff angles (any note edges are immediatly discarded if out of this range (used to get rid of strange edge behaviors)
-#define REJECTION_ANGLE_MIN_DEGREES 75
-#define REJECTION_ANGLE_MAX_DEGREES 245
+#define REJECTION_ANGLE_MIN_DEGREES 90
+#define REJECTION_ANGLE_MAX_DEGREES 240
 
 //global analog write resolution
 #define ANALOG_WRITE_RES 12
@@ -67,8 +67,8 @@
 
 //Led Strip
 //literal start and end angles of led strip
-#define LED_STRIP_START_DEG 71
-#define LED_STRIP_END_DEG 250
+#define LED_STRIP_START_DEG 76
+#define LED_STRIP_END_DEG 255
 
 
 //LCD Types and Modes
